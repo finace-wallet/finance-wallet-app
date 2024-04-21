@@ -5,7 +5,6 @@ import PageNotFound from "./pages/errors/PageNotFound";
 
 const HomePage = React.lazy(() => import("./pages/HomePage"));
 const SingUpPage = React.lazy(() => import("./pages/SingUpPage"));
-const SignUpPageNew = React.lazy(() => import("./pages/SignUpPageNew"));
 
 function App() {
   return (
@@ -15,10 +14,6 @@ function App() {
           <Route path="*" element={<PageNotFound></PageNotFound>}></Route>
           <Route path="/" element={<HomePage></HomePage>}></Route>
           <Route path="/register" element={<SingUpPage></SingUpPage>}></Route>
-          <Route
-            path="/sign-up"
-            element={<SignUpPageNew></SignUpPageNew>}
-          ></Route>
         </Routes>
       </Suspense>
     </div>
