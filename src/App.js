@@ -4,12 +4,12 @@ import React, { Suspense } from "react";
 import PageNotFound from "./pages/errors/PageNotFound";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import ChangePasswordPage from "./pages/ChangePasswordPage";
 
 const HomePage = React.lazy(() => import("./pages/HomePage"));
 const SignUpPage = React.lazy(() => import("./pages/SignUpPage"));
 const SignInPage = React.lazy(() => import("./pages/SignInPage"));
 const TestPage = React.lazy(() => import("./pages/Test"));
+const ChangePasswordPage = React.lazy(() => import("./pages/ChangePasswordPage"));
 
 
 function App() {
