@@ -10,7 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup"; // Import yupResolver
 import * as yup from "yup"; // Import Yup
 import { login } from "../api/AuthApi";
 
-import { ToastContainer, toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Layout from "../components/layout/Layout";
@@ -33,6 +33,7 @@ const SignUpPage = () => {
   const {
     handleSubmit,
     control,
+    reset,
     formState: { isValid, isSubmitting, errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -42,42 +43,47 @@ const SignUpPage = () => {
     try {
       const response = await login(data); // Call register function from AuthApi
       console.log(response); // Log the response for debugging
-      // Handle success scenario, e.g., redirect to another page
+      // Handle success scenario, e.g., redirect to another pag
+
+      reset({});
+      toast.success("Success Login New User");
     } catch (error) {
       console.error("Error occurred while signing up:", error);
+      toast.error("Error occurred while signing up");
       // Handle error scenario, e.g., display an error message
     }
   };
 
   return (
-    <Layout>
-      <LayoutAuthentication heading="Sign In">
-        <form onSubmit={handleSubmit(handleSignIn)}>
-          <FormGroup>
-            <Label htmlFor="email">Email*</Label>
-            <Input
-              control={control}
-              name="email"
-              placeholder="Input your email here"
-            ></Input>
-            {errors.email && (
-              <p className="text-red-500">{errors.email.message}</p>
-            )}
-          </FormGroup>
+    <>
+      <Layout>
+        <LayoutAuthentication heading="Sign In">
+          <form onSubmit={handleSubmit(handleSignIn)}>
+            <FormGroup>
+              <Label htmlFor="email">Email*</Label>
+              <Input
+                control={control}
+                name="email"
+                placeholder="Input your email here"
+              ></Input>
+              {errors.email && (
+                <p className="text-red-500">{errors.email.message}</p>
+              )}
+            </FormGroup>
 
-          <FormGroup>
-            <Label htmlFor="password">Password *</Label>
-            <Input
-              control={control}
-              name="password"
-              type="password"
-              placeholder="create a password"
-            ></Input>
-            {errors.password && (
-              <p className="text-red-500">{errors.password.message}</p>
-            )}
-          </FormGroup>
-          {/* <div className="flex items-start p-2 mb-5 gap-x-5">
+            <FormGroup>
+              <Label htmlFor="password">Password *</Label>
+              <Input
+                control={control}
+                name="password"
+                type="password"
+                placeholder="Input your password"
+              ></Input>
+              {errors.password && (
+                <p className="text-red-500">{errors.password.message}</p>
+              )}
+            </FormGroup>
+            {/* <div className="flex items-start p-2 mb-5 gap-x-5">
           <span className="inline-block w-5 h-5 border rounded border-text4"></span>
           <p className="flex-1 text-sm font-normal text-text2">
             I agree to the{" "}
@@ -86,12 +92,14 @@ const SignUpPage = () => {
             <span className="underline text-secondary">Privacy policy</span>
           </p>
         </div> */}
-          <Button type="submit" className="w-full bg-primary">
-            Create my account
-          </Button>
-        </form>
-      </LayoutAuthentication>
-    </Layout>
+            <Button type="submit" className="w-full bg-primary">
+              Create my account
+            </Button>
+          </form>
+        </LayoutAuthentication>
+      </Layout>
+      <ToastContainer />
+    </>
   );
 };
 

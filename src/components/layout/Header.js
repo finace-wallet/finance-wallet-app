@@ -14,6 +14,10 @@ const menuLinks = [
     url: "/login",
     title: "Log In",
   },
+  {
+    url: "/test",
+    title: "Test",
+  },
 ];
 
 const Header = () => {
