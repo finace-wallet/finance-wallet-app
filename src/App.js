@@ -5,6 +5,7 @@ import PageNotFound from "./pages/errors/PageNotFound";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 
+
 const HomePage = React.lazy(() => import("./pages/HomePage"));
 const SignUpPage = React.lazy(() => import("./pages/SignUpPage"));
 const SignInPage = React.lazy(() => import("./pages/SignInPage"));
@@ -12,6 +13,7 @@ const TestPage = React.lazy(() => import("./pages/Test"));
 const ForgotPasswordPage = React.lazy(() =>
   import("./pages/ForgotPasswordPage")
 );
+const CreateWalletPage = React.lazy(() => import("./pages/CreateWalletPage") );
 
 function App() {
   return (
@@ -28,6 +30,7 @@ function App() {
               element={<ForgotPasswordPage></ForgotPasswordPage>}
             ></Route>
             <Route path="/test" element={<TestPage></TestPage>}></Route>
+            <Route path="/create-wallet" element={<CreateWalletPage />} ></Route>
           </Routes>
         </Suspense>
         <ToastContainer autoClose={3000} />

@@ -14,7 +14,7 @@ const Input = (props) => {
       <input
         id={name}
         type={type}
-        className="w-full px-6 py-4 text-sm font-medium border border-strock rounded-xl text-text1 placeholder:text-text4"
+           className="w-full px-6 py-4 text-sm font-medium border border-strock rounded-xl text-text1 placeholder:text-text4"
         {...rest}
         {...field}
       />

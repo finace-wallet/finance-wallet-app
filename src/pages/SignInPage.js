@@ -109,7 +109,7 @@ const SignInPage = () => {
             </NavLink>
             <Button type="submit" className="w-full bg-primary">
               {isSubmitting ? (
-                <div className="w-5 h-5 border-2 border-t-2 border-white rounded-full border-t-transparent animate-spin"></div>
+                  <div className="w-5 h-5 border-2 border-t-2 border-white rounded-full border-t-transparent animate-spin"></div>
               ) : (
                 "Log In"
               )}
