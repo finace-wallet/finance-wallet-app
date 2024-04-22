@@ -43,3 +43,22 @@ export async function login(user) {
   console.log(response);
   return response;
 }
+
+export async function changePassword(changePasswordRequest) {
+  let response = null;
+  await axios({
+    url: `${FINANCE_WALLET_API}auth/change-password`,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "PUT",
+    data: changePasswordRequest,
+  })
+    .then((res) => {
+      response = res;
+    })
+    .catch((e) => {
+      response = e.response;
+    });
+  return response;
+}
