@@ -10,6 +10,7 @@ const SignUpPage = React.lazy(() => import("./pages/SignUpPage"));
 const SignInPage = React.lazy(() => import("./pages/SignInPage"));
 const TestPage = React.lazy(() => import("./pages/Test"));
 const ChangePasswordPage = React.lazy(() => import("./pages/ChangePasswordPage"));
+const ForgotPasswordPage = React.lazy(() =>nimport("./pages/ForgotPasswordPage"));
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
             <Route path="/register" element={<SignUpPage></SignUpPage>}></Route>
             <Route path="/login" element={<SignInPage></SignInPage>}></Route>
             <Route path="/change-password" element={<ChangePasswordPage></ChangePasswordPage>}></Route>
+            <Route path="/forgot-password" element={<ForgotPasswordPage></ForgotPasswordPage>}></Route>
             <Route path="/test" element={<TestPage></TestPage>}></Route>
           </Routes>
         </Suspense>
