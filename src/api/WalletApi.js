@@ -1,7 +1,7 @@
 import axios from "axios";
 import { WALLET_API } from "../util/AppConstant";
 
-export default createWallet(wallet) {
+export async function createWallet(wallet) {
     let response = null;
   await axios({
     url: `${WALLET_API}/create `,
@@ -19,3 +19,4 @@ export default createWallet(wallet) {
     });
   return response;
 }
+
