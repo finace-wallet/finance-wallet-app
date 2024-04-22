@@ -42,3 +42,24 @@ export async function login(user) {
   console.log(response);
   return response;
 }
+
+export async function forgetPassword(user) {
+  let response = null;
+
+  await axios({
+    url: "http://localhost:8080/api/v1/auth/forget-password",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    data: user,
+  })
+    .then((res) => {
+      response = res;
+    })
+    .catch((e) => {
+      response = e.response;
+    });
+  console.log(response);
+  return response;
+}
