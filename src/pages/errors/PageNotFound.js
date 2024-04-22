@@ -1,8 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Layout from "../../components/layout/Layout";
 
 const PageNotFound = () => {
+  const navigate = useNavigate()
   const goBack = () => {
     History.back();
   };
@@ -33,6 +34,7 @@ const PageNotFound = () => {
           </Link>
         </div>
       </div>
+    
     </Layout>
   );
 };
