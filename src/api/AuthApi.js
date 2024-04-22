@@ -19,3 +19,27 @@ export async function register(user) {
     });
   return response;
 }
+
+export async function login(user) {
+  let response = null;
+
+  await axios({
+    url: `${FINANCE_WALLET_API}auth/login`,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    data: user,
+  })
+    .then((res) => {
+      const token = res.data.data.accessToken;
+      localStorage.setItem("token", token);
+      console.log(token);
+      response = res;
+    })
+    .catch((e) => {
+      response = e.response;
+    });
+  console.log(response);
+  return response;
+}
