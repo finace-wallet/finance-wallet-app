@@ -34,7 +34,6 @@ export async function login(user) {
     .then((res) => {
       const token = res.data.data.accessToken;
       localStorage.setItem("token", token);
-      console.log(token);
       response = res;
     })
     .catch((e) => {
