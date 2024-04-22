@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { logout } from "../../store/auth/authSlice";
+import { logout } from "../../../store/auth/authSlice";
 import { toast } from "react-toastify";
 
 const menuLinks = [
@@ -17,6 +17,7 @@ const menuLinks = [
 
 const Header = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const handleLogout = () => {
     // Dispatch logout action
@@ -29,12 +30,19 @@ const Header = () => {
         <NavLink to="/">
           <img className="w-full h-[75px]" srcSet="/logo.png" alt=""></img>
         </NavLink>
-        <div className="flex p-5 gap-5 w-full max-w-[320px] relative">
+        <div className="flex p-5 gap-5 w-full max-w-[680px] relative">
           {menuLinks.map((item, index) => (
             <NavLink key={index} to={item.url}>
               {item.title}
             </NavLink>
           ))}
+          {user && user.id ? (
+            <NavLink to="/user-setting" className="cursor-pointer hover:underline">
+              Hello, {user.id}
+            </NavLink>
+          ) : (
+            ""
+          )}
           {isLoggedIn ? (
             <span onClick={handleLogout} className="cursor-pointer">
               Log Out
