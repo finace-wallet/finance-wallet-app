@@ -2,9 +2,12 @@ import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React, { Suspense } from "react";
 import PageNotFound from "./pages/errors/PageNotFound";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const HomePage = React.lazy(() => import("./pages/HomePage"));
-const SingUpPage = React.lazy(() => import("./pages/SingUpPage"));
+const SignUpPage = React.lazy(() => import("./pages/SignUpPage"));
+const SignInPage = React.lazy(() => import("./pages/SignInPage"));
 
 function App() {
   return (
@@ -14,9 +17,11 @@ function App() {
           <Routes>
             <Route path="*" element={<PageNotFound></PageNotFound>}></Route>
             <Route path="/" element={<HomePage></HomePage>}></Route>
-            <Route path="/register" element={<SingUpPage></SingUpPage>}></Route>
+            <Route path="/register" element={<SignUpPage></SignUpPage>}></Route>
+            <Route path="/login" element={<SignInPage></SignInPage>}></Route>
           </Routes>
         </Suspense>
+        <ToastContainer autoClose={3000} />
       </BrowserRouter>
     </div>
   );
