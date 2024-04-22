@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import LayoutAuthentication from "../layout/LayoutAuthentication";
 import { useForm } from "react-hook-form";
 import { Label } from "../components/label";
@@ -15,7 +15,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 import Layout from "../components/layout/Layout";
 import { useDispatch } from "react-redux";
-import { loginSuccess } from "../store/auth/authActions";
+import { setTokenAction } from "../store/auth/authActions";
+import { useNavigate } from "react-router";
 
 const schema = yup.object().shape({
   email: yup
@@ -39,14 +40,21 @@ const SignUpPage = () => {
     resolver: yupResolver(schema),
   });
 
-  const handleSignIn = async (data) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSignIn = async (data, event) => {
     try {
+      event.preventDefault();
       const response = await login(data); // Call register function from AuthApi
       console.log(response); // Log the response for debugging
       // Handle success scenario, e.g., redirect to another pag
-
+      dispatch(setTokenAction(response.data.data.accessToken));
       reset({});
-      toast.success("Success Login New User");
+      toast.success("Success Login, Redirecting...");
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
     } catch (error) {
       console.error("Error occurred while signing up:", error);
       toast.error("Error occurred while signing up");
@@ -93,7 +101,11 @@ const SignUpPage = () => {
           </p>
         </div> */}
             <Button type="submit" className="w-full bg-primary">
-              Log In
+              {isSubmitting ? (
+                <div className="w-5 h-5 border-2 border-t-2 border-white rounded-full border-t-transparent animate-spin"></div>
+              ) : (
+                "Log In"
+              )}
             </Button>
           </form>
         </LayoutAuthentication>

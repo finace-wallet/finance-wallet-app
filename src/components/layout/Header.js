@@ -1,5 +1,8 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { logout } from "../../store/auth/authSlice";
+import { toast } from "react-toastify";
 
 const menuLinks = [
   {
@@ -10,20 +13,19 @@ const menuLinks = [
     url: "/register",
     title: "Register",
   },
-  {
-    url: "/login",
-    title: "Log In",
-  },
-  {
-    url: "/test",
-    title: "Test",
-  },
 ];
 
 const Header = () => {
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    // Dispatch logout action
+    dispatch(logout());
+    toast.success("You have logged out");
+  };
   return (
     <>
-      <div className="flex gap-5 p-5 align-middle bg-gray-200">
+      <div className="flex gap-5 p-5 text-white align-middle bg-softDark">
         <NavLink to="/">
           <img className="w-full h-[75px]" srcSet="/logo.png" alt=""></img>
         </NavLink>
@@ -33,6 +35,13 @@ const Header = () => {
               {item.title}
             </NavLink>
           ))}
+          {isLoggedIn ? (
+            <span onClick={handleLogout} className="cursor-pointer">
+              Log Out
+            </span>
+          ) : (
+            <NavLink to="/login">Log In</NavLink>
+          )}
         </div>
       </div>
     </>

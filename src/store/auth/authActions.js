@@ -1,5 +1,8 @@
-import { setToken } from "./authSlice";
+// authActions.js
 
-export const loginSuccess = (token) => (dispatch) => {
-  dispatch(setToken(token));
+import { setLogin } from "./authSlice";
+
+export const setTokenAction = (token) => (dispatch) => {
+  console.log(token);
+  dispatch(setLogin(token));
 };
