@@ -93,7 +93,7 @@ const SignUpPage = () => {
           </p>
         </div> */}
             <Button type="submit" className="w-full bg-primary">
-              Create my account
+              Log In
             </Button>
           </form>
         </LayoutAuthentication>
