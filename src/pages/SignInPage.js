@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import LayoutAuthentication from "../layout/LayoutAuthentication";
 import { useForm } from "react-hook-form";
 import { Label } from "../components/label";
@@ -10,12 +10,13 @@ import { yupResolver } from "@hookform/resolvers/yup"; // Import yupResolver
 import * as yup from "yup"; // Import Yup
 import { login } from "../api/AuthApi";
 
-import { ToastContainer, toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Layout from "../components/layout/Layout";
 import { useDispatch } from "react-redux";
-import { loginSuccess } from "../store/auth/authActions";
+import { setTokenAction } from "../store/auth/authActions";
+import { useNavigate } from "react-router";
 
 const schema = yup.object().shape({
   email: yup
@@ -33,51 +34,64 @@ const SignUpPage = () => {
   const {
     handleSubmit,
     control,
+    reset,
     formState: { isValid, isSubmitting, errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const handleSignIn = async (data) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSignIn = async (data, event) => {
     try {
+      event.preventDefault();
       const response = await login(data); // Call register function from AuthApi
       console.log(response); // Log the response for debugging
-      // Handle success scenario, e.g., redirect to another page
+      // Handle success scenario, e.g., redirect to another pag
+      dispatch(setTokenAction(response.data.data.accessToken));
+      reset({});
+      toast.success("Success Login, Redirecting...");
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
     } catch (error) {
       console.error("Error occurred while signing up:", error);
+      toast.error("Error occurred while signing up");
       // Handle error scenario, e.g., display an error message
     }
   };
 
   return (
-    <Layout>
-      <LayoutAuthentication heading="Sign In">
-        <form onSubmit={handleSubmit(handleSignIn)}>
-          <FormGroup>
-            <Label htmlFor="email">Email*</Label>
-            <Input
-              control={control}
-              name="email"
-              placeholder="Input your email here"
-            ></Input>
-            {errors.email && (
-              <p className="text-red-500">{errors.email.message}</p>
-            )}
-          </FormGroup>
+    <>
+      <Layout>
+        <LayoutAuthentication heading="Sign In">
+          <form onSubmit={handleSubmit(handleSignIn)}>
+            <FormGroup>
+              <Label htmlFor="email">Email*</Label>
+              <Input
+                control={control}
+                name="email"
+                placeholder="Input your email here"
+              ></Input>
+              {errors.email && (
+                <p className="text-red-500">{errors.email.message}</p>
+              )}
+            </FormGroup>
 
-          <FormGroup>
-            <Label htmlFor="password">Password *</Label>
-            <Input
-              control={control}
-              name="password"
-              type="password"
-              placeholder="create a password"
-            ></Input>
-            {errors.password && (
-              <p className="text-red-500">{errors.password.message}</p>
-            )}
-          </FormGroup>
-          {/* <div className="flex items-start p-2 mb-5 gap-x-5">
+            <FormGroup>
+              <Label htmlFor="password">Password *</Label>
+              <Input
+                control={control}
+                name="password"
+                type="password"
+                placeholder="Input your password"
+              ></Input>
+              {errors.password && (
+                <p className="text-red-500">{errors.password.message}</p>
+              )}
+            </FormGroup>
+            {/* <div className="flex items-start p-2 mb-5 gap-x-5">
           <span className="inline-block w-5 h-5 border rounded border-text4"></span>
           <p className="flex-1 text-sm font-normal text-text2">
             I agree to the{" "}
@@ -86,12 +100,18 @@ const SignUpPage = () => {
             <span className="underline text-secondary">Privacy policy</span>
           </p>
         </div> */}
-          <Button type="submit" className="w-full bg-primary">
-            Create my account
-          </Button>
-        </form>
-      </LayoutAuthentication>
-    </Layout>
+            <Button type="submit" className="w-full bg-primary">
+              {isSubmitting ? (
+                <div className="w-5 h-5 border-2 border-t-2 border-white rounded-full border-t-transparent animate-spin"></div>
+              ) : (
+                "Log In"
+              )}
+            </Button>
+          </form>
+        </LayoutAuthentication>
+      </Layout>
+      <ToastContainer />
+    </>
   );
 };
 
