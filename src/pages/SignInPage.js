@@ -17,6 +17,7 @@ import Layout from "../components/layout/Layout";
 import { useDispatch } from "react-redux";
 import { setTokenAction } from "../store/auth/authActions";
 import { useNavigate } from "react-router";
+import { Link, NavLink } from "react-router-dom";
 
 const schema = yup.object().shape({
   email: yup
@@ -30,7 +31,7 @@ const schema = yup.object().shape({
     .required("Password is required"),
 });
 
-const SignUpPage = () => {
+const SignInPage = () => {
   const {
     handleSubmit,
     control,
@@ -100,6 +101,12 @@ const SignUpPage = () => {
             <span className="underline text-secondary">Privacy policy</span>
           </p>
         </div> */}
+            <NavLink
+              to="/forgot-password"
+              className="flex flex-col mb-5 text-blue-500 underline gap-y-3"
+            >
+              Forgot password? Click here
+            </NavLink>
             <Button type="submit" className="w-full bg-primary">
               {isSubmitting ? (
                 <div className="w-5 h-5 border-2 border-t-2 border-white rounded-full border-t-transparent animate-spin"></div>
@@ -115,4 +122,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default SignInPage;

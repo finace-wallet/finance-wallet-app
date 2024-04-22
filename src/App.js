@@ -9,6 +9,9 @@ const HomePage = React.lazy(() => import("./pages/HomePage"));
 const SignUpPage = React.lazy(() => import("./pages/SignUpPage"));
 const SignInPage = React.lazy(() => import("./pages/SignInPage"));
 const TestPage = React.lazy(() => import("./pages/Test"));
+const ForgotPasswordPage = React.lazy(() =>
+  import("./pages/ForgotPasswordPage")
+);
 
 function App() {
   return (
@@ -20,6 +23,10 @@ function App() {
             <Route path="/" element={<HomePage></HomePage>}></Route>
             <Route path="/register" element={<SignUpPage></SignUpPage>}></Route>
             <Route path="/login" element={<SignInPage></SignInPage>}></Route>
+            <Route
+              path="/forgot-password"
+              element={<ForgotPasswordPage></ForgotPasswordPage>}
+            ></Route>
             <Route path="/test" element={<TestPage></TestPage>}></Route>
           </Routes>
         </Suspense>
