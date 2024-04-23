@@ -12,8 +12,9 @@ const TestPage = React.lazy(() => import("./pages/Test"));
 const ChangePasswordPage = React.lazy(() => import("./pages/ChangePasswordPage"));
 const ForgotPasswordPage = React.lazy(() => import("./pages/ForgotPasswordPage"));
 const DeleteUserPage = React.lazy(() => import("./pages/DeleteUserPage"));
-
 const SettingPage = React.lazy(() => import("./pages/user/UserSetting"));
+const AccountPage = React.lazy(() => import("./pages/user/Account"));
+
 
 function App() {
   return (
@@ -25,12 +26,18 @@ function App() {
             <Route path="/" element={<HomePage></HomePage>}></Route>
             <Route path="/register" element={<SignUpPage></SignUpPage>}></Route>
             <Route path="/login" element={<SignInPage></SignInPage>}></Route>
-            <Route path="/change-password" element={<ChangePasswordPage></ChangePasswordPage>}></Route>
-            <Route path="/forgot-password" element={<ForgotPasswordPage></ForgotPasswordPage>}></Route>
-
             <Route
-              path="/user-setting"
-              element={<SettingPage></SettingPage>}
+              path="/change-password"
+              element={<ChangePasswordPage></ChangePasswordPage>}
+            ></Route>
+            <Route
+              path="/forgot-password"
+              element={<ForgotPasswordPage></ForgotPasswordPage>}
+            ></Route>
+            
+            <Route
+              path="/account"
+              element={<AccountPage></AccountPage>}
             ></Route>
             <Route path="/test" element={<TestPage></TestPage>}></Route>
             <Route path="/delete-user" element={<DeleteUserPage></DeleteUserPage>}></Route>

@@ -5,7 +5,6 @@ import { Label } from "../components/label";
 import { Input } from "../components/input";
 import FormGroup from "../components/common/FormGroup";
 import Button from "../components/button/Button";
-
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { changePassword } from "../api/AuthApi"; 
