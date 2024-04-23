@@ -19,7 +19,7 @@ const CreateWalletPage = React.lazy(() => import("./pages/CreateWalletPage") );
 const SettingPage = React.lazy(() => import("./pages/user/UserSetting"));
 
 
-
+const AccountPage = React.lazy(() => import("./pages/user/Account"));
 
 
 function App() {
