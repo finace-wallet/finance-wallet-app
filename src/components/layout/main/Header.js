@@ -26,7 +26,7 @@ const Header = () => {
   };
   return (
     <>
-      <div className="flex gap-5 p-5 text-white align-middle bg-softDark">
+      <div className="flex gap-5 p-5 text-white align-middle bg-softBlue">
         <NavLink to="/">
           <img className="w-full h-[75px]" srcSet="/logo.png" alt=""></img>
         </NavLink>
@@ -37,7 +37,7 @@ const Header = () => {
             </NavLink>
           ))}
           {user && user.id ? (
-            <NavLink to="/user-setting" className="cursor-pointer hover:underline">
+            <NavLink to="/account" className="cursor-pointer hover:underline">
               Hello, {user.id}
             </NavLink>
           ) : (

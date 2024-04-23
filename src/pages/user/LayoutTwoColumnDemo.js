@@ -1,6 +1,5 @@
 import React from "react";
 import Layout from "../../components/layout/main/Layout";
-import LayoutAuthentication from "../../layout/LayoutAuthentication";
 import UserSettingLayout from "../../components/layout/user-setting/UserSettingLayout";
 import LayoutTwoColumn from "../../layout/LayoutTwoColumn";
 
