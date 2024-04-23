@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Layout from "../components/layout/Layout";
+import Layout from "../components/layout/main/Layout";
 import Button from "../components/button/Button";
 import { deleteUser } from "../api/AuthApi";
 import { ToastContainer, toast } from "react-toastify";
@@ -10,16 +10,19 @@ const DeleteUserPage = () => {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const confirmDelete = async () => {
-    setIsDeleting(true);
     try {
-      const response = await deleteUser(); 
+      setIsDeleting(true);
+      await deleteUser();
       toast.success("Người dùng đã được xóa thành công!");
-      console.log("Server response", response.data);
+      setIsDeleting(false);
+      setTimeout(() => {
+        setShowConfirmation(false);
+      }, 100);
     } catch (error) {
       console.error("Error deleting user: ", error);
       toast.error("Đã xảy ra lỗi khi xóa người dùng.");
+      setIsDeleting(false);
     }
-    setIsDeleting(false);
   };
 
   return (
@@ -29,15 +32,16 @@ const DeleteUserPage = () => {
           onClick={() => setShowConfirmation(true)}
           className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
         >
-          Xóa Người Dùng
+          Xóa Tài Khoản
         </Button>
       </div>
 
       {showConfirmation && (
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">
-          <div className="bg-white p-8 rounded shadow-lg">
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="bg-gray-500 bg-opacity-75 absolute inset-0"></div>
+          <div className="bg-white p-8 rounded-lg shadow-lg relative border border-gray-300">
             <p className="mb-4">
-              Bạn có chắc chắn muốn xóa người dù này không?
+              Bạn có chắc chắn muốn xóa tài Khoản này không?
             </p>
             <div className="flex justify-end">
               <Button
@@ -57,7 +61,7 @@ const DeleteUserPage = () => {
           </div>
         </div>
       )}
-
+      
       <ToastContainer />
     </Layout>
   );
