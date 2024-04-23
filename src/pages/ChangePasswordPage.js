@@ -7,7 +7,7 @@ import FormGroup from "../components/common/FormGroup";
 import Button from "../components/button/Button";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { changePassword } from "../api/AuthApi"; 
+import { changePassword } from "../api/AuthApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
@@ -34,8 +34,6 @@ const ChangePasswordPage = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
-  const dispatch = useDispatch();
 
   const handleFormSubmit = async (data) => {
     try {
@@ -108,5 +106,3 @@ const ChangePasswordPage = () => {
 };
 
 export default ChangePasswordPage;
-
-
