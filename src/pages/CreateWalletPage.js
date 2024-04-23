@@ -2,7 +2,7 @@
 import Button from "../components/button/Button";
 import { createWallet } from "../api/WalletApi";
 import FormGroup from "../components/common/FormGroup";
-import Layout from "../components/layout/Layout";
+import Layout from "../components/layout/main/Layout";
 import { Label } from "../components/label";
 import React, { useState } from "react";
 const CreateWalletPage = () => {
