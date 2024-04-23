@@ -19,10 +19,6 @@ const menuLinks = [
     title: "Payment",
   },
   {
-    url: "/security",
-    title: "Security",
-  },
-  {
     url: "/notification",
     title: "Notification",
   },
@@ -37,7 +33,7 @@ const SettingHeader = () => {
             <NavLink
               key={index}
               to={item.url}
-              className="p-5 font-semibold text-blue-500 border shadow-md rounded-xl hover:border-darkBlue hover:border-2"
+              className="p-5 font-semibold text-blue-500 border shadow-md rounded-xl hover:border-darkBlue hover:border-1"
             >
               {item.title}
             </NavLink>
