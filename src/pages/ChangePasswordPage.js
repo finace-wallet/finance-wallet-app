@@ -8,12 +8,11 @@ import Button from "../components/button/Button";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { changePassword } from "../api/AuthApi"; 
+import { changePassword } from "../api/AuthApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import Layout from "../components/layout/main/Layout";
-
 
 const schema = yup.object().shape({
   currentPassword: yup.string().required("Please enter your current password"),
@@ -36,8 +35,6 @@ const ChangePasswordPage = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
-  const dispatch = useDispatch();
 
   const handleFormSubmit = async (data) => {
     try {
@@ -110,5 +107,3 @@ const ChangePasswordPage = () => {
 };
 
 export default ChangePasswordPage;
-
-
