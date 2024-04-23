@@ -10,7 +10,8 @@ const SignUpPage = React.lazy(() => import("./pages/SignUpPage"));
 const SignInPage = React.lazy(() => import("./pages/SignInPage"));
 const TestPage = React.lazy(() => import("./pages/Test"));
 const ChangePasswordPage = React.lazy(() => import("./pages/ChangePasswordPage"));
-const ForgotPasswordPage = React.lazy(() =>nimport("./pages/ForgotPasswordPage"));
+const ForgotPasswordPage = React.lazy(() => import("./pages/ForgotPasswordPage"));
+const DeleteUserPage = React.lazy(() => import("./pages/DeleteUserPage"));
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
             <Route path="/change-password" element={<ChangePasswordPage></ChangePasswordPage>}></Route>
             <Route path="/forgot-password" element={<ForgotPasswordPage></ForgotPasswordPage>}></Route>
             <Route path="/test" element={<TestPage></TestPage>}></Route>
+            <Route path="/delete-user" element={<DeleteUserPage></DeleteUserPage>}></Route>
           </Routes>
         </Suspense>
         <ToastContainer autoClose={3000} />

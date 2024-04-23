@@ -88,3 +88,23 @@ export async function forgetPassword(user) {
   return response;
 }
 
+export async function deleteUser(deleteUserRequest) {
+  let response = null;
+  try {
+    const token = localStorage.getItem("token");
+    setTokenAction(token);
+
+    response = await axios({
+      url: `${FINANCE_WALLET_API}auth/delete`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      method: "DELETE",
+      data: deleteUserRequest,
+    });
+  } catch (error) {
+    response = error.response;
+  }
+  return response;
+}
