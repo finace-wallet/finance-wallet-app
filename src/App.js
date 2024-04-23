@@ -13,10 +13,6 @@ const TestPage = React.lazy(() => import("./pages/Test"));
 const ChangePasswordPage = React.lazy(() => import("./pages/ChangePasswordPage"));
 const ForgotPasswordPage = React.lazy(() => import("./pages/ForgotPasswordPage"));
 
-const ForgotPasswordPage = React.lazy(() =>
-  import("./pages/ForgotPasswordPage")
-);
-
 const CreateWalletPage = React.lazy(() => import("./pages/CreateWalletPage") );
 
 const SettingPage = React.lazy(() => import("./pages/user/UserSetting"));

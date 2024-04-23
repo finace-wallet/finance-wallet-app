@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { logout } from "../../../store/auth/authSlice";
+import { logout, user1 } from "../../../store/auth/authSlice";
 import { toast } from "react-toastify";
 
 const menuLinks = [
@@ -17,7 +17,7 @@ const menuLinks = [
 
 const Header = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const user = useSelector((state) => state.auth.user);
+  const user = useSelector(user1);
   const dispatch = useDispatch();
   const handleLogout = () => {
     // Dispatch logout action

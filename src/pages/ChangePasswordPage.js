@@ -12,7 +12,7 @@ import { changePassword } from "../api/AuthApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
-import Layout from "../components/layout/Layout";
+import Layout from "../components/layout/main/Layout";
 
 const schema = yup.object().shape({
   currentPassword: yup.string().required("Please enter your current password"),
