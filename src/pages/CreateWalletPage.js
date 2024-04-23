@@ -38,28 +38,28 @@ const CreateWalletPage = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <FormGroup>
             <Label htmlFor="name">Name *</Label>
-            <input         className="w-full px-6 py-4 text-sm font-medium border border-strock rounded-xl text-text1 placeholder:text-text4"
- type="text" id="name" value={form?.name} onChange={handleChange} />
+            <input className="w-full px-6 py-4 text-sm font-medium border border-strock rounded-xl text-text1 placeholder:text-text4"
+              type="text" id="name" value={form?.name} onChange={handleChange} />
           </FormGroup>
           <FormGroup>
             <Label htmlFor="icon">Icon</Label>
-            <input         className="w-full px-6 py-4 text-sm font-medium border border-strock rounded-xl text-text1 placeholder:text-text4"
- type="text" id="icon" value={form?.icon} onChange={handleChange} />
+            <input className="w-full px-6 py-4 text-sm font-medium border border-strock rounded-xl text-text1 placeholder:text-text4"
+              type="text" id="icon" value={form?.icon} onChange={handleChange} />
           </FormGroup>
           <FormGroup>
             <Label htmlFor="amount">Amount *</Label>
-            <input         className="w-full px-6 py-4 text-sm font-medium border border-strock rounded-xl text-text1 placeholder:text-text4"
- type="number" id="amount" value={form?.amount} onChange={handleChange} />
+            <input className="w-full px-6 py-4 text-sm font-medium border border-strock rounded-xl text-text1 placeholder:text-text4"
+            type="number" id="amount" value={form?.amount} onChange={handleChange} />
           </FormGroup>
           <FormGroup>
             <Label htmlFor="currentType">Currency Type</Label>
-            <input   className="w-full px-6 py-4 text-sm font-medium border border-strock rounded-xl text-text1 placeholder:text-text4"
- type="text" id="currentType" value={form.currentType} onChange={handleChange} />
+            <input className="w-full px-6 py-4 text-sm font-medium border border-strock rounded-xl text-text1 placeholder:text-text4"
+            type="text" id="currentType" value={form.currentType} onChange={handleChange} />
           </FormGroup>
           <FormGroup>
             <Label htmlFor="description">Description *</Label>
-            <input         className="w-full px-6 py-4 text-sm font-medium border border-strock rounded-xl text-text1 placeholder:text-text4"
- type="text" id="description" value={form.description} onChange={handleChange} />
+            <input className="w-full px-6 py-4 text-sm font-medium border border-strock rounded-xl text-text1 placeholder:text-text4"
+            type="text" id="description" value={form.description} onChange={handleChange} />
           </FormGroup>
           <Button type="submit" className="w-full bg-primary">Create Wallet</Button>
         </form>
