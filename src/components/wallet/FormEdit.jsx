@@ -2,21 +2,21 @@ import {Formik, Form, Field, ErrorMessage} from 'formik'
 import { useParams } from 'react-router-dom';
 import { edit } from '../../api/wallet/EditApi';
 
+
 export default function FormEdit(props){
-    const {id} = props
+
     return (
-        <>
-            {console.log(useParams().id)}
+        <>         
             <Formik 
             initialValues={{
-                icon: "a",
+                icon: "",
                 amount:"",
                 currentType:"",
                 description:"",
                 name: ""
             }}
             onSubmit={(value) => {
-                edit(value, id)
+                
             }}
             >
                 <Form>
@@ -27,8 +27,7 @@ export default function FormEdit(props){
                     name <Field name="name"></Field>
                     <button>Sửa</button>
                 </Form>
-            </Formik>
-            
+            </Formik>       
         </>
 
     );
