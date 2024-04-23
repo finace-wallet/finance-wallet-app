@@ -1,5 +1,6 @@
 import axios from "axios";
 import { FINANCE_WALLET_API } from "../util/AppConstant";
+import { setTokenAction } from "../store/auth/authActions";
 
 export async function register(user) {
   let response = null;
@@ -43,6 +44,29 @@ export async function login(user) {
   return response;
 }
 
+
+  export async function changePassword(changePasswordRequest) {
+    let response = null;
+    try {
+      const token = localStorage.getItem("token");
+      setTokenAction(token);
+
+      response = await axios({
+        url: `${FINANCE_WALLET_API}auth/change-password`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, 
+        },
+        method: "PUT",
+        data: changePasswordRequest,
+      });
+    } catch (error) {
+      response = error.response;
+    }
+
+    return response;
+  }
+
 export async function forgetPassword(user) {
   let response = null;
 
@@ -63,3 +87,4 @@ export async function forgetPassword(user) {
   console.log(response);
   return response;
 }
+
