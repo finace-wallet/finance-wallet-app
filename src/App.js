@@ -7,13 +7,17 @@ import { ToastContainer } from "react-toastify";
 
 
 const HomePage = React.lazy(() => import("./pages/HomePage"));
-const SignUpPage = React.lazy(() => import("./pages/SignUpPage"));
-const SignInPage = React.lazy(() => import("./pages/SignInPage"));
+const SignUpPage = React.lazy(() => import("./pages/user/SignUpPage"));
+const SignInPage = React.lazy(() => import("./pages/user/SignInPage"));
 const TestPage = React.lazy(() => import("./pages/Test"));
 const ForgotPasswordPage = React.lazy(() =>
   import("./pages/ForgotPasswordPage")
 );
+
 const CreateWalletPage = React.lazy(() => import("./pages/CreateWalletPage") );
+
+const SettingPage = React.lazy(() => import("./pages/user/UserSetting"));
+
 
 function App() {
   return (
@@ -28,6 +32,10 @@ function App() {
             <Route
               path="/forgot-password"
               element={<ForgotPasswordPage></ForgotPasswordPage>}
+            ></Route>
+            <Route
+              path="/user-setting"
+              element={<SettingPage></SettingPage>}
             ></Route>
             <Route path="/test" element={<TestPage></TestPage>}></Route>
             <Route path="/create-wallet" element={<CreateWalletPage />} ></Route>

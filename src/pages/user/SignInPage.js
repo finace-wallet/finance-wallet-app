@@ -1,23 +1,24 @@
-import React, { useState } from "react";
-import LayoutAuthentication from "../layout/LayoutAuthentication";
+import React from "react";
+import LayoutAuthentication from "../../layout/LayoutAuthentication";
 import { useForm } from "react-hook-form";
-import { Label } from "../components/label";
-import { Input } from "../components/input";
-import FormGroup from "../components/common/FormGroup";
-import Button from "../components/button/Button";
+import { Label } from "../../components/label";
+import { Input } from "../../components/input";
+import FormGroup from "../../components/common/FormGroup";
+import Button from "../../components/button/Button";
 
 import { yupResolver } from "@hookform/resolvers/yup"; // Import yupResolver
 import * as yup from "yup"; // Import Yup
-import { login } from "../api/AuthApi";
+import { login } from "../../api/AuthApi";
 
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import Layout from "../components/layout/Layout";
+import Layout from "../../components/layout/main/Layout";
 import { useDispatch } from "react-redux";
-import { setTokenAction } from "../store/auth/authActions";
+import { setTokenAction } from "../../store/auth/authActions";
 import { useNavigate } from "react-router";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 const schema = yup.object().shape({
   email: yup
@@ -36,7 +37,7 @@ const SignInPage = () => {
     handleSubmit,
     control,
     reset,
-    formState: { isValid, isSubmitting, errors },
+    formState: { isSubmitting, errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
