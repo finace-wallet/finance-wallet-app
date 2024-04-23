@@ -16,6 +16,7 @@ const ForgotPasswordPage = React.lazy(() =>
   import("./pages/ForgotPasswordPage")
 );
 const AccountPage = React.lazy(() => import("./pages/user/Account"));
+const ActiveAccountPage = React.lazy(() => import("./pages/ActiveAccountPage"));
 
 function App() {
   return (
@@ -35,12 +36,16 @@ function App() {
               path="/forgot-password"
               element={<ForgotPasswordPage></ForgotPasswordPage>}
             ></Route>
-            
+
             <Route
               path="/account"
               element={<AccountPage></AccountPage>}
             ></Route>
             <Route path="/test" element={<TestPage></TestPage>}></Route>
+            <Route
+              path="/active"
+              element={<ActiveAccountPage></ActiveAccountPage>}
+            ></Route>
           </Routes>
         </Suspense>
         <ToastContainer autoClose={3000} />

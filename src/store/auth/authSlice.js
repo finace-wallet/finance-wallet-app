@@ -1,7 +1,6 @@
 // authSlice.js
 
 import { createSlice } from "@reduxjs/toolkit";
-import { setTokenAction } from "./authActions"; // Update the import
 
 const initialState = {
   user: null,
@@ -20,11 +19,10 @@ const authSlice = createSlice({
       state.user = action.payload.user;
       state.isLoggedIn = true; // Set isLoggedIn to true when token is set
     },
-    // setToken(state, action) {
-    //   state.token = action.payload;
-    //   state.isLoggedIn = true; // Set isLoggedIn to true when token is set
-    // },
-    // Remove loginSuccess from here
+    setGoogleLogin(state, action) {
+      state.token = action.payload.access_token;
+    },
+
     logout(state) {
       state.token = "";
       state.user = "";
@@ -34,6 +32,6 @@ const authSlice = createSlice({
 });
 
 // Exporting the slice's actions
-export const { setLogin, logout } = authSlice.actions;
+export const { setLogin, logout, setGoogleLogin } = authSlice.actions;
 
 export default authSlice.reducer;
