@@ -16,7 +16,8 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setLogin(state, action) {
-      state.token = action.payload;
+      state.token = action.payload.accessToken;
+      state.user = action.payload.user;
       state.isLoggedIn = true; // Set isLoggedIn to true when token is set
     },
     // setToken(state, action) {
@@ -26,6 +27,7 @@ const authSlice = createSlice({
     // Remove loginSuccess from here
     logout(state) {
       state.token = "";
+      state.user = "";
       state.isLoggedIn = false;
     },
   },
