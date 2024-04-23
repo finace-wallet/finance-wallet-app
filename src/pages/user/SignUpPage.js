@@ -1,20 +1,20 @@
 import React from "react";
-import LayoutAuthentication from "../layout/LayoutAuthentication";
+import LayoutAuthentication from "../../layout/LayoutAuthentication";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { Label } from "../components/label";
-import { Input } from "../components/input";
-import FormGroup from "../components/common/FormGroup";
-import Button from "../components/button/Button";
+import { Label } from "../../components/label";
+import { Input } from "../../components/input";
+import FormGroup from "../../components/common/FormGroup";
+import Button from "../../components/button/Button";
 
 import { yupResolver } from "@hookform/resolvers/yup"; // Import yupResolver
 import * as yup from "yup"; // Import Yup
-import { register } from "../api/AuthApi";
+import { register } from "../../api/AuthApi";
 
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import Layout from "../components/layout/Layout";
+import Layout from "../../components/layout/main/Layout";
 
 const schema = yup.object().shape({
   username: yup.string().required("Full Name is required"),
