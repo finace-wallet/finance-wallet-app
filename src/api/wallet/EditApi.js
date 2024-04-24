@@ -3,7 +3,7 @@ import axios from "axios";
 export async function edit(wallet, id) {
     let response = null;
     await axios({
-      url: `localhost:8080/api/v1/wallets/edit-wallet/${id}`,
+      url: `http://localhost:8080/api/v1/wallets/edit-wallet/${id}`,
       headers: {
         "Content-Type": "application/json",
       },
