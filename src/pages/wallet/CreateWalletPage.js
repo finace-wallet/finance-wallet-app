@@ -1,11 +1,13 @@
 
-import Button from "../components/button/Button";
-import { createWallet } from "../api/WalletApi";
-import FormGroup from "../components/common/FormGroup";
-import Layout from "../components/layout/main/Layout";
-import { Label } from "../components/label";
+import Button from "../../components/button/Button";
+import { createWallet } from "../../components/wallet/WalletApi";
+import FormGroup from "../../components/common/FormGroup";
+import Layout from "../../components/layout/main/Layout";
+import { Label } from "../../components/label";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 const CreateWalletPage = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
     icon: "",
@@ -26,6 +28,7 @@ const CreateWalletPage = () => {
     try {
       const response = await createWallet(form);
       console.log("Wallet created successfully:", response);
+      navigate("/wallet");
     } catch (error) {
       console.error("Error creating wallet:", error);
     }
@@ -34,7 +37,7 @@ const CreateWalletPage = () => {
   return (
     <Layout>
       <div className="max-w-lg mx-auto">
-        <h1 className="text-2xl font-semibold mb-4">Create New Wallet</h1>
+        <h1 className="mb-4 text-2xl font-semibold">Create New Wallet</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <FormGroup>
             <Label htmlFor="name">Name *</Label>

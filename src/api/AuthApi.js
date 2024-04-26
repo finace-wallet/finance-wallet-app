@@ -44,34 +44,33 @@ export async function login(user) {
   return response;
 }
 
+export async function changePassword(changePasswordRequest) {
+  let response = null;
+  try {
+    const token = localStorage.getItem("token");
+    setTokenAction(token);
 
-  export async function changePassword(changePasswordRequest) {
-    let response = null;
-    try {
-      const token = localStorage.getItem("token");
-      setTokenAction(token);
-
-      response = await axios({
-        url: `${FINANCE_WALLET_API}auth/change-password`,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, 
-        },
-        method: "PUT",
-        data: changePasswordRequest,
-      });
-    } catch (error) {
-      response = error.response;
-    }
-
-    return response;
+    response = await axios({
+      url: `${FINANCE_WALLET_API}auth/change-password`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      method: "PUT",
+      data: changePasswordRequest,
+    });
+  } catch (error) {
+    response = error.response;
   }
+
+  return response;
+}
 
 export async function forgetPassword(user) {
   let response = null;
 
   await axios({
-    url: "http://localhost:8080/api/v1/auth/forget-password",
+    url: `${FINANCE_WALLET_API}/auth/forget-password`,
     headers: {
       "Content-Type": "application/json",
     },
@@ -88,3 +87,23 @@ export async function forgetPassword(user) {
   return response;
 }
 
+export async function activeAccount(user) {
+  let response = null;
+
+  await axios({
+    url: `${FINANCE_WALLET_API}/auth/active`,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    data: user,
+  })
+    .then((res) => {
+      response = res;
+    })
+    .catch((e) => {
+      response = e.response;
+    });
+  console.log(response);
+  return response;
+}

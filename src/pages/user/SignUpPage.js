@@ -1,6 +1,6 @@
 import React from "react";
 import LayoutAuthentication from "../../layout/LayoutAuthentication";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Label } from "../../components/label";
 import { Input } from "../../components/input";
@@ -36,6 +36,7 @@ const SignUpPage = () => {
     resolver: yupResolver(schema),
     mode: "onSubmit",
   });
+  const navigate = useNavigate();
 
   const handleSignUp = async (data) => {
     try {
@@ -43,6 +44,9 @@ const SignUpPage = () => {
       console.log(response);
       toast.success("Success Creating New User");
       reset({});
+      setTimeout(() => {
+        navigate("/active");
+      }, 1000);
     } catch (error) {
       console.error("Error occurred while signing up:", error);
       // Handle error scenario, e.g., display an error message

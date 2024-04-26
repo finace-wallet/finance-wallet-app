@@ -7,6 +7,10 @@ const menuLinks = [
     title: "Account",
   },
   {
+    url: "/wallet",
+    title: "Wallet",
+  },
+  {
     url: "/security",
     title: "Security",
   },
@@ -22,6 +26,7 @@ const menuLinks = [
     url: "/notification",
     title: "Notification",
   },
+
 ];
 
 const SettingHeader = () => {

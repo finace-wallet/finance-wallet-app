@@ -48,7 +48,8 @@ const SignInPage = () => {
   const handleSignIn = async (data, event) => {
     try {
       event.preventDefault();
-      const response = await login(data); // Call register function from AuthApi
+      const response = await login(data); // Call register function from AuthApi     
+      
       console.log(response); // Log the response for debugging
       // Handle success scenario, e.g., redirect to another pag
       dispatch(setTokenAction(response.data.data.accessToken));
