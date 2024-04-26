@@ -1,6 +1,6 @@
 // authSlice.js
 
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
   user: null,
@@ -9,7 +9,6 @@ const initialState = {
   token: null,
   isLoggedIn: false,
 };
-
 const authSlice = createSlice({
   name: "auth",
   initialState,
