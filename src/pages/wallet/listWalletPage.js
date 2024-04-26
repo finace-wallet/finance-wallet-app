@@ -45,7 +45,7 @@ const WalletList = () => {
                         <p className="text-sm font-medium text-center text-gray-400">Your Information of wallet</p>
                         
                         <div className="px-6 my-5">
-                            <Link to="#" className="block px-6 py-3 font-medium leading-6 text-center text-gray-200 bg-gray-900 rounded-lg hover:bg-black hover:text-white">Create wallet</Link>
+                            <Link to="/create-wallet" className="block px-6 py-3 font-medium leading-6 text-center text-gray-200 bg-gray-900 rounded-lg hover:bg-black hover:text-white">Create wallet</Link>
                         </div>
                         <div className="w-full">
                             <h3 className="px-6 font-medium text-left text-gray-900">Recent activities</h3>
