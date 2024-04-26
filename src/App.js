@@ -11,8 +11,6 @@ const SignInPage = React.lazy(() => import("./pages/user/SignInPage"));
 const TestPage = React.lazy(() => import("./pages/Test"));
 const ChangePasswordPage = React.lazy(() => import("./pages/ChangePasswordPage"));
 const ForgotPasswordPage = React.lazy(() => import("./pages/ForgotPasswordPage"));
-const DeleteUserPage = React.lazy(() => import("./pages/DeleteUserPage"));
-const SettingPage = React.lazy(() => import("./pages/user/UserSetting"));
 const AccountPage = React.lazy(() => import("./pages/user/Account"));
 const ActiveAccountPage = React.lazy(() => import("./pages/ActiveAccountPage"));
 
@@ -40,7 +38,6 @@ function App() {
               element={<AccountPage></AccountPage>}
             ></Route>
             <Route path="/test" element={<TestPage></TestPage>}></Route>
-            <Route path="/delete-user" element={<DeleteUserPage></DeleteUserPage>}></Route>
             <Route
               path="/active"
               element={<ActiveAccountPage></ActiveAccountPage>}

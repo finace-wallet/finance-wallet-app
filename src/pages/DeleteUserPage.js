@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Layout from "../components/layout/main/Layout";
 import Button from "../components/button/Button";
 import { deleteUser } from "../api/AuthApi";
 import { ToastContainer, toast } from "react-toastify";
@@ -13,57 +12,57 @@ const DeleteUserPage = () => {
     try {
       setIsDeleting(true);
       await deleteUser();
-      toast.success("Người dùng đã được xóa thành công!");
+      toast.success("The user has been successfully deleted!");
       setIsDeleting(false);
       setTimeout(() => {
         setShowConfirmation(false);
       }, 100);
     } catch (error) {
       console.error("Error deleting user: ", error);
-      toast.error("Đã xảy ra lỗi khi xóa người dùng.");
+      toast.error("An error occurred while deleting the user.");
       setIsDeleting(false);
     }
   };
 
   return (
-    <Layout>
-      <div className="flex justify-center items-center h-screen">
+    <>
+      <div className="pt-5">
         <Button
           onClick={() => setShowConfirmation(true)}
-          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+          className="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700"
         >
-          Xóa Tài Khoản
+          Delete account
         </Button>
       </div>
 
       {showConfirmation && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div className="bg-gray-500 bg-opacity-75 absolute inset-0"></div>
-          <div className="bg-white p-8 rounded-lg shadow-lg relative border border-gray-300">
+          <div className="absolute inset-0 bg-gray-500 bg-opacity-75"></div>
+          <div className="relative p-8 bg-white border border-gray-300 rounded-lg shadow-lg">
             <p className="mb-4">
-              Bạn có chắc chắn muốn xóa tài Khoản này không?
+              Are you sure you want to delete this account?
             </p>
             <div className="flex justify-end">
               <Button
                 onClick={() => setShowConfirmation(false)}
-                className="bg-gray-400 hover:bg-gray-600 text-white font-bold py-2 px-4 mr-4 rounded"
+                className="px-4 py-2 mr-4 font-bold text-white bg-gray-400 rounded hover:bg-gray-600"
               >
-                Hủy
+                Cancel
               </Button>
               <Button
                 onClick={confirmDelete}
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                className="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700"
                 disabled={isDeleting}
               >
-                {isDeleting ? "Đang Xóa..." : "Đồng Ý"}
+                {isDeleting ? "Deleting..." : "Agree"}
               </Button>
             </div>
           </div>
         </div>
       )}
-      
+
       <ToastContainer />
-    </Layout>
+    </>
   );
 };
 
