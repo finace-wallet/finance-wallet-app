@@ -1,7 +1,7 @@
+import UserSettingLayout from "layout/user-setting/UserSettingLayout";
 import React from "react";
-import Layout from "../../components/layout/main/Layout";
-import UserSettingLayout from "../../components/layout/user-setting/UserSettingLayout";
-import LayoutTwoColumn from "../../layout/LayoutTwoColumn";
+import LayoutTwoColumn from "layout/LayoutTwoColumn";
+import Layout from "layout/main/Layout";
 
 const LayoutTwoColumnDemo = () => {
   return (

@@ -1,20 +1,19 @@
-import React from "react";
-import LayoutAuthentication from "../../layout/LayoutAuthentication";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { Label } from "../../components/label";
-import { Input } from "../../components/input";
-import FormGroup from "../../components/common/FormGroup";
-import Button from "../../components/button/Button";
-
+import React from "react";
 import { yupResolver } from "@hookform/resolvers/yup"; // Import yupResolver
 import * as yup from "yup"; // Import Yup
-import { register } from "../../api/AuthApi";
-
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-import Layout from "../../components/layout/main/Layout";
+import LayoutAuthentication from "layout/LayoutAuthentication";
+import FormGroup from "components/common/FormGroup";
+import { Label } from "components/label";
+import { Input } from "components/input";
+import { Button } from "components/button";
+import { register } from "api/AuthApi";
+import Layout from "layout/main/Layout";
+import useToggleValue from "hooks/useToggleValue";
+import { IconEyeToggle } from "icons";
 
 const schema = yup.object().shape({
   username: yup.string().required("Full Name is required"),
@@ -31,12 +30,15 @@ const SignUpPage = () => {
     handleSubmit,
     control,
     reset,
-    formState: { isValid, isSubmitting, errors },
+    formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
     mode: "onSubmit",
   });
   const navigate = useNavigate();
+
+  const { value: showPassword, handleToggleValue: handleTogglePassword } =
+    useToggleValue();
 
   const handleSignUp = async (data) => {
     try {
@@ -77,10 +79,8 @@ const SignUpPage = () => {
                 control={control}
                 name="username"
                 placeholder="Input your full name here"
+                error={errors.username?.message}
               ></Input>
-              {errors.username && (
-                <p className="text-red-500">{errors.username.message}</p>
-              )}
             </FormGroup>
             <FormGroup>
               <Label htmlFor="email">Email *</Label>
@@ -88,23 +88,23 @@ const SignUpPage = () => {
                 control={control}
                 name="email"
                 placeholder="example@abc.com"
+                error={errors.email?.message}
               ></Input>
-              {errors.email && (
-                <p className="text-red-500">{errors.email.message}</p>
-              )}
             </FormGroup>
-
             <FormGroup>
               <Label htmlFor="password">Password *</Label>
               <Input
                 control={control}
                 name="password"
-                type="password"
+                type={`${showPassword ? "text" : "password"}`}
                 placeholder="create a password"
-              ></Input>
-              {errors.password && (
-                <p className="text-red-500">{errors.password.message}</p>
-              )}
+                error={errors.password?.message}
+              >
+                <IconEyeToggle
+                  open={showPassword}
+                  onClick={handleTogglePassword}
+                ></IconEyeToggle>
+              </Input>
             </FormGroup>
             {/* <div className="flex items-start p-2 mb-5 gap-x-5">
           <span className="inline-block w-5 h-5 border rounded border-text4"></span>

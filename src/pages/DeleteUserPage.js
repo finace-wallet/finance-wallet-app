@@ -1,6 +1,7 @@
+import { deleteUser } from "api/AuthApi";
+import { Button } from "components/button";
 import React, { useState } from "react";
-import Button from "../components/button/Button";
-import { deleteUser } from "../api/AuthApi";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

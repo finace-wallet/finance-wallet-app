@@ -1,6 +1,6 @@
 import axios from "axios";
-import { FINANCE_WALLET_API } from "../util/AppConstant";
-import { setTokenAction } from "../store/auth/authActions";
+import { setTokenAction } from "store/auth/authActions";
+import { FINANCE_WALLET_API } from "util/AppConstant";
 
 export async function register(user) {
   let response = null;
@@ -87,7 +87,6 @@ export async function forgetPassword(user) {
   return response;
 }
 
-
 export async function deleteUser(deleteUserRequest) {
   let response = null;
   try {
@@ -129,4 +128,3 @@ export async function activeAccount(user) {
   console.log(response);
   return response;
 }
-

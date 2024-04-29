@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withErrorBoundary } from "react-error-boundary";
-import ErrorComponent from "../components/common/ErrorComponent";
+import ErrorComponent from "components/common/ErrorComponent";
+
 const LayoutAuthentication = (props) => {
   const { children, heading = "" } = props;
   return (
