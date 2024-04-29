@@ -9,14 +9,11 @@ const HomePage = React.lazy(() => import("./pages/HomePage"));
 const SignUpPage = React.lazy(() => import("./pages/user/SignUpPage"));
 const SignInPage = React.lazy(() => import("./pages/user/SignInPage"));
 const TestPage = React.lazy(() => import("./pages/Test"));
-const ChangePasswordPage = React.lazy(() =>
-  import("./pages/ChangePasswordPage")
-);
-const ForgotPasswordPage = React.lazy(() =>
-  import("./pages/ForgotPasswordPage")
-);
+const ChangePasswordPage = React.lazy(() => import("./pages/ChangePasswordPage"));
+const ForgotPasswordPage = React.lazy(() => import("./pages/ForgotPasswordPage"));
 const AccountPage = React.lazy(() => import("./pages/user/Account"));
 const ActiveAccountPage = React.lazy(() => import("./pages/ActiveAccountPage"));
+
 
 function App() {
   return (
@@ -36,7 +33,6 @@ function App() {
               path="/forgot-password"
               element={<ForgotPasswordPage></ForgotPasswordPage>}
             ></Route>
-
             <Route
               path="/account"
               element={<AccountPage></AccountPage>}

@@ -1,6 +1,7 @@
 import { faPen, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import DeleteUserPage from "../../pages/DeleteUserPage";
 
 const CardProfile = ({ user }) => {
   return (
@@ -23,6 +24,7 @@ const CardProfile = ({ user }) => {
             Edit your profile
           </div>
         </div>
+        <DeleteUserPage></DeleteUserPage>
       </div>
     </div>
   );
