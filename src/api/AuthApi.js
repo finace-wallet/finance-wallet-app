@@ -99,7 +99,7 @@ export async function deleteUser(deleteUserRequest) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      method: "DELETE",
+      method: "PATCH",
       data: deleteUserRequest,
     });
   } catch (error) {
