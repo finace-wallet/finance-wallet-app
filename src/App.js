@@ -1,19 +1,23 @@
-import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React, { Suspense } from "react";
-import PageNotFound from "./pages/errors/PageNotFound";
+
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import PageNotFound from "pages/errors/PageNotFound";
 
 const HomePage = React.lazy(() => import("./pages/HomePage"));
 const SignUpPage = React.lazy(() => import("./pages/user/SignUpPage"));
 const SignInPage = React.lazy(() => import("./pages/user/SignInPage"));
 const TestPage = React.lazy(() => import("./pages/Test"));
-const ChangePasswordPage = React.lazy(() => import("./pages/ChangePasswordPage"));
-const ForgotPasswordPage = React.lazy(() => import("./pages/ForgotPasswordPage"));
+const ChangePasswordPage = React.lazy(() =>
+  import("./pages/ChangePasswordPage")
+);
+const ForgotPasswordPage = React.lazy(() =>
+  import("./pages/ForgotPasswordPage")
+);
 const AccountPage = React.lazy(() => import("./pages/user/Account"));
 const ActiveAccountPage = React.lazy(() => import("./pages/ActiveAccountPage"));
-
+const WalletDetail = React.lazy(() => import("./pages/wallet/WalletDetail"));
 
 function App() {
   return (
@@ -41,6 +45,10 @@ function App() {
             <Route
               path="/active"
               element={<ActiveAccountPage></ActiveAccountPage>}
+            ></Route>
+            <Route
+              path="/wallet"
+              element={<WalletDetail></WalletDetail>}
             ></Route>
           </Routes>
         </Suspense>

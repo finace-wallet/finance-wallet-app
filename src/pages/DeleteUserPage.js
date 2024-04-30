@@ -1,6 +1,7 @@
+import { deleteUser } from "api/AuthApi";
+import { Button } from "components/button";
 import React, { useState } from "react";
-import Button from "../components/button/Button";
-import { deleteUser } from "../api/AuthApi";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -28,6 +29,7 @@ const DeleteUserPage = () => {
     <>
       <div className="pt-5">
         <Button
+          type="button"
           onClick={() => setShowConfirmation(true)}
           className="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700"
         >
