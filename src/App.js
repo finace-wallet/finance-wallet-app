@@ -13,6 +13,7 @@ const ChangePasswordPage = React.lazy(() => import("./pages/ChangePasswordPage")
 const ForgotPasswordPage = React.lazy(() => import("./pages/ForgotPasswordPage"));
 const AccountPage = React.lazy(() => import("./pages/user/Account"));
 const ActiveAccountPage = React.lazy(() => import("./pages/ActiveAccountPage"));
+const TransferMoneyPage = React.lazy(() => import("./pages/TransferMoneyPage"));
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
               path="/active"
               element={<ActiveAccountPage></ActiveAccountPage>}
             ></Route>
+            <Route path="/transfer-money" element={<TransferMoneyPage></TransferMoneyPage>}></Route>
           </Routes>
         </Suspense>
         <ToastContainer autoClose={3000} />
