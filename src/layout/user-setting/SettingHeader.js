@@ -15,8 +15,8 @@ const menuLinks = [
     title: "Data & Privacy",
   },
   {
-    url: "/payment",
-    title: "Payment",
+    url: "/wallet",
+    title: "Wallet",
   },
   {
     url: "/notification",

@@ -8,13 +8,13 @@ import { Input } from "components/input";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Button, CloseButton } from "components/button";
 import { editUserData, getUserData } from "api/AuthApi";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "store/auth/authSlice";
 
 const schema = yup.object().shape({
   fullName: yup.string().required("Username is required"),
@@ -30,8 +30,6 @@ const CardProfile = ({ user }) => {
     resolver: yupResolver(schema),
   });
 
-  console.log("user Card Profile", user);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -43,17 +41,18 @@ const CardProfile = ({ user }) => {
   };
 
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
 
   const handleEdit = async (data) => {
     try {
       const response = await editUserData(data, token);
-      console.log(response);
+      console.log("This edit response", response);
       closeModal();
       reset({});
       toast.success("Success Edit, Redirecting...");
       setTimeout(() => {
+        dispatch(setUser(data));
         navigate("/account");
       }, 1000);
     } catch (error) {
@@ -131,7 +130,7 @@ const CardProfile = ({ user }) => {
                   error={errors.phoneNumber?.message}
                 ></Input>
               </FormGroup>
-              <FormGroup>
+              {/* <FormGroup>
                 <Label htmlFor="birthDate">Birthdate:</Label>
                 <Input
                   control={control}
@@ -139,7 +138,7 @@ const CardProfile = ({ user }) => {
                   placeholder="MM/DD/yyyy"
                   error={errors.birthDate?.message}
                 ></Input>
-              </FormGroup>
+              </FormGroup> */}
               <Button type="submit" className="w-full bg-primary">
                 {isSubmitting ? (
                   <div className="w-5 h-5 border-2 border-t-2 border-white rounded-full border-t-transparent animate-spin"></div>

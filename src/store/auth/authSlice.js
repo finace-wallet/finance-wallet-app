@@ -23,6 +23,7 @@ const authSlice = createSlice({
     setGoogleLogin(state, action) {
       state.token = action.payload.access_token;
     },
+
     setUser(state, action) {
       // New action to set user data
       state.userDetails = action.payload;
