@@ -1,5 +1,5 @@
 import React from "react";
-import { useController, useFormContext } from "react-hook-form";
+import { useController } from "react-hook-form";
 import PropTypes from "prop-types";
 import { ErrorBoundary, withErrorBoundary } from "react-error-boundary";
 import classNames from "util/classNames";
@@ -20,11 +20,6 @@ const Input = (props) => {
     defaultValue: "",
   });
 
-  // const { setValue } = useFormContext();
-
-  // const handleInputChange = (event) => {
-  //   setValue(name, event.target.value); // Update value when input changes
-  // };
   return (
     <div className="relative">
       <input
