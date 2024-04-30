@@ -30,6 +30,7 @@ const ActiveAccountPage = () => {
 
   const handleForgotPassword = async (data) => {
     try {
+      console.log("Data: ", data);
       const response = await activeAccount(data);
       console.log("Server response: ", response);
       reset({});
@@ -54,9 +55,6 @@ const ActiveAccountPage = () => {
                 placeholder="Input your OTP code sent from email here"
                 error={errors.otp?.message}
               ></Input>
-              {errors.otp && (
-                <p className="text-red-500">{errors.otp.message}</p>
-              )}
             </FormGroup>
             <Button type="submit" className="w-full bg-primary">
               {isSubmitting ? (

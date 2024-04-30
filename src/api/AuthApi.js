@@ -70,7 +70,7 @@ export async function forgetPassword(user) {
   let response = null;
 
   await axios({
-    url: `${FINANCE_WALLET_API}/auth/forget-password`,
+    url: `${FINANCE_WALLET_API}auth/forget-password`,
     headers: {
       "Content-Type": "application/json",
     },
@@ -112,11 +112,54 @@ export async function activeAccount(user) {
   let response = null;
 
   await axios({
-    url: `${FINANCE_WALLET_API}/auth/active`,
+    url: `${FINANCE_WALLET_API}auth/active`,
     headers: {
       "Content-Type": "application/json",
     },
     method: "POST",
+    data: user,
+  })
+    .then((res) => {
+      response = res;
+    })
+    .catch((e) => {
+      response = e.response;
+    });
+  console.log(response);
+  return response;
+}
+
+export async function getUserData(token) {
+  let response = null;
+
+  await axios({
+    url: `${FINANCE_WALLET_API}users/profile`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    method: "GET",
+  })
+    .then((res) => {
+      response = res;
+    })
+    .catch((e) => {
+      response = e.response;
+    });
+  console.log(response);
+  return response;
+}
+
+export async function editUserData(user, token) {
+  let response = null;
+
+  await axios({
+    url: `${FINANCE_WALLET_API}users/profile`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    method: "PUT",
     data: user,
   })
     .then((res) => {

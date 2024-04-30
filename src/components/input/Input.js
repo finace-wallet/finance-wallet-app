@@ -31,12 +31,7 @@ const Input = (props) => {
             : "border-strock dark:border-darkStroke",
           children ? "pr-16" : ""
         )}
-        // className={`w-full px-6 py-4 text-sm font-medium border rounded-xl text-text1 placeholder:text-text4 dark:placeholder:text-text2 dark:text-white bg-transparent ${
-        //   error.length > 0
-        //     ? "border-error"
-        //     : "border-strock dark:border-darkStroke"
-        // } ${children ? "pr-16" : ""}`}
-        placeholder={error.length > 0 ? "" : placeholder}
+        placeholder={error.length <= 0 ? placeholder : ""}
         {...rest}
         {...field}
       />
@@ -59,6 +54,7 @@ Input.propTypes = {
   type: PropTypes.string,
   error: PropTypes.string,
   control: PropTypes.any.isRequired,
+  value: PropTypes.string,
 };
 
 export default withErrorBoundary(Input, {

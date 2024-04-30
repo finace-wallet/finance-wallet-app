@@ -16,7 +16,6 @@ import useToggleValue from "hooks/useToggleValue";
 import { IconEyeToggle } from "icons";
 
 const schema = yup.object().shape({
-  username: yup.string().required("Full Name is required"),
   email: yup.string().email("Email is required").required("Email is required"),
   password: yup
     .string()
@@ -73,15 +72,6 @@ const SignUpPage = () => {
             Or sign up with email
           </p>
           <form onSubmit={handleSubmit(handleSignUp)}>
-            <FormGroup>
-              <Label htmlFor="username">Full Name *</Label>
-              <Input
-                control={control}
-                name="username"
-                placeholder="Input your full name here"
-                error={errors.username?.message}
-              ></Input>
-            </FormGroup>
             <FormGroup>
               <Label htmlFor="email">Email *</Label>
               <Input

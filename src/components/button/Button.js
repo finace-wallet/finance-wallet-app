@@ -7,6 +7,7 @@ const Button = ({
   type = "button",
   children,
   className = "",
+  onClick = () => {},
   isLoading = false,
   ...rest
 }) => {
@@ -17,7 +18,7 @@ const Button = ({
   );
   return (
     <button
-      className={`flex items-center justify-center p-4 text-base font-semibold rounded-xl text-white ${className} min-h-[56px] ${
+      className={`flex items-center justify-center p-4 text-base bg-primary font-semibold rounded-xl text-white ${className} min-h-[56px] ${
         !!isLoading ? "opacity-50 pointer-events-none" : ""
       }`}
       type={type}
@@ -29,7 +30,7 @@ const Button = ({
 };
 
 Button.propTypes = {
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
   className: PropTypes.string,
   children: PropTypes.node,
 };

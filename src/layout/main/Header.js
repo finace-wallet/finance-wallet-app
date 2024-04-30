@@ -9,10 +9,6 @@ const menuLinks = [
     url: "/",
     title: "Home",
   },
-  {
-    url: "/register",
-    title: "Register",
-  },
 ];
 
 const Header = () => {
@@ -41,7 +37,9 @@ const Header = () => {
               Hello, {user.id}
             </NavLink>
           ) : (
-            ""
+            <NavLink to="/register" className="">
+              Register
+            </NavLink>
           )}
           {isLoggedIn ? (
             <span onClick={handleLogout} className="cursor-pointer">
