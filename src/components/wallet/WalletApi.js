@@ -35,7 +35,6 @@ export async function listWallet(currentPage) {
     
     },
     method: "GET",
-   
     params:{
       page : currentPage,
     }

@@ -6,6 +6,20 @@ import Layout from "../../components/layout/main/Layout";
 import { Label } from "../../components/label";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
+
+
+const schema = yup.object().shape({
+  name: yup.string().required("Please enter a name for the wallet"),
+  icon: yup.string(),
+  amount: yup
+    .number()
+    .typeError("Amount must be a number")
+    .required("Please enter the amount"),
+  currentType: yup.string(),
+  description: yup.string().required("Please provide a description"),
+});
+
 const CreateWalletPage = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({
@@ -14,7 +28,7 @@ const CreateWalletPage = () => {
     amount: "",
     currentType: "",
     description: ""
-  });
+  }) 
 
   const handleChange = (e) => {
     setForm({
@@ -26,11 +40,20 @@ const CreateWalletPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      await schema.validate(form, {abortEarly: false});
       const response = await createWallet(form);
       console.log("Wallet created successfully:", response);
       navigate("/wallet");
     } catch (error) {
-      console.error("Error creating wallet:", error);
+      if (error.name === "ValidateionError") {
+        const validationErrors = {};
+        error.inner.forEach((err) => {
+          validationErrors[err.path] = err.message;
+        });
+        console.error("Validation errors:",validationErrors);
+      } else {
+        console.error("Error creating wallet:",error);
+      }
     }
   };
 

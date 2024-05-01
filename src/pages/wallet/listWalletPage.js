@@ -17,7 +17,7 @@ const WalletList = () => {
         try {
     const response = await listWallet(currentPage);
             setWallets(response.data.content);
-            setTotalPages(response.data.totalPages);
+            setTotalPages(response.data.totalPages || 0);
             setLoading(false);
         } catch (error) {
             console.error("Error fetching wallets:", error);
@@ -25,7 +25,7 @@ const WalletList = () => {
     };
     
    const handleNextPage = ({ selected }) => {
-        setCurrenPage(selected); //
+        setCurrenPage(selected);
     };
 
     useEffect(()=>{
@@ -42,7 +42,7 @@ const WalletList = () => {
                     
                     <div className="mt-16">
                         <h1 className="text-3xl font-bold text-center text-gray-900">My Wallets</h1>
-                        <p className="text-sm font-medium text-center text-gray-400">Your Information of wallet</p>
+                        <p className="text-sm font-medium text-center text-gray-400">Information of wallet</p>
                         
                         <div className="px-6 my-5">
                             <Link to="/create-wallet" className="block px-6 py-3 font-medium leading-6 text-center text-gray-200 bg-gray-900 rounded-lg hover:bg-black hover:text-white">Create wallet</Link>
@@ -50,7 +50,7 @@ const WalletList = () => {
                         <div className="w-full">
                             <h3 className="px-6 font-medium text-left text-gray-900">Recent activities</h3>
                             <div className="flex flex-col items-center w-full mt-5 overflow-hidden text-sm">
-                                {wallets.map((wallet) => (
+                                {wallets && wallets.map((wallet) => (
     <div key={wallet.id} className="w-full p-4 mb-4 transition duration-300 ease-in-out delay-150 border border-gray-200 rounded-md shadow-md hover:-translate-y-1 hover:scale-80 ">
         <p className="font-semibold">Name: {wallet.name}</p>
         <div className="flex items-center justify-between mt-2">
