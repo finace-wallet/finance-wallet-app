@@ -17,6 +17,7 @@ const ForgotPasswordPage = React.lazy(() =>
 );
 const AccountPage = React.lazy(() => import("./pages/user/Account"));
 const ActiveAccountPage = React.lazy(() => import("./pages/ActiveAccountPage"));
+const WalletGeneral = React.lazy(() => import("./pages/wallet/WalletGeneral"));
 const WalletDetail = React.lazy(() => import("./pages/wallet/WalletDetail"));
 
 function App() {
@@ -48,6 +49,10 @@ function App() {
             ></Route>
             <Route
               path="/wallet"
+              element={<WalletGeneral></WalletGeneral>}
+            ></Route>
+            <Route
+              path="/wallet-detail"
               element={<WalletDetail></WalletDetail>}
             ></Route>
           </Routes>
