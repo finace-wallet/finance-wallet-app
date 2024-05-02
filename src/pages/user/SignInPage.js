@@ -1,24 +1,22 @@
 import React from "react";
-import LayoutAuthentication from "../../layout/LayoutAuthentication";
-import { useForm } from "react-hook-form";
-import { Label } from "../../components/label";
-import { Input } from "../../components/input";
-import FormGroup from "../../components/common/FormGroup";
-import Button from "../../components/button/Button";
-
-import { yupResolver } from "@hookform/resolvers/yup"; // Import yupResolver
+import LayoutAuthentication from "layout/LayoutAuthentication";
+import Layout from "layout/main/Layout";
+import FormGroup from "components/common/FormGroup";
 import * as yup from "yup"; // Import Yup
-import { login } from "../../api/AuthApi";
-
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
-import Layout from "../../components/layout/main/Layout";
-import { useDispatch } from "react-redux";
-import { setTokenAction } from "../../store/auth/authActions";
+import { yupResolver } from "@hookform/resolvers/yup"; // Import yupResolver
 import { useNavigate } from "react-router";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
+import { setTokenAction } from "store/auth/authActions";
 import { NavLink } from "react-router-dom";
-
+import { login } from "api/AuthApi";
+import { Label } from "components/label";
+import { Input } from "components/input";
+import { Button } from "components/button";
+import "react-toastify/dist/ReactToastify.css";
+import useToggleValue from "hooks/useToggleValue";
+import { IconEyeToggle } from "icons";
 
 const schema = yup.object().shape({
   email: yup
@@ -44,6 +42,8 @@ const SignInPage = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { value: showPassword, handleToggleValue: handleTogglePassword } =
+    useToggleValue();
 
   const handleSignIn = async (data, event) => {
     try {
@@ -75,10 +75,8 @@ const SignInPage = () => {
                 control={control}
                 name="email"
                 placeholder="Input your email here"
+                error={errors.email?.message}
               ></Input>
-              {errors.email && (
-                <p className="text-red-500">{errors.email.message}</p>
-              )}
             </FormGroup>
 
             <FormGroup>
@@ -86,12 +84,15 @@ const SignInPage = () => {
               <Input
                 control={control}
                 name="password"
-                type="password"
+                type={`${showPassword ? "text" : "password"}`}
                 placeholder="Input your password"
-              ></Input>
-              {errors.password && (
-                <p className="text-red-500">{errors.password.message}</p>
-              )}
+                error={errors.password?.message}
+              >
+                <IconEyeToggle
+                  open={showPassword}
+                  onClick={handleTogglePassword}
+                ></IconEyeToggle>
+              </Input>
             </FormGroup>
             {/* <div className="flex items-start p-2 mb-5 gap-x-5">
           <span className="inline-block w-5 h-5 border rounded border-text4"></span>
@@ -102,12 +103,14 @@ const SignInPage = () => {
             <span className="underline text-secondary">Privacy policy</span>
           </p>
         </div> */}
-            <NavLink
-              to="/forgot-password"
-              className="flex flex-col mb-5 text-blue-500 underline gap-y-3"
-            >
-              Forgot password? Click here
-            </NavLink>
+            <div className="text-right">
+              <NavLink
+                to="/forgot-password"
+                className="inline-block mb-5 text-blue-500 underline gap-y-3"
+              >
+                Forgot password? Click here
+              </NavLink>
+            </div>
             <Button type="submit" className="w-full bg-primary">
               {isSubmitting ? (
                 <div className="w-5 h-5 border-2 border-t-2 border-white rounded-full border-t-transparent animate-spin"></div>

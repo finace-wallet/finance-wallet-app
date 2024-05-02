@@ -1,7 +1,8 @@
 import React from "react";
 
 import { Link, useNavigate } from "react-router-dom";
-import Layout from "../../components/layout/main/Layout";
+import Layout from "../../layout/main/Layout";
+
 
 
 const PageNotFound = () => {

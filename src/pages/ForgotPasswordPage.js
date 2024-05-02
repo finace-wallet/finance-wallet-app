@@ -1,17 +1,17 @@
 import React from "react";
-import Layout from "../components/layout/main/Layout";
 import { ToastContainer, toast } from "react-toastify";
-import LayoutAuthentication from "../layout/LayoutAuthentication";
-import FormGroup from "../components/common/FormGroup";
-import { Label } from "../components/label";
-import { Input } from "../components/input";
 import { useForm } from "react-hook-form";
-
 import { yupResolver } from "@hookform/resolvers/yup"; // Import yupResolver
 import * as yup from "yup"; // Import Yup
-import { forgetPassword } from "../api/AuthApi";
-import Button from "../components/button/Button";
+
 import { useNavigate } from "react-router";
+import { forgetPassword } from "api/AuthApi";
+import Layout from "layout/main/Layout";
+import LayoutAuthentication from "layout/LayoutAuthentication";
+import FormGroup from "components/common/FormGroup";
+import { Label } from "components/label";
+import { Input } from "components/input";
+import { Button } from "components/button";
 const ForgotPasswordPage = () => {
   const schema = yup.object().shape({
     email: yup
@@ -56,10 +56,8 @@ const ForgotPasswordPage = () => {
                 control={control}
                 name="email"
                 placeholder="Input your email here"
+                error={errors.email?.message}
               ></Input>
-              {errors.email && (
-                <p className="text-red-500">{errors.email.message}</p>
-              )}
             </FormGroup>
             <Button type="submit" className="w-full bg-primary">
               {isSubmitting ? (

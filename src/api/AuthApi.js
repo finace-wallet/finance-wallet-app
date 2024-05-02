@@ -1,6 +1,6 @@
 import axios from "axios";
-import { FINANCE_WALLET_API } from "../util/AppConstant";
-import { setTokenAction } from "../store/auth/authActions";
+import { setTokenAction } from "store/auth/authActions";
+import { FINANCE_WALLET_API } from "util/AppConstant";
 
 export async function register(user) {
   let response = null;
@@ -70,7 +70,7 @@ export async function forgetPassword(user) {
   let response = null;
 
   await axios({
-    url: `${FINANCE_WALLET_API}/auth/forget-password`,
+    url: `${FINANCE_WALLET_API}auth/forget-password`,
     headers: {
       "Content-Type": "application/json",
     },
@@ -87,15 +87,79 @@ export async function forgetPassword(user) {
   return response;
 }
 
+export async function deleteUser(deleteUserRequest) {
+  let response = null;
+  try {
+    const token = localStorage.getItem("token");
+    setTokenAction(token);
+
+    response = await axios({
+      url: `${FINANCE_WALLET_API}auth/delete`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      method: "DELETE",
+      data: deleteUserRequest,
+    });
+  } catch (error) {
+    response = error.response;
+  }
+  return response;
+}
+
 export async function activeAccount(user) {
   let response = null;
 
   await axios({
-    url: `${FINANCE_WALLET_API}/auth/active`,
+    url: `${FINANCE_WALLET_API}auth/active`,
     headers: {
       "Content-Type": "application/json",
     },
     method: "POST",
+    data: user,
+  })
+    .then((res) => {
+      response = res;
+    })
+    .catch((e) => {
+      response = e.response;
+    });
+  console.log(response);
+  return response;
+}
+
+export async function getUserData(token) {
+  let response = null;
+
+  await axios({
+    url: `${FINANCE_WALLET_API}users/profile`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    method: "GET",
+  })
+    .then((res) => {
+      response = res;
+    })
+    .catch((e) => {
+      response = e.response;
+    });
+  console.log(response);
+  return response;
+}
+
+export async function editUserData(user, token) {
+  let response = null;
+
+  await axios({
+    url: `${FINANCE_WALLET_API}users/profile`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    method: "PUT",
     data: user,
   })
     .then((res) => {
