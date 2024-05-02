@@ -18,6 +18,7 @@ const Button = ({
   );
   return (
     <button
+      onClick={onClick}
       className={`flex items-center justify-center p-4 text-base bg-primary font-semibold rounded-xl text-white ${className} min-h-[56px] ${
         !!isLoading ? "opacity-50 pointer-events-none" : ""
       }`}

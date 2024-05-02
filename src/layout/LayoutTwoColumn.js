@@ -31,10 +31,10 @@ const LayoutTwoColumn = ({
 LayoutTwoColumn.propTypes = {
   leftHeading: PropTypes.string,
   rightHeading: PropTypes.string,
-  children: PropTypes.shape({
-    left: PropTypes.node.isRequired,
-    right: PropTypes.node.isRequired,
-  }).isRequired,
+  // children: PropTypes.shape({
+  //   left: PropTypes.node.isRequired,
+  //   right: PropTypes.node.isRequired,
+  // }).isRequired,
 };
 
 export default withErrorBoundary(LayoutTwoColumn, {
