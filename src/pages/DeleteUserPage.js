@@ -18,7 +18,7 @@ const DeleteUserPage = () => {
       setIsDeleting(true);
       setTimeout(() => {
         toast.success("The user has been successfully deleted!");
-      }, 100);
+      }, 150);
       await deleteUser();
         dispatch(logout());
         nav("/");

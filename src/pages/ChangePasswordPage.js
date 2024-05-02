@@ -10,7 +10,6 @@ import * as yup from "yup";
 import { changePassword } from "../api/AuthApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useDispatch } from "react-redux";
 import Layout from "../components/layout/main/Layout";
 
 const schema = yup.object().shape({
