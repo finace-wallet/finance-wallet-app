@@ -113,9 +113,6 @@ export async function activeAccount(user) {
 
   await axios({
     url: `${FINANCE_WALLET_API}auth/active`,
-    headers: {
-      "Content-Type": "application/json",
-    },
     method: "POST",
     data: user,
   })

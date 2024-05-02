@@ -46,10 +46,6 @@ function App() {
               path="/active"
               element={<ActiveAccountPage></ActiveAccountPage>}
             ></Route>
-            <Route
-              path="/wallet"
-              element={<WalletDetail></WalletDetail>}
-            ></Route>
           </Routes>
         </Suspense>
         <ToastContainer autoClose={3000} />
