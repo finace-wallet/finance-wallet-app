@@ -99,7 +99,7 @@ export async function deleteUser(deleteUserRequest) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      method: "DELETE",
+      method: "PATCH",
       data: deleteUserRequest,
     });
   } catch (error) {
@@ -113,9 +113,6 @@ export async function activeAccount(user) {
 
   await axios({
     url: `${FINANCE_WALLET_API}auth/active`,
-    headers: {
-      "Content-Type": "application/json",
-    },
     method: "POST",
     data: user,
   })

@@ -1,7 +1,7 @@
 import { faPen, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
-import DeleteUserPage from "../../pages/DeleteUserPage";
+
 import FormGroup from "components/common/FormGroup";
 import { Label } from "components/label";
 import { Input } from "components/input";
@@ -10,11 +10,12 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import "react-datepicker/dist/react-datepicker.css";
 import { Button, CloseButton } from "components/button";
-import { editUserData, getUserData } from "api/AuthApi";
+import { editUserData } from "api/AuthApi";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "store/auth/authSlice";
+import DeleteUserPage from "pages/DeleteUserPage";
 
 const schema = yup.object().shape({
   fullName: yup.string().required("Username is required"),
@@ -25,10 +26,26 @@ const CardProfile = ({ user }) => {
     handleSubmit,
     control,
     reset,
+    setValue,
+    register,
     formState: { isSubmitting, errors },
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: {
+      fullName: "",
+      address: "",
+      phoneNumber: "",
+    },
   });
+  console.log("This user card profile", user);
+
+  useEffect(() => {
+    if (user) {
+      setValue("fullName", user.fullName);
+      setValue("address", user.address);
+      setValue("phoneNumber", user.phoneNumber);
+    }
+  }, [setValue, user]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -108,7 +125,6 @@ const CardProfile = ({ user }) => {
                   control={control}
                   name="fullName"
                   placeholder="Input your fullname here"
-                  value={user?.fullName || "abcxyz"}
                   error={errors.fullName?.message}
                 ></Input>
               </FormGroup>
@@ -118,6 +134,7 @@ const CardProfile = ({ user }) => {
                   control={control}
                   name="address"
                   placeholder="Input your address here"
+                  {...register("address")}
                   error={errors.address?.message}
                 ></Input>
               </FormGroup>
@@ -127,6 +144,7 @@ const CardProfile = ({ user }) => {
                   control={control}
                   name="phoneNumber"
                   placeholder="Input your phone here"
+                  {...register("phoneNumber")}
                   error={errors.phoneNumber?.message}
                 ></Input>
               </FormGroup>

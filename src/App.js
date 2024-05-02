@@ -25,6 +25,7 @@ const ForgotPasswordPage = React.lazy(() =>
 );
 const AccountPage = React.lazy(() => import("./pages/user/Account"));
 const ActiveAccountPage = React.lazy(() => import("./pages/ActiveAccountPage"));
+const WalletGeneral = React.lazy(() => import("./pages/wallet/WalletGeneral"));
 const WalletDetail = React.lazy(() => import("./pages/wallet/WalletDetail"));
 
 
@@ -60,9 +61,14 @@ function App() {
 
             <Route
               path="/wallet"
-              element={<WalletDetail></WalletDetail>}
+              element={<WalletGeneral></WalletGeneral>}
+            ></Route>
+            <Route
+              path="/wallet-detail/:id"
+              element={<WalletDetailPage></WalletDetailPage>}
 
             ></Route>
+
           </Routes>
         </Suspense>
         <ToastContainer autoClose={3000} />

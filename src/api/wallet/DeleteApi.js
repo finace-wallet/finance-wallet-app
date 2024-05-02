@@ -4,7 +4,7 @@ export async function deleteApi(id){
   let response = null;
   const token = localStorage.getItem("token")
 await axios({
-    url: `localhost:8080/api/v1/wallets/${id}`,
+    url: `http://localhost:8080/api/v1/wallets/delete/${id}`,
     headers: {
       "Content-Type": "application/json",
       "Authorization": "Bearer " + token

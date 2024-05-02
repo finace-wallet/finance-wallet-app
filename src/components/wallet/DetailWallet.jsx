@@ -10,9 +10,28 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useEffect, useState } from 'react';
 
 export default function WalletDetail(){
-   
-    const wallet = useLocation().state 
     
+    const {id} = useParams()
+    const [wallet, setWallet] = useState({
+        icon: '',
+        amount:'',
+        currentType:'',
+        description:'',
+        name: ''
+    })
+    useEffect(() => {
+        findWallet(id)
+        .then((res) => {
+            console.log(res);
+            setWallet({
+                icon:res.data.icon,
+                name:res.data.name,
+                currentType:res.data.currentType,
+                description:res.data.description,
+                amount:res.data.amount
+            })
+        })
+    }, [])
     const handleDelete = () => {
         confirmAlert({
             title: 'Xác nhận xóa',
@@ -21,13 +40,12 @@ export default function WalletDetail(){
               {
                 label: 'Xóa',
                 onClick: () => {
-                  deleteApi(wallet.id)
+                  deleteApi(id)
                 }
               },
               {
                 label: 'Hủy',
                 onClick: () => {
-                
                 }
               }
             ]
@@ -36,14 +54,8 @@ export default function WalletDetail(){
     return (
         <>   
              
-            <Formik 
-            initialValues={{
-                icon: wallet.icon,
-                amount:wallet.amount,
-                currentType:wallet.currentType,
-                description:wallet.description,
-                name: wallet.name
-            }}
+            <Formik enableReinitialize={true}
+            initialValues={wallet}
 
             validationSchema={Yup.object({
                 icon: Yup.string().required(),
@@ -53,8 +65,7 @@ export default function WalletDetail(){
                 name: Yup.string().required()
             })}
             onSubmit={(value) => {
-                console.log(value);
-                edit(value, wallet.id)
+                edit(value, id)
             }} 
             >
                 <Form className="space-y-4">

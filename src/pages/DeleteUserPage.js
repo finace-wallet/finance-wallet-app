@@ -1,13 +1,16 @@
 import { deleteUser } from "api/AuthApi";
 import { Button } from "components/button";
 import React, { useState } from "react";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import TransactionHistoryModal from "./TransactionHistoryPage";
+import { useDispatch } from "react-redux";
 
 const DeleteUserPage = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [showTransactionHistory, setShowTransactionHistory] = useState(false);
+  const dispatch = useDispatch();
 
   const confirmDelete = async () => {
     try {
@@ -25,16 +28,27 @@ const DeleteUserPage = () => {
     }
   };
 
+  const handleShowTransactionHistory = () => {
+    setShowTransactionHistory(true);
+  };
+
   return (
     <>
       <div className="pt-5">
-        <Button
+        <button
           type="button"
           onClick={() => setShowConfirmation(true)}
           className="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700"
         >
           Delete account
-        </Button>
+        </button>
+        <button
+          type="button"
+          onClick={handleShowTransactionHistory}
+          className="ml-4 px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
+        >
+          View Transaction History
+        </button>
       </div>
 
       {showConfirmation && (
@@ -45,22 +59,28 @@ const DeleteUserPage = () => {
               Are you sure you want to delete this account?
             </p>
             <div className="flex justify-end">
-              <Button
+              <button
                 onClick={() => setShowConfirmation(false)}
                 className="px-4 py-2 mr-4 font-bold text-white bg-gray-400 rounded hover:bg-gray-600"
               >
                 Cancel
-              </Button>
-              <Button
+              </button>
+              <button
                 onClick={confirmDelete}
                 className="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700"
                 disabled={isDeleting}
               >
                 {isDeleting ? "Deleting..." : "Agree"}
-              </Button>
+              </button>
             </div>
           </div>
         </div>
+      )}
+      {showTransactionHistory && (
+        <TransactionHistoryModal
+          isOpen={showTransactionHistory}
+          onClose={() => setShowTransactionHistory(false)}
+        />
       )}
 
       <ToastContainer />
