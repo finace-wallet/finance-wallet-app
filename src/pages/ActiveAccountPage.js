@@ -1,17 +1,16 @@
 import React from "react";
-import Layout from "../components/layout/main/Layout";
-import { ToastContainer, toast } from "react-toastify";
-import LayoutAuthentication from "../layout/LayoutAuthentication";
-import FormGroup from "../components/common/FormGroup";
-import { Label } from "../components/label";
-import { Input } from "../components/input";
-import { useForm } from "react-hook-form";
-
-import { yupResolver } from "@hookform/resolvers/yup"; // Import yupResolver
+import LayoutAuthentication from "layout/LayoutAuthentication";
+import Layout from "layout/main/Layout";
+import FormGroup from "components/common/FormGroup";
 import * as yup from "yup"; // Import Yup
-import { activeAccount } from "../api/AuthApi";
-import Button from "../components/button/Button";
+import { yupResolver } from "@hookform/resolvers/yup"; // Import yupResolver
 import { useNavigate } from "react-router";
+import { useForm } from "react-hook-form";
+import { ToastContainer, toast } from "react-toastify";
+import { Label } from "components/label";
+import { Input } from "components/input";
+import { Button } from "components/button";
+import { activeAccount } from "api/AuthApi";
 const ActiveAccountPage = () => {
   const schema = yup.object().shape({
     otp: yup.string().required("OTP is required"),
@@ -31,6 +30,7 @@ const ActiveAccountPage = () => {
 
   const handleForgotPassword = async (data) => {
     try {
+      console.log("Data: ", data);
       const response = await activeAccount(data);
       console.log("Server response: ", response);
       reset({});
@@ -53,10 +53,8 @@ const ActiveAccountPage = () => {
                 control={control}
                 name="otp"
                 placeholder="Input your OTP code sent from email here"
+                error={errors.otp?.message}
               ></Input>
-              {errors.otp && (
-                <p className="text-red-500">{errors.otp.message}</p>
-              )}
             </FormGroup>
             <Button type="submit" className="w-full bg-primary">
               {isSubmitting ? (

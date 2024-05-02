@@ -1,9 +1,9 @@
-import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React, { Suspense } from "react";
-import PageNotFound from "./pages/errors/PageNotFound";
+
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import PageNotFound from "pages/errors/PageNotFound";
 
 
 const HomePage = React.lazy(() => import("./pages/HomePage"));
@@ -20,6 +20,7 @@ const ListWalletPage = React.lazy(() => import("./pages/wallet/listWalletPage") 
 
 const AccountPage = React.lazy(() => import("./pages/user/Account"));
 const ActiveAccountPage = React.lazy(() => import("./pages/ActiveAccountPage"));
+const WalletDetail = React.lazy(() => import("./pages/wallet/WalletDetail"));
 
 
 function App() {
@@ -40,7 +41,9 @@ function App() {
               path="/forgot-password"
               element={<ForgotPasswordPage></ForgotPasswordPage>}
             ></Route>
+
             <Route path="/wallet" element={<ListWalletPage></ListWalletPage>}></Route>
+
             <Route
               path="/account"
               element={<AccountPage></AccountPage>}
@@ -50,6 +53,10 @@ function App() {
             <Route
               path="/active"
               element={<ActiveAccountPage></ActiveAccountPage>}
+            ></Route>
+            <Route
+              path="/wallet"
+              element={<WalletDetail></WalletDetail>}
             ></Route>
           </Routes>
         </Suspense>

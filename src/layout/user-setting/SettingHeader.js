@@ -7,10 +7,6 @@ const menuLinks = [
     title: "Account",
   },
   {
-    url: "/wallet",
-    title: "Wallet",
-  },
-  {
     url: "/security",
     title: "Security",
   },
@@ -19,8 +15,8 @@ const menuLinks = [
     title: "Data & Privacy",
   },
   {
-    url: "/payment",
-    title: "Payment",
+    url: "/wallet",
+    title: "Wallet",
   },
   {
     url: "/notification",

@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { logout, user1 } from "../../../store/auth/authSlice";
+import { logout } from "../../store/auth/authSlice";
 import { toast } from "react-toastify";
 
 const menuLinks = [
@@ -9,15 +9,11 @@ const menuLinks = [
     url: "/",
     title: "Home",
   },
-  {
-    url: "/register",
-    title: "Register",
-  },
 ];
 
 const Header = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const user = useSelector(user1);
+  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const handleLogout = () => {
     // Dispatch logout action
@@ -41,7 +37,9 @@ const Header = () => {
               Hello, {user.id}
             </NavLink>
           ) : (
-            ""
+            <NavLink to="/register" className="">
+              Register
+            </NavLink>
           )}
           {isLoggedIn ? (
             <span onClick={handleLogout} className="cursor-pointer">

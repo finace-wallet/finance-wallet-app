@@ -8,6 +8,7 @@ const initialState = {
   error: null,
   token: null,
   isLoggedIn: false,
+  userDetails: null,
 };
 
 const authSlice = createSlice({
@@ -23,9 +24,14 @@ const authSlice = createSlice({
       state.token = action.payload.access_token;
     },
 
+    setUser(state, action) {
+      // New action to set user data
+      state.userDetails = action.payload;
+    },
+
     logout(state) {
       state.token = "";
-      state.user = "";
+      state.user = null;
       state.isLoggedIn = false;
     },
   },
@@ -33,8 +39,9 @@ const authSlice = createSlice({
 
 // Exporting the slice's actions
 
+
 export const user1 = (state) => state.auth.user
 
-export const { setLogin, logout, setGoogleLogin } = authSlice.actions;
+export const { setLogin, logout, setGoogleLogin, setUser } = authSlice.actions;
 
 export default authSlice.reducer;

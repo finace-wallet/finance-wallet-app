@@ -1,18 +1,16 @@
 import React from "react";
-import LayoutAuthentication from "../layout/LayoutAuthentication";
-import { useForm } from "react-hook-form";
-import { Label } from "../components/label";
-import { Input } from "../components/input";
-import FormGroup from "../components/common/FormGroup";
-import Button from "../components/button/Button";
-
-import { yupResolver } from "@hookform/resolvers/yup";
+import LayoutAuthentication from "layout/LayoutAuthentication";
+import Layout from "layout/main/Layout";
+import FormGroup from "components/common/FormGroup";
 import * as yup from "yup";
-import { changePassword } from "../api/AuthApi";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
+import { Label } from "components/label";
+import { Input } from "components/input";
+import { changePassword } from "api/AuthApi";
+import { Button } from "components/button";
 import "react-toastify/dist/ReactToastify.css";
-import { useDispatch } from "react-redux";
-import Layout from "../components/layout/main/Layout";
 
 const schema = yup.object().shape({
   currentPassword: yup.string().required("Please enter your current password"),
@@ -31,7 +29,7 @@ const ChangePasswordPage = () => {
   const {
     handleSubmit,
     control,
-    formState: { isValid, isSubmitting, errors },
+    formState: { isSubmitting, errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -58,12 +56,12 @@ const ChangePasswordPage = () => {
               name="currentPassword"
               type="password"
               placeholder="Enter your current password"
+              error={errors.currentPassword?.message}
             />
-            {errors.currentPassword && (
+            {/* {errors.currentPassword && (
               <p className="text-red-500">{errors.currentPassword.message}</p>
-            )}
+            )} */}
           </FormGroup>
-
           <FormGroup>
             <Label htmlFor="newPassword">New Password *</Label>
             <Input
@@ -71,12 +69,12 @@ const ChangePasswordPage = () => {
               name="newPassword"
               type="password"
               placeholder="Enter your new password"
+              error={errors.newPassword?.message}
             />
-            {errors.newPassword && (
+            {/* {errors.newPassword && (
               <p className="text-red-500">{errors.newPassword.message}</p>
-            )}
+            )} */}
           </FormGroup>
-
           <FormGroup>
             <Label htmlFor="confirmNewPassword">Confirm New Password *</Label>
             <Input
@@ -84,12 +82,13 @@ const ChangePasswordPage = () => {
               name="confirmNewPassword"
               type="password"
               placeholder="Re-enter the new password"
+              error={errors.confirmNewPassword?.message}
             />
-            {errors.confirmNewPassword && (
+            {/* {errors.confirmNewPassword && (
               <p className="text-red-500">
                 {errors.confirmNewPassword.message}
               </p>
-            )}
+            )} */}
           </FormGroup>
 
           <Button type="submit" className="w-full bg-primary">

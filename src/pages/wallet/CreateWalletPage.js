@@ -2,7 +2,8 @@
 import Button from "../../components/button/Button";
 import { createWallet } from "../../components/wallet/WalletApi";
 import FormGroup from "../../components/common/FormGroup";
-import Layout from "../../components/layout/main/Layout";
+// import Layout from "../../components/layout/main/Layout";
+import Layout from "layout/main/Layout";
 import { Label } from "../../components/label";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";

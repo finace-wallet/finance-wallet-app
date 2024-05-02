@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../../components/layout/main/Layout";
+// import Layout from "../../components/layout/main/Layout";
+import Layout from "layout/main/Layout";
 import { listWallet } from "../../components/wallet/WalletApi";
 import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
