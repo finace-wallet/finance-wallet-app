@@ -1,13 +1,16 @@
 import { deleteUser } from "api/AuthApi";
 import { Button } from "components/button";
 import React, { useState } from "react";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import TransactionHistoryModal from "./TransactionHistoryPage";
+import { useDispatch } from "react-redux";
 
 const DeleteUserPage = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [showTransactionHistory, setShowTransactionHistory] = useState(false);
+  const dispatch = useDispatch();
 
   const confirmDelete = async () => {
     try {
@@ -25,6 +28,10 @@ const DeleteUserPage = () => {
     }
   };
 
+  const handleShowTransactionHistory = () => {
+    setShowTransactionHistory(true);
+  };
+
   return (
     <>
       <div className="pt-5">
@@ -34,6 +41,13 @@ const DeleteUserPage = () => {
           className="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700"
         >
           Delete account
+        </Button>
+        <button
+          type="button"
+          onClick={handleShowTransactionHistory}
+          className="ml-4 px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
+        >
+          View Transaction History
         </button>
       </div>
 
@@ -61,6 +75,12 @@ const DeleteUserPage = () => {
             </div>
           </div>
         </div>
+      )}
+      {showTransactionHistory && (
+        <TransactionHistoryModal
+          isOpen={showTransactionHistory}
+          onClose={() => setShowTransactionHistory(false)}
+        />
       )}
 
       <ToastContainer />
