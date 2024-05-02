@@ -56,7 +56,7 @@ function App() {
             ></Route>
 
             <Route
-              path="/wallet/detail/:id"
+              path="/wallet/detail"
               element={<WalletDetailPage/>}
             ></Route>
           </Routes>

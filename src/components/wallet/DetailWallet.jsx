@@ -11,7 +11,8 @@ import { useEffect, useState } from 'react';
 
 export default function WalletDetail(){
    
-    const wallet = useLocation().state;  
+    const wallet = useLocation().state 
+    
     const handleDelete = () => {
         confirmAlert({
             title: 'Xác nhận xóa',
@@ -53,13 +54,13 @@ export default function WalletDetail(){
             })}
             onSubmit={(value) => {
                 console.log(value);
-                // edit(value, id)
+                edit(value, wallet.id)
             }} 
             >
                 <Form className="space-y-4">
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Icon</label>
-                        <Field name="icon" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></Field>
+                        <Field  name="icon" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></Field>
                         <ErrorMessage name='icon' component={'span'}/>
                     </div>
                     <div>
