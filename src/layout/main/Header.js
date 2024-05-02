@@ -1,17 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { logout } from "../../../store/auth/authSlice";
+import { logout } from "../../store/auth/authSlice";
 import { toast } from "react-toastify";
 
 const menuLinks = [
   {
     url: "/",
     title: "Home",
-  },
-  {
-    url: "/register",
-    title: "Register",
   },
 ];
 
@@ -41,7 +37,9 @@ const Header = () => {
               Hello, {user.id}
             </NavLink>
           ) : (
-            ""
+            <NavLink to="/register" className="">
+              Register
+            </NavLink>
           )}
           {isLoggedIn ? (
             <span onClick={handleLogout} className="cursor-pointer">
