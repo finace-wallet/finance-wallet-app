@@ -22,7 +22,7 @@ const Account = () => {
       console.log("Token:", token);
       const response = await getUserData(token);
       const userData = response.data.data;
-      console.log("Response from backend:", userData);
+      // console.log("Response from backend:", userData);
       dispatch(setUser(userData));
 
       // Do something with userData
@@ -34,7 +34,7 @@ const Account = () => {
 
   const userDetails = useSelector((state) => state.auth.userDetails);
 
-  console.log("current user", userDetails);
+  // console.log("current user", userDetails);
   return (
     <>
       <Layout>
