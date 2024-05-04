@@ -31,6 +31,7 @@ module.exports = {
         softBlue: "#0544b5",
         softWhite: "#faf8f5",
         borderBlue: "#0070e0",
+        myColor: "#0070e5",
       },
       boxShadow: {
         sdprimary: "10px 10px 20px rgba(211, 211, 211, 0.25)",

@@ -48,7 +48,8 @@ const SignInPage = () => {
   const handleSignIn = async (data, event) => {
     try {
       event.preventDefault();
-      const response = await login(data); // Call register function from AuthApi
+      const response = await login(data); // Call register function from AuthApi     
+      
       console.log(response); // Log the response for debugging
       // Handle success scenario, e.g., redirect to another pag
       dispatch(setTokenAction(response.data.data.accessToken));
@@ -113,7 +114,7 @@ const SignInPage = () => {
             </div>
             <Button type="submit" className="w-full bg-primary">
               {isSubmitting ? (
-                <div className="w-5 h-5 border-2 border-t-2 border-white rounded-full border-t-transparent animate-spin"></div>
+                  <div className="w-5 h-5 border-2 border-t-2 border-white rounded-full border-t-transparent animate-spin"></div>
               ) : (
                 "Log In"
               )}

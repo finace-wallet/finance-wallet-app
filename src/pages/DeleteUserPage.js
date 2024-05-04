@@ -9,8 +9,12 @@ import { useDispatch } from "react-redux";
 const DeleteUserPage = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+
+  const [showConfirmation1,setShowConfirmation1] = useState(false);
+
   const [showTransactionHistory, setShowTransactionHistory] = useState(false);
   const dispatch = useDispatch();
+
 
   const confirmDelete = async () => {
     try {
@@ -34,6 +38,7 @@ const DeleteUserPage = () => {
 
   return (
     <>
+    <div className="flex gap-4">
       <div className="pt-5">
         <button
           type="button"
@@ -41,16 +46,19 @@ const DeleteUserPage = () => {
           className="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700"
         >
           Delete account
-        </Button>
+        </button>
+       
+      </div>
+<div className="pt-5">
         <button
           type="button"
-          onClick={handleShowTransactionHistory}
-          className="ml-4 px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
+          onClick={() => setShowConfirmation1(true)}
+          className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
         >
-          View Transaction History
+         Change Password
         </button>
       </div>
-
+      </div>
       {showConfirmation && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-gray-500 bg-opacity-75"></div>
