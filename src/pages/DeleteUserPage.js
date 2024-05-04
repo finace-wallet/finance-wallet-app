@@ -13,6 +13,7 @@ const DeleteUserPage = () => {
   const dispatch = useDispatch();
   const nav = useNavigate();
   const [showTransactionHistory, setShowTransactionHistory] = useState(false);
+
   const confirmDelete = async () => {
     try {
       setIsDeleting(true);
@@ -29,29 +30,19 @@ const DeleteUserPage = () => {
     }
   };
 
-  const handleShowTransactionHistory = () => {
-    setShowTransactionHistory(true);
-  };
-
   return (
     <>
-      <div className="pt-5">
-        <button
-          type="button"
-          onClick={() => setShowConfirmation(true)}
-          className="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700"
-        >
-          Delete account
-        </button>
-        <button
-          type="button"
-          onClick={handleShowTransactionHistory}
-          className="px-4 py-2 ml-4 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
-        >
-          View Transaction History
-        </button>
+      <div className="flex gap-4">
+        <div className="pt-5">
+          <button
+            type="button"
+            onClick={() => setShowConfirmation(true)}
+            className="px-4 py-2 font-bold text-white bg-red-500 rounded hover:bg-red-700"
+          >
+            Delete account
+          </button>
+        </div>
       </div>
-
       {showConfirmation && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-gray-500 bg-opacity-75"></div>

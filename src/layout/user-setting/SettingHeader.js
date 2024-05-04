@@ -22,6 +22,7 @@ const menuLinks = [
     url: "/notification",
     title: "Notification",
   },
+
 ];
 
 const SettingHeader = () => {
