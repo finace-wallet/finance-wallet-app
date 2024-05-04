@@ -1,14 +1,21 @@
 import { deleteUser } from "api/AuthApi";
 import { Button } from "components/button";
 import React, { useState } from "react";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import TransactionHistoryModal from "./TransactionHistoryPage";
+import { useDispatch } from "react-redux";
 
 const DeleteUserPage = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+
   const [showConfirmation1,setShowConfirmation1] = useState(false);
+
+  const [showTransactionHistory, setShowTransactionHistory] = useState(false);
+  const dispatch = useDispatch();
+
+
   const confirmDelete = async () => {
     try {
       setIsDeleting(true);
@@ -25,6 +32,10 @@ const DeleteUserPage = () => {
     }
   };
 
+  const handleShowTransactionHistory = () => {
+    setShowTransactionHistory(true);
+  };
+
   return (
     <>
     <div className="flex gap-4">
@@ -36,6 +47,7 @@ const DeleteUserPage = () => {
         >
           Delete account
         </button>
+       
       </div>
 <div className="pt-5">
         <button
@@ -72,34 +84,13 @@ const DeleteUserPage = () => {
           </div>
         </div>
       )}
-{showConfirmation1 && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div className="absolute inset-0 bg-gray-500 bg-opacity-75"></div>
-          <div className="relative p-8 bg-white border border-gray-300 rounded-lg shadow-lg">
-            <p className="mb-4">
-              Change Password
-            </p>
-            <div className="flex flex-col gap-2">
-            
-            <label htmlFor="currentPassword">Current password</label>
-              <input className="" name="currentPassword" id="currentPassword">
-               
-              </input>
-            <input></input>
-            <input></input>
-            </div>
-            <div className="flex justify-end">
-              <button
-                onClick={() => setShowConfirmation(false)}
-                className="px-4 py-2 mr-4 font-bold text-white bg-red-400 rounded hover:bg-red-600"
-              >
-                Submit
-              </button>
-             
-            </div>
-          </div>
-        </div>
+      {showTransactionHistory && (
+        <TransactionHistoryModal
+          isOpen={showTransactionHistory}
+          onClose={() => setShowTransactionHistory(false)}
+        />
       )}
+
       <ToastContainer />
     </>
   );
