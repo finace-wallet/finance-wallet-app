@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 const DeleteUserPage = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-
+  const [showConfirmation1,setShowConfirmation1] = useState(false);
   const confirmDelete = async () => {
     try {
       setIsDeleting(true);
@@ -27,6 +27,7 @@ const DeleteUserPage = () => {
 
   return (
     <>
+    <div className="flex gap-4">
       <div className="pt-5">
         <button
           type="button"
@@ -36,7 +37,16 @@ const DeleteUserPage = () => {
           Delete account
         </button>
       </div>
-
+<div className="pt-5">
+        <button
+          type="button"
+          onClick={() => setShowConfirmation1(true)}
+          className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
+        >
+         Change Password
+        </button>
+      </div>
+      </div>
       {showConfirmation && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-gray-500 bg-opacity-75"></div>
@@ -62,7 +72,34 @@ const DeleteUserPage = () => {
           </div>
         </div>
       )}
-
+{showConfirmation1 && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-gray-500 bg-opacity-75"></div>
+          <div className="relative p-8 bg-white border border-gray-300 rounded-lg shadow-lg">
+            <p className="mb-4">
+              Change Password
+            </p>
+            <div className="flex flex-col gap-2">
+            
+            <label htmlFor="currentPassword">Current password</label>
+              <input className="" name="currentPassword" id="currentPassword">
+               
+              </input>
+            <input></input>
+            <input></input>
+            </div>
+            <div className="flex justify-end">
+              <button
+                onClick={() => setShowConfirmation(false)}
+                className="px-4 py-2 mr-4 font-bold text-white bg-red-400 rounded hover:bg-red-600"
+              >
+                Submit
+              </button>
+             
+            </div>
+          </div>
+        </div>
+      )}
       <ToastContainer />
     </>
   );

@@ -12,7 +12,6 @@ import * as yup from "yup";
 
 const schema = yup.object().shape({
   name: yup.string().required("Please enter a name for the wallet"),
-  icon: yup.string(),
   amount: yup
     .number()
     .typeError("Amount must be a number")
@@ -25,7 +24,6 @@ const CreateWalletPage = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
-    icon: "",
     amount: "",
     currentType: "",
     description: ""
@@ -66,17 +64,12 @@ const CreateWalletPage = () => {
           <FormGroup>
             <Label htmlFor="name">Name *</Label>
             <input className="w-full px-6 py-4 text-sm font-medium border border-strock rounded-xl text-text1 placeholder:text-text4"
-              type="text" id="name" value={form?.name} onChange={handleChange} />
-          </FormGroup>
-          <FormGroup>
-            <Label htmlFor="icon">Icon</Label>
-            <input className="w-full px-6 py-4 text-sm font-medium border border-strock rounded-xl text-text1 placeholder:text-text4"
-              type="text" id="icon" value={form?.icon} onChange={handleChange} />
+              type="text" id="name" value={form.name} onChange={handleChange} />
           </FormGroup>
           <FormGroup>
             <Label htmlFor="amount">Amount *</Label>
             <input className="w-full px-6 py-4 text-sm font-medium border border-strock rounded-xl text-text1 placeholder:text-text4"
-            type="number" id="amount" value={form?.amount} onChange={handleChange} />
+            type="number" id="amount" value={form.amount} onChange={handleChange} />
           </FormGroup>
           <FormGroup>
             <Label htmlFor="currentType">Currency Type</Label>

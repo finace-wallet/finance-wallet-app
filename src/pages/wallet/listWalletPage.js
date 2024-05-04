@@ -2,14 +2,19 @@ import React, { useEffect, useState } from "react";
 // import Layout from "../../components/layout/main/Layout";
 import Layout from "layout/main/Layout";
 import { listWallet } from "../../components/wallet/WalletApi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ReactPaginate from "react-paginate";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch } from "react-redux";
+import { setWalletDetails, setWalletDetails1 } from "store/wallet/walletSlice";
+import { faWallet } from "@fortawesome/free-solid-svg-icons";
 const WalletList = () => {
     const [wallets, setWallets] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrenPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     useEffect(() => {
         fetchWallets();
     }, [currentPage]);
@@ -52,17 +57,27 @@ const WalletList = () => {
                             <h3 className="px-6 font-medium text-left text-gray-900">Recent activities</h3>
                             <div className="flex flex-col items-center w-full mt-5 overflow-hidden text-sm">
                                 {wallets && wallets.map((wallet) => (
-    <div key={wallet.id} className="w-full p-4 mb-4 transition duration-300 ease-in-out delay-150 border border-gray-200 rounded-md shadow-md hover:-translate-y-1 hover:scale-80 ">
-        <p className="font-semibold">Name: {wallet.name}</p>
-        <div className="flex items-center justify-between mt-2">
-            <p className="text-gray-600">Icon: {wallet.icon}</p>
-            <p className="text-gray-600">Amount: {wallet.amount}</p>
-        </div>
-        <div className="flex items-center justify-between mt-1">
-            <p className="text-gray-600">Currency Type: {wallet.currentType}</p>
-            <p className="text-gray-600">Description: {wallet.description}</p>
-        </div>
+        <div
+  key={wallet.id}
+  className="w-full p-4 mb-4 transition duration-300 ease-in-out delay-150 border border-gray-200 rounded-md shadow-md cursor-pointer hover:shadow-lg hover:bg-gray-100 custom-card"
+  onClick={() => {
+    dispatch(setWalletDetails1(wallet));
+    console.log(wallet);
+    navigate(`/wallet/${wallet.id}`);
+  }}
+>
+  <div className="flex items-center justify-between">
+    <div className="flex items-center">
+      <FontAwesomeIcon icon={faWallet} className="mr-2 text-2xl text-primary" />
+      <p className="text-lg font-semibold text-primary">{wallet.name}</p>
     </div>
+    <div className="text-gray-600">
+      <p className="text-sm">Amount: {wallet.amount}</p>
+      <p className="text-sm">Currency Type: {wallet.currentType}</p>
+    </div>
+  </div>
+  <p className="mt-2 text-sm text-gray-600">Description: {wallet.description}</p>
+</div>
     
 ))}
 <ReactPaginate
