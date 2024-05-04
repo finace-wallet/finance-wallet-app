@@ -6,9 +6,9 @@ import walletReducer from "./wallet/walletSlice";
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    transaction: TransactionReducer
+    transaction: TransactionReducer,
     wallet: walletReducer,
-  },
+  }
 });
 
 export default store;

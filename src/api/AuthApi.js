@@ -50,7 +50,7 @@ export async function changePassword(changePasswordRequest) {
     const token = localStorage.getItem("token");
     setTokenAction(token);
 
-    response = await axios({
+    const axiosResponse = await axios({
       url: `${FINANCE_WALLET_API}auth/change-password`,
       headers: {
         "Content-Type": "application/json",
@@ -59,12 +59,21 @@ export async function changePassword(changePasswordRequest) {
       method: "PUT",
       data: changePasswordRequest,
     });
+    
+    response = {
+      ...axiosResponse,
+      success: true,
+    };
   } catch (error) {
-    response = error.response;
+    response = {
+      ...error.response,
+      success: false,
+    };
   }
 
   return response;
 }
+
 
 export async function forgetPassword(user) {
   let response = null;

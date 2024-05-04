@@ -1,5 +1,4 @@
 import { deleteUser } from "api/AuthApi";
-import { Button } from "components/button";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch } from "react-redux";
@@ -7,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router";
 import { logout } from "../store/auth/authSlice";
 import TransactionHistoryModal from "./TransactionHistoryPage";
-import { useDispatch } from "react-redux";
 
 const DeleteUserPage = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);

@@ -9,17 +9,14 @@ const HomePage = React.lazy(() => import("./pages/HomePage"));
 const SignUpPage = React.lazy(() => import("./pages/user/SignUpPage"));
 const SignInPage = React.lazy(() => import("./pages/user/SignInPage"));
 const TestPage = React.lazy(() => import("./pages/Test"));
-const ChangePasswordPage = React.lazy(() =>
-  import("./pages/ChangePasswordPage")
-);
 const ForgotPasswordPage = React.lazy(() =>
   import("./pages/ForgotPasswordPage")
 );
 const AccountPage = React.lazy(() => import("./pages/user/Account"));
 const ActiveAccountPage = React.lazy(() => import("./pages/ActiveAccountPage"));
-const TransferMoneyPage = React.lazy(() => import("./pages/TransferMoneyPage"));
 const WalletGeneral = React.lazy(() => import("./pages/wallet/WalletGeneral"));
 const WalletDetail = React.lazy(() => import("./pages/wallet/WalletDetail"));
+const TransferMoneyPage = React.lazy(() => import("./pages/TransferMoneyPage"));
 
 function App() {
   return (
@@ -31,10 +28,6 @@ function App() {
             <Route path="/" element={<HomePage></HomePage>}></Route>
             <Route path="/register" element={<SignUpPage></SignUpPage>}></Route>
             <Route path="/login" element={<SignInPage></SignInPage>}></Route>
-            <Route
-              path="/change-password"
-              element={<ChangePasswordPage></ChangePasswordPage>}
-            ></Route>
             <Route
               path="/forgot-password"
               element={<ForgotPasswordPage></ForgotPasswordPage>}
@@ -48,7 +41,6 @@ function App() {
               path="/active"
               element={<ActiveAccountPage></ActiveAccountPage>}
             ></Route>
-            <Route path="/transfer-money" element={<TransferMoneyPage></TransferMoneyPage>}></Route>
             <Route
               path="/wallet"
               element={<WalletGeneral></WalletGeneral>}
@@ -57,6 +49,7 @@ function App() {
               path="/wallet-detail"
               element={<WalletDetail></WalletDetail>}
             ></Route>
+            <Route path="/transfer-money" element={<TransferMoneyPage></TransferMoneyPage>}></Route>
           </Routes>
         </Suspense>
         <ToastContainer autoClose={3000} />

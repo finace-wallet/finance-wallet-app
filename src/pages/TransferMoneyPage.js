@@ -1,124 +1,117 @@
-import React from "react";
-import Layout from "../components/layout/main/Layout";
-import FormGroup from "../components/common/FormGroup";
-import Button from "../components/button/Button";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { transferMoney } from "../api/WalletApi";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { Input } from "../components/input";
-
-const schema = yup.object().shape({
-//   sourceWalletId: yup.string().required("Please enter source wallet ID"),
-  destinationEmail: yup
-    .string()
-    .email("Please enter a valid email address")
-    .required("Please enter destination email"),
-//   destinationWalletId: yup
-//     .string()
-//     .required("Please enter destination wallet ID"),
-  amount: yup
-    .number()
-    .min(0.01, "Amount must be at least 0.01")
-    .required("Please enter amount"),
-});
+import FormGroup from "components/common/FormGroup";
+import { Label } from "components/label";
+import { Input } from "components/input";
+import { Button } from "components/button";
+import { transferMoney } from "api/WalletApi"; // Import your transferMoney function
+import { toast } from "react-toastify";
 
 const TransferMoneyPage = () => {
   const {
     handleSubmit,
     control,
-    formState: { isSubmitting, errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
+    formState: { errors },
+  } = useForm();
+
+  const [wallets, setWallets] = useState([]); // Replace with actual wallet data
+  const [selectedSourceWallet, setSelectedSourceWallet] = useState(null);
+  const [selectedDestinationWallet, setSelectedDestinationWallet] =
+    useState(null);
+  const [destinationEmail, setDestinationEmail] = useState("");
+  const [destinationWallets, setDestinationWallets] = useState([]);
 
   const handleFormSubmit = async (data) => {
-    try {
-      const response = await transferMoney(data);
+    const transferMoneyRequest = {
+      sourceWalletId: selectedSourceWallet,
+      destinationWalletId: selectedDestinationWallet,
+      destinationEmail: destinationEmail,
+      amount: data.amount,
+      description: data.description,
+    };
+    const response = await transferMoney(transferMoneyRequest);
+    if (response && response.success) {
       toast.success("Money transferred successfully");
-      console.log("Server response", response.data);
-    } catch (error) {
-      console.error("Error submitting form: ", error);
-      toast.error("Something went wrong");
+    } else {
+      toast.error("Failed to transfer money. Please try again.");
     }
   };
 
+  const handleSourceWalletChange = (event) => {
+    setSelectedSourceWallet(event.target.value);
+  };
+
+  const handleDestinationEmailChange = (event) => {
+    setDestinationEmail(event.target.value);
+    // Call your API to get wallets of the destination user here
+    // Then update 'destinationWallets' state
+  };
+
+  const handleDestinationWalletChange = (event) => {
+    setSelectedDestinationWallet(event.target.value);
+  };
+
   return (
-    <Layout>
-      <div className="max-w-lg mx-auto">
-        <h1 className="mb-4 text-2xl font-bold">Transfer Money</h1>
-        <form onSubmit={handleSubmit(handleFormSubmit)}>
-          <FormGroup>
-            <label htmlFor="sourceWalletId">Source Wallet ID *</label>
-            <Input
-              control={control}
-              name="sourceWallet"
-              placeholder="Enter Source Wallet ID"
-            />
-            {errors.sourceWalletId && (
-              <p className="text-red-500">{errors.sourceWalletId.message}</p>
-            )}
-          </FormGroup>
+    <form onSubmit={handleSubmit(handleFormSubmit)}>
+      <FormGroup>
+        <Label htmlFor="sourceWallet">Source Wallet *</Label>
+        <select name="sourceWallet" onChange={handleSourceWalletChange}>
+          {wallets.map((wallet) => (
+            <option key={wallet.id} value={wallet.id}>
+              {wallet.name}
+            </option>
+          ))}
+        </select>
+      </FormGroup>
 
-          <FormGroup>
-            <label htmlFor="destinationEmail">Destination Email *</label>
-            <Input
-              control={control}
-              name="destinationEmail"
-              placeholder="Enter Destination Email"
-            />
-            {errors.destinationEmail && (
-              <p className="text-red-500">{errors.destinationEmail.message}</p>
-            )}
-          </FormGroup>
+      <FormGroup>
+        <Label htmlFor="destinationEmail">Destination Email *</Label>
+        <Input
+          name="destinationEmail"
+          type="email"
+          placeholder="Enter destination email"
+          onChange={handleDestinationEmailChange}
+        />
+      </FormGroup>
 
-          <FormGroup>
-            <label htmlFor="destinationWalletId">Destination Wallet ID *</label>
-            <Input
-              control={control}
-              name="destinationWallet"
-              placeholder="Enter Destination Wallet ID"
-            />
-            {errors.destinationWalletId && (
-              <p className="text-red-500">
-                {errors.destinationWalletId.message}
-              </p>
-            )}
-          </FormGroup>
+      <FormGroup>
+        <Label htmlFor="destinationWallet">Destination Wallet *</Label>
+        <select
+          name="destinationWallet"
+          onChange={handleDestinationWalletChange}
+        >
+          {destinationWallets.map((wallet) => (
+            <option key={wallet.id} value={wallet.id}>
+              {wallet.name}
+            </option>
+          ))}
+        </select>
+      </FormGroup>
 
-          <FormGroup>
-            <label htmlFor="amount">Amount *</label>
-            <Input control={control} name="amount" placeholder="Enter amount" />
-            {errors.amount && (
-              <p className="text-red-500">{errors.amount.message}</p>
-            )}
-          </FormGroup>
+      <FormGroup>
+        <Label htmlFor="amount">Amount *</Label>
+        <Input
+          control={control}
+          name="amount"
+          type="number"
+          placeholder="Enter amount"
+          error={errors.amount?.message}
+        />
+      </FormGroup>
 
-          <FormGroup>
-            <label htmlFor="description">Description</label>
-            <Input
-              control={control}
-              name="description"
-              placeholder="Enter Description"
-            />
-            {errors.description && (
-              <p className="text-red-500">{errors.description.message}</p>
-            )}
-          </FormGroup>
+      <FormGroup>
+        <Label htmlFor="description">Description</Label>
+        <Input
+          control={control}
+          name="description"
+          type="text"
+          placeholder="Enter description"
+          error={errors.description?.message}
+        />
+      </FormGroup>
 
-          <Button
-            type="submit"
-            className="w-full mt-4 bg-primary"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Transferring..." : "Transfer Money"}
-          </Button>
-        </form>
-      </div>
-      <ToastContainer />
-    </Layout>
+      <Button type="submit">Transfer Money</Button>
+    </form>
   );
 };
 
