@@ -1,6 +1,6 @@
 // authSlice.js
 
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
   user: null,
@@ -10,7 +10,6 @@ const initialState = {
   isLoggedIn: false,
   userDetails: null,
 };
-
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -33,6 +32,7 @@ const authSlice = createSlice({
       state.token = "";
       state.user = null;
       state.isLoggedIn = false;
+      localStorage.removeItem("token");
     },
   },
 });
