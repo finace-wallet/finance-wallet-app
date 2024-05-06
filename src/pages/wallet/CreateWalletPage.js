@@ -15,8 +15,9 @@ const schema = yup.object().shape({
   amount: yup
     .number()
     .typeError("Amount must be a number")
-    .required("Please enter the amount"),
-  currentType: yup.string(),
+    .required("Please enter the amount")
+    .min(0, "Amount must be greater than or equal to 0."),
+  currentType: yup.string().required("Please provide the currency type"),
   description: yup.string().required("Please provide a description"),
 });
 
@@ -27,9 +28,19 @@ const CreateWalletPage = () => {
     amount: "",
     currentType: "",
     description: ""
-  }) 
+  }); 
 
+  const [amountError, setAmountError] = useState("");
+  const [formError, setFormError] = useState("");
+  
   const handleChange = (e) => {
+    const {id, value} = e.target;
+    if (id === 'amount' && parseFloat(value) < 0 ) {
+      setAmountError("Amount must be greater than or equal to 0.");
+      return;
+    } else {
+      setAmountError("");
+    }
     setForm({
       ...form,
       [e.target.id]: e.target.value
@@ -44,13 +55,15 @@ const CreateWalletPage = () => {
       console.log("Wallet created successfully:", response);
       navigate("/wallet");
     } catch (error) {
-      if (error.name === "ValidateionError") {
+      if (error.name === "ValidationError") {
         const validationErrors = {};
         error.inner.forEach((err) => {
           validationErrors[err.path] = err.message;
         });
+        setFormError("" + error);
         console.error("Validation errors:",validationErrors);
       } else {
+        setFormError("Error creating wallet: " + error.message);
         console.error("Error creating wallet:",error);
       }
     }
@@ -61,6 +74,7 @@ const CreateWalletPage = () => {
       <div className="max-w-lg mx-auto">
         <h1 className="mb-4 text-2xl font-semibold">Create New Wallet</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
+        
           <FormGroup>
             <Label htmlFor="name">Name *</Label>
             <input className="w-full px-6 py-4 text-sm font-medium border border-strock rounded-xl text-text1 placeholder:text-text4"
@@ -70,6 +84,7 @@ const CreateWalletPage = () => {
             <Label htmlFor="amount">Amount *</Label>
             <input className="w-full px-6 py-4 text-sm font-medium border border-strock rounded-xl text-text1 placeholder:text-text4"
             type="number" id="amount" value={form.amount} onChange={handleChange} />
+            {amountError && <span className="text-sm text-red-500">{amountError}</span>}
           </FormGroup>
           <FormGroup>
             <Label htmlFor="currentType">Currency Type</Label>
@@ -81,6 +96,7 @@ const CreateWalletPage = () => {
             <input className="w-full px-6 py-4 text-sm font-medium border border-strock rounded-xl text-text1 placeholder:text-text4"
             type="text" id="description" value={form.description} onChange={handleChange} />
           </FormGroup>
+          {formError && <p className="text-red-500">{formError}</p>}
           <Button type="submit" className="w-full bg-primary">Create Wallet</Button>
         </form>
       </div>
