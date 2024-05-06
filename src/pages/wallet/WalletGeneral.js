@@ -1,4 +1,4 @@
-import { addMoneyToWallet, displayWallet } from "api/WalletApi";
+import { addMoneyToWallet, displayWallet, displayWalletDetail } from "api/WalletApi";
 import Pagination from "components/pagination/Pagination";
 import LayoutTwoColumn from "layout/LayoutTwoColumn";
 import Layout from "layout/main/Layout";
@@ -27,7 +27,7 @@ const WalletDetail = () => {
 
   const fetchWallets = async (page) => {
     try {
-      const response = await displayWallet(page);
+      const response = await displayWalletDetail(page);
       console.log("This response", response);
       setWallets(response.data.content);
       setTotalPages(response.data.totalPages);

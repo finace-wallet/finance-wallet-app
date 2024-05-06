@@ -1,13 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  wallets:null,
+  wallets: null,
   walletId: null,
   walletName: null,
   walletAmount: null,
   walletCurrentType: null,
   walletDescription: null,
   error: null,
+  walletsRecipiment: null,
+  walletsRecipimentEmail: null,
 };
 
 const walletSlice = createSlice({
@@ -21,25 +23,23 @@ const walletSlice = createSlice({
       state.walletAmount = action.payload;
     },
     setWalletDetails: (state, action) => {
-      const {
-        walletId,
-        walletName,
-        walletAmount,
-        walletCurrentType,
-        walletDescription,
-      } = action.payload;
-      state.walletId = walletId;
-      state.walletName = walletName;
-      state.walletAmount = walletAmount;
-      state.walletCurrentType = walletCurrentType;
-      state.walletDescription = walletDescription;
+      state.wallets = action.payload;
     },
-    setWalletDetails1: (state, action) => {
-  state.wallets = action.payload;
-},
+    setWalletRecipiment: (state, action) => {
+      state.walletsRecipiment = action.payload;
+    },
+    setWalletRecipimentEmail: (state, action) => {
+      state.walletsRecipimentEmail = action.payload;
+    },
   },
 });
 
-export const { setWalletId, setWalletAmount, setWalletDetails,setWalletDetails1 } =
-  walletSlice.actions;
+export const {
+  setWalletId,
+  setWalletAmount,
+  setWalletDetails,
+  setWalletRecipiment,
+  setWalletRecipimentEmail,
+} = walletSlice.actions;
+
 export default walletSlice.reducer;
