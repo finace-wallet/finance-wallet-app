@@ -8,6 +8,7 @@ const store = configureStore({
     auth: authReducer,
     transaction: TransactionReducer,
     wallet: walletReducer,
+  
   },
 });
 

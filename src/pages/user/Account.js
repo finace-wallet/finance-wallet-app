@@ -68,8 +68,10 @@ const Account = () => {
                       notification: "This is your main address",
                     }}
                   </CardComponent>
+
                 </>
               ),
+              
             }}
           </LayoutTwoColumn>
         </UserSettingLayout>

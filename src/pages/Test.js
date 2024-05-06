@@ -10,6 +10,7 @@ const Test = () => {
   return (
     <div>
       <button onClick={showToastMessage}>Notify</button>
+      <div className="flex flex-col text-sm font-semibold bg-white"></div>
       <ToastContainer />
     </div>
   );
