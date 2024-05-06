@@ -44,7 +44,7 @@ const WalletAddMoney = () => {
         />
 
         <button
-          className="flex items-center justify-center text-base bg-primary font-semibold rounded-xl text-white min-h-[56px] min-w-[200px]"
+          className="flex items-center justify-center text-base bg-blue-500 hover:bg-blue-700 font-semibold rounded-xl text-white min-h-[56px] min-w-[200px]"
           onClick={handleAddMoney}
         >
           Add money

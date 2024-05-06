@@ -75,7 +75,7 @@ const WalletTransferEmail = () => {
     <>
       <div className="flex flex-col justify-center p-4 max-w-[200px] mx-auto">
         <button
-          className=" justify-center text-base bg-primary font-semibold rounded-xl text-white min-h-[56px] mx-auto max-w-[200px] min-w-[200px]"
+          className=" justify-center text-base bg-blue-500 hover:bg-blue-700 font-semibold rounded-xl text-white min-h-[56px] mx-auto max-w-[200px] min-w-[200px]"
           onClick={openModal}
         >
           Share Money
@@ -129,7 +129,10 @@ const WalletTransferEmail = () => {
               ></Input>
             </FormGroup>
             <div className="flex justify-end mt-auto gap-2">
-              <Button type="submit" className="w-m-[100px] bg-primary">
+              <Button
+                type="submit"
+                className="w-m-[100px] bg-blue-500 hover:bg-blue-700"
+              >
                 {isSubmitting ? (
                   <div className="w-5 h-5 border-2 border-t-2 border-white rounded-full border-t-transparent animate-spin"></div>
                 ) : (

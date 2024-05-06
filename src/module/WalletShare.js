@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import Modal from "react-modal";
 import { log } from "react-modal/lib/helpers/ariaAppHider";
 import { useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
 import * as yup from "yup";
 
 const schema = yup.object().shape({
@@ -52,6 +53,12 @@ const WalletShare = () => {
     data.shareWalletId = selectedWalletId;
     console.log("Form data:", data);
     const response = await shareWallet(data);
+    if (response.status === 201) {
+      toast.success("Wallet shared successfully");
+      setTimeout(() => {
+        closeModal();
+      }, 1000);
+    }
     console.log(response);
   };
 
@@ -62,7 +69,7 @@ const WalletShare = () => {
     <>
       <div className="flex flex-col justify-center p-4 max-w-[200px] mx-auto">
         <button
-          className=" justify-center text-base bg-primary font-semibold rounded-xl text-white min-h-[56px] mx-auto max-w-[200px] min-w-[200px]"
+          className=" justify-center text-base bg-blue-500 hover:bg-blue-700font-semibold rounded-xl text-white min-h-[56px] mx-auto max-w-[200px] min-w-[200px]"
           onClick={openModal}
         >
           Share Wallet
@@ -160,6 +167,7 @@ const WalletShare = () => {
           </form>
         </Modal>
       </div>
+      <ToastContainer></ToastContainer>
     </>
   );
 };

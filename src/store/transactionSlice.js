@@ -4,23 +4,23 @@ import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
 
 const initialState = {
-    transaction: [],
+    transactions: [],
     isLoading: false,
     error: null,
     pagination: {
         page: 0,
-        size: 5,
+        size: 8,
         total: 0,
     },
 };
 
 export const fetchTransaction = createAsyncThunk(
     "/transaction/history",
-    async (_, { rejectWithValue }) => {
+    async ({ walletId, page}, { rejectWithValue }) => {
       try {
-        const response = await getTransactionList();
+        const response = await getTransactionList(walletId,page);
         if(response.status === 200){
-            console.log(response.data);
+            console.log(response.data.data);
             return response.data; 
         }
       } catch (error) {
@@ -55,7 +55,7 @@ export const transactionSlice = createSlice({
   initialState,
   reducers: {
     clearTransactions: (state) => {
-      state.transaction = []
+      state.selectTransactions = []
       state.isLoading = false;
       state.error = null;
     }
@@ -68,8 +68,12 @@ export const transactionSlice = createSlice({
         })
         .addCase(fetchTransaction.fulfilled, (state, action) => {
           state.isLoading = false;
-          state.transaction = action.payload.data;
-          state.pagination = action.payload.pagination;
+          state.transactions = action.payload.data.content;
+          state.pagination = {
+            page: action.payload.data.pageable.pageNumber,
+            size: action.payload.data.pageable.pageSize,
+            total: action.payload.data.totalPages,
+          };
         })
         .addCase(fetchTransaction.rejected, (state, action) => {
           state.isLoading = false;
@@ -80,7 +84,7 @@ export const transactionSlice = createSlice({
 
 export const { clearTransactions } = transactionSlice.actions;
 
-export const selectTransactions = state => state.transaction.transaction;
+export const selectTransactions = state => state.transaction.transactions;
 export const selectIsLoading = state => state.transaction.isLoading;
 export const selectError = state => state.transaction.error;
 export const selectPagination = state => state.transaction.pagination;

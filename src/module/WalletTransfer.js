@@ -1,6 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { findShareWallet, transferWallet } from "api/WalletApi";
+import {
+  displayWalletDetail,
+  findShareWallet,
+  transferWallet,
+} from "api/WalletApi";
 import { getAllWalletsByRecipientEmail } from "api/WalletTransfer";
 import { Button, CloseButton } from "components/button";
 import FormGroup from "components/common/FormGroup";
@@ -11,16 +15,16 @@ import { useForm } from "react-hook-form";
 import Modal from "react-modal";
 import { log } from "react-modal/lib/helpers/ariaAppHider";
 import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import { setWalletDetails } from "store/wallet/walletSlice";
 import * as yup from "yup";
 
 const transferSchema = yup.object().shape({
-  amount: yup
-    .number()
-    .required("Share amount is required")
-    .max(
-      (schema) => schema.parent?.myWallet?.amount || 0,
-      "Transfer amount cannot exceed your available balance."
-    ),
+  amount: yup.number().required("Share amount is required"),
+  // .max(
+  //   (schema) => schema.parent?.myWallet?.amount || 0,
+  //   "Transfer amount cannot exceed your available balance."
+  // ),
 });
 
 const WalletTransfer = () => {
@@ -33,15 +37,13 @@ const WalletTransfer = () => {
   });
   const myWallet = useSelector((state) => state.wallet.wallets);
 
-  console.log("🚀 ~ WalletTransfer ~ myWallet:", myWallet);
-
   const recipientWallet = useSelector(
     (state) => state.wallet.walletsRecipiment
   );
   const recipimentEmail = useSelector(
     (state) => state.wallet.walletsRecipimentEmail
   );
-  console.log("🚀 ~ WalletTransfer ~ recipientWallet:", recipientWallet);
+  const dispatch = useDispatch();
 
   const handleTransferMoney = async (data) => {
     data.sourceWalletId = myWallet.id;
@@ -50,6 +52,9 @@ const WalletTransfer = () => {
     console.log("Form Transfer Amount data:", data);
     const response = await transferWallet(data);
     console.log(response);
+    toast.success("You have sent money");
+    const update = await displayWalletDetail(myWallet.id);
+    dispatch(setWalletDetails(update.data));
   };
 
   return (
@@ -110,6 +115,7 @@ const WalletTransfer = () => {
           </form>
         )}
       </div>
+      <ToastContainer></ToastContainer>
     </>
   );
 };
