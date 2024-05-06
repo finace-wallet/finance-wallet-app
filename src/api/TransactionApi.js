@@ -9,3 +9,45 @@ export const getTransactionList = async(walletId,page) => {
         },
     });
 }
+
+export async function displayTransactionCategory() {
+    let response = null;
+    const token = localStorage.getItem("token");
+    try {
+        response = await axios.get(
+            `${FINANCE_WALLET_API}transactionCategories/list`,
+            {
+                headers: {
+                    "Content_Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+    } catch (error) {
+        response = error.response;
+    }
+    return response;
+}
+
+export async function createTransactionCategory(category) {
+    let response = null;
+    const token = localStorage.getItem("token");
+   
+    await axios({
+      url: `${FINANCE_WALLET_API}transactionCategories/create`,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+
+      method: "POST",
+      data: category,
+    })
+    .then((res) => {
+        response = res;
+    })
+    .catch((e) => {
+        response = e.response;
+    });
+    return response;
+}

@@ -1,5 +1,28 @@
 import axios from "axios";
 import { FINANCE_WALLET_API, WALLET_API } from "util/AppConstant";
+import { setTokenAction } from "../store/auth/authActions";
+
+export async function transferMoney(transferMoney) {
+    let response = null;
+    try {
+        const token = localStorage.getItem("token");
+        setTokenAction(token);
+
+        response = await axios({
+          url: `${FINANCE_WALLET_API}wallets/transfer`,
+          headers: {
+            "Content-Type": "aplication/json",
+            Authorization: `Bearer ${token},`,
+          },
+          method: "POST",
+          data: transferMoney,
+        });
+    } catch (error) {
+        response = error.response;
+    }
+    return response;
+}
+
 
 export async function displayWalletList(pageNumber) {
   let response = null;

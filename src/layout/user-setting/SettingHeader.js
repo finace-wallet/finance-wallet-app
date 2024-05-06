@@ -22,7 +22,10 @@ const menuLinks = [
     url: "/notification",
     title: "Notification",
   },
-
+  {
+    url: "/category-list",
+    title: "Category",
+  },
 ];
 
 const SettingHeader = () => {
