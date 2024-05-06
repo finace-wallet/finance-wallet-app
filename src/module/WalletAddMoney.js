@@ -33,16 +33,18 @@ const WalletAddMoney = () => {
   };
   return (
     <div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col justify-center text-center p-4 max-w-[200px] mx-auto gap-2">
         <label htmlFor="addAmount">Add Money:</label>
         <input
           type="number"
           id="addAmount"
           value={addAmount}
+          className="items-center justify-center min-w-[200px]"
           onChange={(e) => setAddAmount(e.target.value)}
         />
+
         <button
-          className="flex items-center justify-center p-4 text-base bg-primary font-semibold rounded-xl text-white min-h-[56px]"
+          className="flex items-center justify-center text-base bg-primary font-semibold rounded-xl text-white min-h-[56px] min-w-[200px]"
           onClick={handleAddMoney}
         >
           Add money

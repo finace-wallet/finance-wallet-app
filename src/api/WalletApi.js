@@ -93,7 +93,6 @@ export async function displayWalletDetail(walletId) {
   return response;
 }
 
-
 export async function listWallet(currentPage) {
   console.log(currentPage);
   let response = null;
@@ -116,4 +115,55 @@ export async function listWallet(currentPage) {
       response = e.response;
     });
   return response;
+}
+
+export async function findShareWallet(data) {
+  let response = null;
+  let token = localStorage.getItem("token");
+  await axios({
+    url: `${WALLET_API}/display-recipient `,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    method: "POST",
+    data: data,
+  })
+    .then((res) => {
+      if (res.status === 403) {
+        console.error("Error: Sharing with your own email is forbidden.");
+      } else {
+        response = res;
+      }
+      response = res;
+    })
+    .catch((e) => {
+      response = e.response;
+    });
+  return response;
+}
+
+export async function transferWallet(data) {
+  let response = null;
+  const token = localStorage.getItem("token");
+
+  try {
+    response = await axios.post(`${WALLET_API}/transfer`, data, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.status === 403) {
+      console.error("Error: Sharing with your own email is forbidden.");
+    } else {
+      response = response.data; // Assuming the response contains the actual data
+    }
+
+    return response;
+  } catch (error) {
+    console.error("Error transferring wallet:", error);
+    throw error; // Re-throw the error for further handling if needed
+  }
 }

@@ -8,6 +8,8 @@ const initialState = {
   walletCurrentType: null,
   walletDescription: null,
   error: null,
+  walletsRecipiment: null,
+  walletsRecipimentEmail: null,
 };
 
 const walletSlice = createSlice({
@@ -23,13 +25,21 @@ const walletSlice = createSlice({
     setWalletDetails: (state, action) => {
       state.wallets = action.payload;
     },
-    updateWallet: (state, action) => {
-      state.wallets = action.payload; // Update wallets with new data
+    setWalletRecipiment: (state, action) => {
+      state.walletsRecipiment = action.payload;
+    },
+    setWalletRecipimentEmail: (state, action) => {
+      state.walletsRecipimentEmail = action.payload;
     },
   },
 });
 
-export const { setWalletId, setWalletAmount, setWalletDetails } =
-  walletSlice.actions;
+export const {
+  setWalletId,
+  setWalletAmount,
+  setWalletDetails,
+  setWalletRecipiment,
+  setWalletRecipimentEmail,
+} = walletSlice.actions;
 
 export default walletSlice.reducer;
