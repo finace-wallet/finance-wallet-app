@@ -24,7 +24,7 @@ export async function transferMoney(transferMoney) {
 }
 
 
-export async function displayWallet(pageNumber) {
+export async function displayWalletList(pageNumber) {
   let response = null;
   const token = localStorage.getItem("token");
 
@@ -53,12 +53,12 @@ export async function addMoneyToWallet(walletId, amount) {
 
   let response = null;
   const token = localStorage.getItem("token");
-
+  console.log("walletId ", walletId, "walletAmount ", amount);
   try {
     response = await axios.post(
       `${FINANCE_WALLET_API}wallets/add-money`,
       {
-        walletId, // Use the passed arguments here
+        walletId,
         amount,
       },
       {
@@ -76,14 +76,13 @@ export async function addMoneyToWallet(walletId, amount) {
 }
 
 export async function createWallet(wallet) {
-    let response = null;
-    let token = localStorage.getItem('token');
+  let response = null;
+  let token = localStorage.getItem("token");
   await axios({
     url: `${WALLET_API}/create `,
     headers: {
       "Content-Type": "application/json",
-      "Authorization":`Bearer ${token}`
-    
+      Authorization: `Bearer ${token}`,
     },
     method: "POST",
     data: wallet,
@@ -92,32 +91,102 @@ export async function createWallet(wallet) {
       response = res;
     })
     .catch((e) => {
-          response = e.response;
+      response = e.response;
+    });
+  return response;
+}
+
+export async function displayWalletDetail(walletId) {
+  let response = null;
+  let token = localStorage.getItem("token");
+  await axios({
+    url: `${WALLET_API}/${walletId} `,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    method: "GET",
+  })
+    .then((res) => {
+      response = res;
+    })
+    .catch((e) => {
+      response = e.response;
     });
   return response;
 }
 
 export async function listWallet(currentPage) {
   console.log(currentPage);
-    let response = null;
-    let token = localStorage.getItem('token');
+  let response = null;
+  let token = localStorage.getItem("token");
   await axios({
     url: `${WALLET_API}/list?page=${currentPage}`,
     headers: {
       "Content-Type": "application/json",
-      "Authorization":`Bearer ${token}`
-    
+      Authorization: `Bearer ${token}`,
     },
     method: "GET",
-    params:{
-      page : currentPage,
-    }
+    params: {
+      page: currentPage,
+    },
   })
     .then((res) => {
       response = res;
     })
     .catch((e) => {
-          response = e.response;
+      response = e.response;
     });
   return response;
+}
+
+export async function findShareWallet(data) {
+  let response = null;
+  let token = localStorage.getItem("token");
+  await axios({
+    url: `${WALLET_API}/display-recipient `,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    method: "POST",
+    data: data,
+  })
+    .then((res) => {
+      if (res.status === 403) {
+        console.error("Error: Sharing with your own email is forbidden.");
+      } else {
+        response = res;
+      }
+      response = res;
+    })
+    .catch((e) => {
+      response = e.response;
+    });
+  return response;
+}
+
+export async function transferWallet(data) {
+  let response = null;
+  const token = localStorage.getItem("token");
+
+  try {
+    response = await axios.post(`${WALLET_API}/transfer`, data, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.status === 403) {
+      console.error("Error: Sharing with your own email is forbidden.");
+    } else {
+      response = response.data; // Assuming the response contains the actual data
+    }
+
+    return response;
+  } catch (error) {
+    console.error("Error transferring wallet:", error);
+    throw error; // Re-throw the error for further handling if needed
+  }
 }
