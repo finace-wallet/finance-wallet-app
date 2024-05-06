@@ -77,12 +77,12 @@ const TransactionHistoryModal = ({ isOpen, onClose }) => {
       onRequestClose={handleClose}
       ref={modalRef}
     >
-      <div className="flex justify-between align-middle content-center">\
+      <div className="flex content-center justify-between align-middle">\
         <div></div>
-        <p className="mr-52 font-bold text-3xl">Transaction History</p>
+        <p className="text-3xl font-bold mr-52">Transaction History</p>
         <button
           onClick={handleExportToExcel}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+          className="px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
         >
           export
         </button>
@@ -99,7 +99,7 @@ const TransactionHistoryModal = ({ isOpen, onClose }) => {
             <th className="border">Description</th>
           </tr>
         </thead>
-        <tbody className="border text-center">
+        <tbody className="text-center border">
           {Array.isArray(transactions) && transactions.length > 0 ? (
             transactions.map((transaction, index) => (
               <tr className={index % 2 === 0 ? 'bg-indigo-200' : 'bg-white'} key={transaction.id}>
@@ -131,7 +131,7 @@ const TransactionHistoryModal = ({ isOpen, onClose }) => {
         </tbody>
       </table>
       {pagination && pagination.total > 1 && (
-        <div className=" flex justify-center mt-10 mx-auto">
+        <div className="flex justify-center mx-auto mt-10 ">
           <button
             className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ${
               pagination.page === 0 ? "cursor-not-allowed opacity-50" : ""
@@ -167,7 +167,7 @@ const TransactionHistoryModal = ({ isOpen, onClose }) => {
       )}
       {error && <div>{error}</div>}
       <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        className="px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
         onClick={handleClose}
       >
         {isLoading ? <FontAwesomeIcon icon={faSpinner} spin /> : "Close"}

@@ -1,5 +1,3 @@
-
-import "./App.css";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 
 
@@ -10,23 +8,19 @@ import UpdateWallet from "./pages/wallet/UpdateWalletPage";
 import React, { Suspense } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import PageNotFound from "pages/errors/PageNotFound";
+import WalletTransfer from "module/WalletTransfer";
 
 const HomePage = React.lazy(() => import("./pages/HomePage"));
 const SignUpPage = React.lazy(() => import("./pages/user/SignUpPage"));
 const SignInPage = React.lazy(() => import("./pages/user/SignInPage"));
 const TestPage = React.lazy(() => import("./pages/Test"));
-
-
-
-
-
-const ChangePasswordPage = React.lazy(() =>
-  import("./pages/ChangePasswordPage")
-);
 const ForgotPasswordPage = React.lazy(() =>
   import("./pages/ForgotPasswordPage")
 );
 
+const ChangePasswordPage = React.lazy(() =>
+  import("./pages/ChangePasswordPage")
+);
 
 const CreateWalletPage = React.lazy(() =>
   import("./pages/wallet/CreateWalletPage")
@@ -35,31 +29,28 @@ const ListWalletPage = React.lazy(() =>
   import("./pages/wallet/listWalletPage")
 );
 
-
 const AccountPage = React.lazy(() => import("./pages/user/Account"));
 const ActiveAccountPage = React.lazy(() => import("./pages/ActiveAccountPage"));
 const WalletGeneral = React.lazy(() => import("./pages/wallet/WalletGeneral"));
 const WalletDetail = React.lazy(() => import("./pages/wallet/WalletDetail"));
-const WalletTransfer = React.lazy(() =>
-  import("./pages/wallet/WalletTransferMoney")
+const TransactionCategoryPage = React.lazy(() =>
+  import("./pages/TransactionCategoryPage")
+);
+const CreateTransactionCategoryPage = React.lazy(() =>
+  import("./pages/CreateTransactionCategoryPage")
 );
 
 function App() {
-
   return (
     <div>
       <BrowserRouter>
         <Suspense>
           <Routes>
-           <Route path="*" element={<PageNotFound></PageNotFound>}></Route>
+            <Route path="*" element={<PageNotFound></PageNotFound>}></Route>
             <Route path="/" element={<HomePage></HomePage>}></Route>
 
             <Route path="/register" element={<SignUpPage></SignUpPage>}></Route>
             <Route path="/login" element={<SignInPage></SignInPage>}></Route>
-            <Route
-              path="/change-password"
-              element={<ChangePasswordPage></ChangePasswordPage>}
-            ></Route>
             <Route
               path="/forgot-password"
               element={<ForgotPasswordPage></ForgotPasswordPage>}
@@ -85,27 +76,33 @@ function App() {
               path="/wallet"
               element={<WalletGeneral></WalletGeneral>}
             ></Route>
-
-      <Route
-    path="/wallet/:id"
-    element={<WalletDetail></WalletDetail>}
-></Route>
+            <Route
+              path="/wallet/:id"
+              element={<WalletDetail></WalletDetail>}
+            ></Route>
 
             <Route
               path="/update-wallet/:id"
               element={<UpdateWallet></UpdateWallet>}
             ></Route>
-
             <Route
               path="/transfer-money"
               element={<WalletTransfer></WalletTransfer>}
             ></Route>
-
+            <Route
+              path="/category-list"
+              element={<TransactionCategoryPage></TransactionCategoryPage>}
+            ></Route>
+            <Route
+              path="/create-transaction-category"
+              element={
+                <CreateTransactionCategoryPage></CreateTransactionCategoryPage>
+              }
+            ></Route>
           </Routes>
         </Suspense>
         <ToastContainer autoClose={3000} />
       </BrowserRouter>
-
     </div>
   );
 }

@@ -1,16 +1,16 @@
-import React from "react";
-import LayoutAuthentication from "layout/LayoutAuthentication";
-import Layout from "layout/main/Layout";
+import React, { useState } from "react";
 import FormGroup from "components/common/FormGroup";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import { ToastContainer, toast } from "react-toastify";
 import { Label } from "components/label";
 import { Input } from "components/input";
-import { changePassword } from "api/AuthApi";
 import { Button } from "components/button";
-import "react-toastify/dist/ReactToastify.css";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { ToastContainer} from "react-toastify";
+import { changePassword } from "api/AuthApi";
+import { toast } from "react-toastify";
+import { CloseButton } from "components/button";
+import DeleteUserPage from "./DeleteUserPage";
 
 
 const schema = yup.object().shape({
@@ -35,74 +35,108 @@ const ChangePasswordPage = () => {
     resolver: yupResolver(schema),
   });
 
-  const handleFormSubmit = async (data) => {
-    try {
-      const response = await changePassword(data);
-      toast.success("Password changed successfully");
-      console.log("Server response", response.data);
-    } catch (error) {
-      console.error("Error submitting form: ", error);
-      toast.error("Something went wrong");
-    }
+  const [showChangePassword, setShowChangePassword] = useState(false);
+  const [showDeleteUser, setShowDeleteUser] = useState(false);
+  
+  const openModal = () => {
+    setShowChangePassword(true);
   };
 
-  return (
-    <Layout>
-      <LayoutAuthentication heading="Change Password">
-        <form onSubmit={handleSubmit(handleFormSubmit)}>
-          <FormGroup>
-            <Label htmlFor="currentPassword">Current Password *</Label>
-            <Input
-              control={control}
-              name="currentPassword"
-              type="password"
-              placeholder="Enter your current password"
-              error={errors.currentPassword?.message}
-            />
-            {/* {errors.currentPassword && (
-              <p className="text-red-500">{errors.currentPassword.message}</p>
-            )} */}
-          </FormGroup>
-          <FormGroup>
-            <Label htmlFor="newPassword">New Password *</Label>
-            <Input
-              control={control}
-              name="newPassword"
-              type="password"
-              placeholder="Enter your new password"
-              error={errors.newPassword?.message}
-            />
-            {/* {errors.newPassword && (
-              <p className="text-red-500">{errors.newPassword.message}</p>
-            )} */}
-          </FormGroup>
-          <FormGroup>
-            <Label htmlFor="confirmNewPassword">Confirm New Password *</Label>
-            <Input
-              control={control}
-              name="confirmNewPassword"
-              type="password"
-              placeholder="Re-enter the new password"
-              error={errors.confirmNewPassword?.message}
-            />
-            {/* {errors.confirmNewPassword && (
-              <p className="text-red-500">
-                {errors.confirmNewPassword.message}
-              </p>
-            )} */}
-          </FormGroup>
+  const closeModal = () => {
+    setShowChangePassword(false);
+  };
 
-          <Button type="submit" className="w-full bg-primary">
-            {isSubmitting ? (
-              <div className="w-5 h-5 mx-auto border-2 border-t-2 border-white rounded-full border-t-transparent animate-spin"></div>
-            ) : (
-              "Change Password"
-            )}
-          </Button>
-        </form>
-      </LayoutAuthentication>
+const handleFormSubmit = async (data) => {
+  const response = await changePassword(data);
+  if (response.success) {
+    toast.success("Password changed successfully");
+    closeModal();
+  } else {
+    toast.error("Failed to change password. Please try again.");
+  }
+};
+
+const handleShowDeleteUser = () => {
+  setShowDeleteUser(true);
+};
+
+  return (
+    <>
+      <div className="pt-5">
+        <button
+          onClick={openModal}
+          className="px-4 py-2 font-bold text-white bg-green-500 rounded mx- hover:bg-green-700"
+        >
+          Change Password
+        </button>
+        <button
+          onClick={handleShowDeleteUser}
+          className="px-4 py-2 mx-5 font-bold text-white bg-red-500 rounded hover:bg-red-700"
+        >
+          Delete account
+        </button>
+      </div>
+      {showChangePassword && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="p-8 bg-white w-96">
+            <CloseButton onClick={closeModal} />
+            <h2 className="mb-4 text-2xl font-bold">Change Password</h2>
+            <form onSubmit={handleSubmit(handleFormSubmit)}>
+              <FormGroup>
+                <Label htmlFor="currentPassword">Current Password *</Label>
+                <Input
+                  control={control}
+                  name="currentPassword"
+                  type="password"
+                  placeholder="Enter your current password"
+                  error={errors.currentPassword?.message}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="newPassword">New Password *</Label>
+                <Input
+                  control={control}
+                  name="newPassword"
+                  type="password"
+                  placeholder="Enter your new password"
+                  error={errors.newPassword?.message}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label htmlFor="confirmNewPassword">
+                  Confirm New Password *
+                </Label>
+                <Input
+                  control={control}
+                  name="confirmNewPassword"
+                  type="password"
+                  placeholder="Re-enter the new password"
+                  error={errors.confirmNewPassword?.message}
+                />
+              </FormGroup>
+              <Button
+                type="submit"
+                className="w-full bg-primary"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <div className="w-5 h-5 border-2 border-t-2 border-white rounded-full border-t-transparent animate-spin"></div>
+                ) : (
+                  "Change Password"
+                )}
+              </Button>
+            </form>
+          </div>
+        </div>
+      )}
+      {showDeleteUser && (
+        <DeleteUserPage
+          isOpen={showDeleteUser}
+          onClose={() => setShowDeleteUser(false)}
+        />
+      )}
       <ToastContainer />
-    </Layout>
+    </>
   );
 };
 
