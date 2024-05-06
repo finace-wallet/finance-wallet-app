@@ -42,5 +42,4 @@ const walletSlice = createSlice({
 
 export const { setWalletId, setWalletAmount, setWalletDetails,setWalletDetails1 } =
   walletSlice.actions;
-
 export default walletSlice.reducer;
