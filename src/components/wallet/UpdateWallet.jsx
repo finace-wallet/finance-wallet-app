@@ -3,9 +3,6 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { edit } from '../../api/wallet/EditApi';
 import findWallet from '../../api/wallet/findWallet';
 import * as Yup from 'yup'
-import { icon } from '@fortawesome/fontawesome-svg-core';
-import { deleteApi } from '../../api/wallet/DeleteApi';
-import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
