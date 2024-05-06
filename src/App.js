@@ -16,7 +16,8 @@ const AccountPage = React.lazy(() => import("./pages/user/Account"));
 const ActiveAccountPage = React.lazy(() => import("./pages/ActiveAccountPage"));
 const WalletGeneral = React.lazy(() => import("./pages/wallet/WalletGeneral"));
 const WalletDetail = React.lazy(() => import("./pages/wallet/WalletDetail"));
-const TransferMoneyPage = React.lazy(() => import("./pages/TransferMoneyPage"));
+const TransactionCategoryPage = React.lazy(() => import("./pages/TransactionCategoryPage"));
+const CreateTransactionCategoryPage = React.lazy(() => import("./pages/CreateTransactionCategoryPage"));
 
 
 function App() {
@@ -59,7 +60,8 @@ function App() {
               path="/wallet-detail"
               element={<WalletDetail></WalletDetail>}
             ></Route>
-            <Route path="/transfer-money" element={<TransferMoneyPage></TransferMoneyPage>}></Route>
+            <Route path="/category-list" element={<TransactionCategoryPage></TransactionCategoryPage>}></Route>
+            <Route path="/create-transaction-category" element={<CreateTransactionCategoryPage></CreateTransactionCategoryPage>}></Route>
           </Routes>
         </Suspense>
         <ToastContainer autoClose={3000} />

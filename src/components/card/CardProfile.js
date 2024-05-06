@@ -108,7 +108,6 @@ const CardProfile = ({ user }) => {
             Edit your profile
           </div>
         </div>
-        <DeleteUserPage></DeleteUserPage>
         <ChangePasswordPage></ChangePasswordPage>
       </div>
 

@@ -6,9 +6,11 @@ import { Button } from "components/button";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { ToastContainer} from "react-toastify";
 import { changePassword } from "api/AuthApi";
 import { toast } from "react-toastify";
 import { CloseButton } from "components/button";
+import DeleteUserPage from "./DeleteUserPage";
 
 const schema = yup.object().shape({
   currentPassword: yup.string().required("Please enter your current password"),
@@ -33,6 +35,8 @@ const ChangePasswordPage = () => {
   });
 
   const [showChangePassword, setShowChangePassword] = useState(false);
+  const [showDeleteUser, setShowDeleteUser] = useState(false);
+  
   const openModal = () => {
     setShowChangePassword(true);
   };
@@ -51,15 +55,26 @@ const handleFormSubmit = async (data) => {
   }
 };
 
-  return (
-    <div className="pt-5">
-      <button
-        onClick={openModal}
-        className="px-4 py-2 font-bold text-white bg-green-500 rounded hover:bg-green-700"
-      >
-        Change Password
-      </button>
+const handleShowDeleteUser = () => {
+  setShowDeleteUser(true);
+};
 
+  return (
+    <>
+      <div className="pt-5">
+        <button
+          onClick={openModal}
+          className="px-4 py-2 font-bold text-white bg-green-500 rounded mx- hover:bg-green-700"
+        >
+          Change Password
+        </button>
+        <button
+          onClick={handleShowDeleteUser}
+          className="px-4 py-2 mx-5 font-bold text-white bg-red-500 rounded hover:bg-red-700"
+        >
+          Delete account
+        </button>
+      </div>
       {showChangePassword && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="p-8 bg-white w-96">
@@ -75,11 +90,6 @@ const handleFormSubmit = async (data) => {
                   placeholder="Enter your current password"
                   error={errors.currentPassword?.message}
                 />
-                {/* {errors.currentPassword && (
-                  <p className="text-red-500">
-                    {errors.currentPassword.message}
-                  </p>
-                )} */}
               </FormGroup>
               <FormGroup>
                 <Label htmlFor="newPassword">New Password *</Label>
@@ -102,11 +112,6 @@ const handleFormSubmit = async (data) => {
                   placeholder="Re-enter the new password"
                   error={errors.confirmNewPassword?.message}
                 />
-                {/* {errors.confirmNewPassword && (
-                  <p className="text-red-500">
-                    {errors.confirmNewPassword.message}
-                  </p>
-                )} */}
               </FormGroup>
               <Button
                 type="submit"
@@ -123,9 +128,15 @@ const handleFormSubmit = async (data) => {
           </div>
         </div>
       )}
-    </div>
+      {showDeleteUser && (
+        <DeleteUserPage
+          isOpen={showDeleteUser}
+          onClose={() => setShowDeleteUser(false)}
+        />
+      )}
+      <ToastContainer />
+    </>
   );
 };
 
 export default ChangePasswordPage;
-
