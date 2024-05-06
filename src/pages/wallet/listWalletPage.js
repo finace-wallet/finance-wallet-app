@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-// import Layout from "../../components/layout/main/Layout";
 import Layout from "layout/main/Layout";
 import { listWallet } from "../../components/wallet/WalletApi";
 import { Link, useNavigate } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from "react-redux";
-import { setWalletDetails, setWalletDetails1 } from "store/wallet/walletSlice";
+import { setWalletDetails } from "store/wallet/walletSlice";
 import { faWallet } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -64,9 +63,9 @@ const WalletList = () => {
             key={wallet.id}
             className="w-full p-4 mb-4 transition duration-300 ease-in-out delay-150 border border-gray-200 rounded-md shadow-md cursor-pointer hover:shadow-lg hover:bg-gray-100 custom-card"
             onClick={() => {
-        dispatch(setWalletDetails1(wallet));
+        dispatch(setWalletDetails(wallet));
         console.log(wallet);
-        navigate(`/wallet-detail/${wallet.id}`);
+        navigate(`/wallet/${wallet.id}`);
           }}
         >
         <div className="flex items-center justify-between">
