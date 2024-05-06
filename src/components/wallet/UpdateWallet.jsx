@@ -14,7 +14,7 @@ export default function WalletDetail(){
     const navigate = useNavigate()
     const {id} = useParams()
     const [wallet, setWallet] = useState({
-        amount:'',
+     
         currentType:'',
         description:'',
         name: ''
@@ -27,7 +27,7 @@ export default function WalletDetail(){
                 name:res.data.name,
                 currentType:res.data.currentType,
                 description:res.data.description,
-                amount:res.data.amount
+             
             })
         })
     }, [])
@@ -39,7 +39,7 @@ export default function WalletDetail(){
             initialValues={wallet}
 
             validationSchema={Yup.object({
-                amount: Yup.string().required(),
+                
                 currentType: Yup.string().required(),
                 description: Yup.string().required(),
                 name: Yup.string().required()
@@ -53,11 +53,7 @@ export default function WalletDetail(){
             }} 
             >
                 <Form className="space-y-4">
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Amount</label>
-                        <Field name="amount" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></Field>
-                        <ErrorMessage name='amount' component={'span'}/>
-                    </div>
+        
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Current Type</label>
                         <Field name="currentType" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></Field>
