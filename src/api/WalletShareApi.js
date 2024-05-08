@@ -1,11 +1,11 @@
 import axios from "axios";
-import { WALLET_SHARE_API } from "util/AppConstant";
+import { WALLET_API } from "util/AppConstant";
 
 export async function shareWallet(data) {
   let response = null;
   let token = localStorage.getItem("token");
   await axios({
-    url: `${WALLET_SHARE_API}/share `,
+    url: `${ WALLET_API }/share `,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
