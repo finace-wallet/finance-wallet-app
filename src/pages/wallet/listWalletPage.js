@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from "react-redux";
 import { setWalletDetails } from "store/wallet/walletSlice";
 import { faWallet } from "@fortawesome/free-solid-svg-icons";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const WalletList = () => {
   const [wallets, setWallets] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -127,6 +129,7 @@ const WalletList = () => {
           </div>
         </div>
       </Layout>
+     <ToastContainer />
     </>
   );
 };

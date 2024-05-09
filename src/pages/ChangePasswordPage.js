@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { CloseButton } from "components/button";
 import DeleteUserPage from "./DeleteUserPage";
 
+
 const schema = yup.object().shape({
   currentPassword: yup.string().required("Please enter your current password"),
   newPassword: yup
