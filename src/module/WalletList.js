@@ -21,8 +21,8 @@ const WalletListModule = () => {
   const fetchWallets = async () => {
     try {
       const response = await listWallet(currentPage);
-      setWallets(response.data.content);
-      setTotalPages(response.data.totalPages || 0);
+      setWallets(response.data.data.content);
+      setTotalPages(response.data.data.totalPages || 0);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching wallets:", error);

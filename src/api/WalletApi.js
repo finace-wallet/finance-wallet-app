@@ -3,26 +3,25 @@ import { FINANCE_WALLET_API, WALLET_API } from "util/AppConstant";
 import { setTokenAction } from "../store/auth/authActions";
 
 export async function transferMoney(transferMoney) {
-    let response = null;
-    try {
-        const token = localStorage.getItem("token");
-        setTokenAction(token);
+  let response = null;
+  try {
+    const token = localStorage.getItem("token");
+    setTokenAction(token);
 
-        response = await axios({
-          url: `${FINANCE_WALLET_API}wallets/transfer`,
-          headers: {
-            "Content-Type": "aplication/json",
-            Authorization: `Bearer ${token},`,
-          },
-          method: "POST",
-          data: transferMoney,
-        });
-    } catch (error) {
-        response = error.response;
-    }
-    return response;
+    response = await axios({
+      url: `${FINANCE_WALLET_API}wallets/transfer`,
+      headers: {
+        "Content-Type": "aplication/json",
+        Authorization: `Bearer ${token},`,
+      },
+      method: "POST",
+      data: transferMoney,
+    });
+  } catch (error) {
+    response = error.response;
+  }
+  return response;
 }
-
 
 export async function displayWalletList(pageNumber) {
   let response = null;
@@ -30,7 +29,7 @@ export async function displayWalletList(pageNumber) {
 
   try {
     response = await axios.post(
-      `${FINANCE_WALLET_API}wallets/list`,
+      `${FINANCE_WALLET_API}wallets/list/owner`,
       {
         page: pageNumber,
       },
@@ -75,7 +74,7 @@ export async function addMoneyToWallet(walletId, amount) {
   return response;
 }
 
-export async function createWallet(wallet) {
+export async function createWallet(data) {
   let response = null;
   let token = localStorage.getItem("token");
   await axios({
@@ -85,7 +84,7 @@ export async function createWallet(wallet) {
       Authorization: `Bearer ${token}`,
     },
     method: "POST",
-    data: wallet,
+    data,
   })
     .then((res) => {
       response = res;
@@ -117,11 +116,10 @@ export async function displayWalletDetail(walletId) {
 }
 
 export async function listWallet(currentPage) {
-  console.log(currentPage);
   let response = null;
   let token = localStorage.getItem("token");
   await axios({
-    url: `${WALLET_API}/list?page=${currentPage}`,
+    url: `${WALLET_API}/list/owner?page=${currentPage}`,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -137,6 +135,7 @@ export async function listWallet(currentPage) {
     .catch((e) => {
       response = e.response;
     });
+  console.log("Wallet owner: ", response);
   return response;
 }
 
