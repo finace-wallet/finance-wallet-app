@@ -47,7 +47,7 @@ const WalletList = () => {
                         <div className="flex justify-center">
                             <img src="https://png.pngtree.com/png-clipart/20230423/original/pngtree-modern-finance-investment-logo-png-image_9077777.png" alt="" className="absolute w-32 h-32 mx-auto transition duration-200 transform border-4 border-white rounded-full shadow-md -top-20 hover:scale-110" />
                         </div>
-        
+            
                         <div className="mt-16">
                             <h1 className="text-3xl font-bold text-center text-gray-900">My Wallets</h1>
                             <p className="text-sm font-medium text-center text-gray-400">Information of wallet</p>
