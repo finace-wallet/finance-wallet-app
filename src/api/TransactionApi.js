@@ -10,7 +10,7 @@ export const getTransactionList = async(walletId,page) => {
     });
 }
 
-export async function displayTransactionCategory() {
+export async function getTransactionCategory() {
     let response = null;
     const token = localStorage.getItem("token");
     try {
@@ -26,8 +26,10 @@ export async function displayTransactionCategory() {
     } catch (error) {
         response = error.response;
     }
+    console.log("🚀 ~ getTransactionCategory ~ response:", response);
     return response;
 }
+
 
 export async function createTransactionCategory(category) {
     let response = null;

@@ -19,6 +19,9 @@ const WalletGeneral = React.lazy(() => import("./pages/wallet/WalletGeneral"));
 const WalletDetail = React.lazy(() => import("./pages/wallet/WalletDetail"));
 const TransactionCategoryPage = React.lazy(() =>import("./pages/TransactionCategoryPage"));
 const CreateTransactionCategoryPage = React.lazy(() =>import("./pages/CreateTransactionCategoryPage"));
+const AccountSettings = React.lazy(() => import("./pages/test12"));
+const CategoriesSettings = React.lazy(() => import("./pages/test12"));
+const CategoriesPage = React.lazy(() => import("./pages/CategoriesPage"));
 
 
 
@@ -28,6 +31,7 @@ function App() {
       <BrowserRouter>
         <Suspense>
           <Routes>
+            <Route path="/test" element={<AccountSettings></AccountSettings>}></Route>
             <Route path="*" element={<PageNotFound></PageNotFound>}></Route>
             <Route path="/" element={<HomePage></HomePage>}></Route>
             <Route path="/register" element={<SignUpPage></SignUpPage>}></Route>
@@ -64,7 +68,9 @@ function App() {
             ></Route>
             <Route path="/category-list" element={<TransactionCategoryPage></TransactionCategoryPage>}></Route>
             <Route path="/create-transaction-category" element={<CreateTransactionCategoryPage></CreateTransactionCategoryPage>}></Route>
-
+            <Route path="/test" element={<CategoriesSettings></CategoriesSettings>}></Route>
+            <Route path="/test" element={<CategoriesSettings></CategoriesSettings>}></Route>
+            <Route path="categories" element={<CategoriesPage></CategoriesPage>}></Route>
           </Routes>
         </Suspense>
         <ToastContainer autoClose={3000} />
