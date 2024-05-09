@@ -14,7 +14,7 @@ const WalletCarousel = ({ wallets }) => {
   };
 
   return (
-    <div className="">
+    <div className=" ml-2 items-center mx-auto max-w-[400px]">
       <Slider {...settings}>
         {wallets.map((wallet) => (
           <WalletCard key={wallet.id} wallet={wallet} />
