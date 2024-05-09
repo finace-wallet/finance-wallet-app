@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import { setTokenAction } from "store/auth/authActions";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { login } from "api/AuthApi";
 import { Label } from "components/label";
 import { Input } from "components/input";
@@ -17,6 +17,8 @@ import { Button } from "components/button";
 import "react-toastify/dist/ReactToastify.css";
 import useToggleValue from "hooks/useToggleValue";
 import { IconEyeToggle } from "icons";
+import LayoutAuth from "layout/main/LayoutAuth";
+import { ROUTE_REGISTER } from "constants/routerConstants";
 
 const schema = yup.object().shape({
   email: yup
@@ -48,10 +50,8 @@ const SignInPage = () => {
   const handleSignIn = async (data, event) => {
     try {
       event.preventDefault();
-      const response = await login(data); // Call register function from AuthApi     
-      
-      console.log(response); // Log the response for debugging
-      // Handle success scenario, e.g., redirect to another pag
+      const response = await login(data);
+      console.log(response);
       dispatch(setTokenAction(response.data.data.accessToken));
       reset({});
       toast.success("Success Login, Redirecting...");
@@ -67,8 +67,17 @@ const SignInPage = () => {
 
   return (
     <>
-      <Layout>
+      <LayoutAuth>
         <LayoutAuthentication heading="Sign In">
+          <p className="mb-6 text-xs font-medium text-center lg:font-normal lg:text-sm text-text3 lg:mb-8">
+            Don't have an account yet?{" "}
+            <Link
+              to={ROUTE_REGISTER}
+              className="font-medium underline text-primary"
+            >
+              Sign Up here!
+            </Link>
+          </p>
           <form onSubmit={handleSubmit(handleSignIn)}>
             <FormGroup>
               <Label htmlFor="email">Email*</Label>
@@ -95,15 +104,6 @@ const SignInPage = () => {
                 ></IconEyeToggle>
               </Input>
             </FormGroup>
-            {/* <div className="flex items-start p-2 mb-5 gap-x-5">
-          <span className="inline-block w-5 h-5 border rounded border-text4"></span>
-          <p className="flex-1 text-sm font-normal text-text2">
-            I agree to the{" "}
-            <span className="underline text-secondary">Terms of Use</span> and
-            have read and understand the{" "}
-            <span className="underline text-secondary">Privacy policy</span>
-          </p>
-        </div> */}
             <div className="text-right">
               <NavLink
                 to="/forgot-password"
@@ -114,14 +114,14 @@ const SignInPage = () => {
             </div>
             <Button type="submit" className="w-full bg-primary">
               {isSubmitting ? (
-                  <div className="w-5 h-5 border-2 border-t-2 border-white rounded-full border-t-transparent animate-spin"></div>
+                <div className="w-5 h-5 border-2 border-t-2 border-white rounded-full border-t-transparent animate-spin"></div>
               ) : (
                 "Log In"
               )}
             </Button>
           </form>
         </LayoutAuthentication>
-      </Layout>
+      </LayoutAuth>
       <ToastContainer />
     </>
   );

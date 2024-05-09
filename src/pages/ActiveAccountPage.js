@@ -11,6 +11,7 @@ import { Label } from "components/label";
 import { Input } from "components/input";
 import { Button } from "components/button";
 import { activeAccount } from "api/AuthApi";
+import LayoutAuth from "layout/main/LayoutAuth";
 const ActiveAccountPage = () => {
   const schema = yup.object().shape({
     otp: yup.string().required("OTP is required"),
@@ -44,7 +45,7 @@ const ActiveAccountPage = () => {
   };
   return (
     <>
-      <Layout>
+      <LayoutAuth>
         <LayoutAuthentication heading="Active your account">
           <form onSubmit={handleSubmit(handleForgotPassword)}>
             <FormGroup>
@@ -65,7 +66,7 @@ const ActiveAccountPage = () => {
             </Button>
           </form>
         </LayoutAuthentication>
-      </Layout>
+      </LayoutAuth>
       <ToastContainer />
     </>
   );

@@ -37,7 +37,7 @@ const Input = (props) => {
         {...field}
       />
       {error.length > 0 && (
-        <span className="absolute text-sm font-medium pointer-events-none text-error top-2/4 -translate-y-2/4 left-6 error-input">
+        <span className="text-sm font-medium pointer-events-none text-error">
           {error}
         </span>
       )}

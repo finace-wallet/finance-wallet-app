@@ -4,11 +4,16 @@
 @tailwind utilities;
 @layer base {
   body {
-    background-color: #eee;
+    background-color: #f4f7fa;
     font-family: "Poppins", sans-serif;
   }
 }
 
 input:focus + .error-input {
   display: none;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: black !important;
 }
