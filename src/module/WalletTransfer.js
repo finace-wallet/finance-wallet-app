@@ -49,12 +49,12 @@ const WalletTransfer = () => {
     data.sourceWalletId = myWallet.id;
     data.destinationWalletId = recipientWallet.id;
     data.destinationEmail = recipimentEmail;
-    console.log("Form Transfer Amount data:", data);
+
     const response = await transferWallet(data);
-    console.log(response);
+
     toast.success("You have sent money");
     const update = await displayWalletDetail(myWallet.id);
-    dispatch(setWalletDetails(update.data));
+    // dispatch(setWalletDetails(update.data));
   };
 
   return (

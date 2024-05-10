@@ -24,7 +24,7 @@ const CreateTransactionCategoryPage = () => {
     e.preventDefault();
     try {
       const response = await createTransactionCategory(form);
-      console.log("Category created successfully:", response);
+
       navigate("/category-list");
     } catch (error) {
       if (error.name === "ValidateionError") {

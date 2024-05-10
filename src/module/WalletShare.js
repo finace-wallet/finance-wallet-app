@@ -51,7 +51,7 @@ const WalletShare = () => {
 
   const handleShareWallet = async (data) => {
     data.shareWalletId = selectedWalletId;
-    console.log("Form data:", data);
+
     const response = await shareWallet(data);
     if (response.status === 201) {
       toast.success("Wallet shared successfully");
@@ -59,7 +59,6 @@ const WalletShare = () => {
         closeModal();
       }, 1000);
     }
-    console.log(response);
   };
 
   const handleChangeAccessLevel = (e) => {

@@ -22,7 +22,7 @@ const WalletAddMoney = () => {
         alert("Money added successfully!");
         setAddAmount(0);
         const newResponse = await displayWalletDetail(selectedWalletId);
-        dispatch(setWalletDetails(newResponse.data));
+        // dispatch(setWalletDetails(newResponse.data));
       } else {
         alert("Error adding money: " + response.data.message);
       }

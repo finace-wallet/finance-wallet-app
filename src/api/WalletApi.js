@@ -43,7 +43,7 @@ export async function displayWalletList(pageNumber) {
   } catch (error) {
     response = error.response;
   }
-  console.log("Response", response);
+
   return response;
 }
 
@@ -52,7 +52,7 @@ export async function addMoneyToWallet(walletId, amount) {
 
   let response = null;
   const token = localStorage.getItem("token");
-  console.log("walletId ", walletId, "walletAmount ", amount);
+
   try {
     response = await axios.post(
       `${FINANCE_WALLET_API}wallets/add-money`,
@@ -70,7 +70,7 @@ export async function addMoneyToWallet(walletId, amount) {
   } catch (error) {
     response = error.response;
   }
-  console.log("Add money response", response);
+
   return response;
 }
 
@@ -99,7 +99,7 @@ export async function displayWalletDetail(walletId) {
   let response = null;
   let token = localStorage.getItem("token");
   await axios({
-    url: `${WALLET_API}/${walletId} `,
+    url: `${WALLET_API}/${walletId}`,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -112,6 +112,7 @@ export async function displayWalletDetail(walletId) {
     .catch((e) => {
       response = e.response;
     });
+
   return response;
 }
 
@@ -135,7 +136,31 @@ export async function listWallet(currentPage) {
     .catch((e) => {
       response = e.response;
     });
-  console.log("Wallet owner: ", response);
+
+  return response;
+}
+
+export async function getWalletDetails(currentPage) {
+  let response = null;
+  let token = localStorage.getItem("token");
+  await axios({
+    url: `${WALLET_API}/list/owner?page=${currentPage}`,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    method: "GET",
+    params: {
+      page: currentPage,
+    },
+  })
+    .then((res) => {
+      response = res;
+    })
+    .catch((e) => {
+      response = e.response;
+    });
+
   return response;
 }
 

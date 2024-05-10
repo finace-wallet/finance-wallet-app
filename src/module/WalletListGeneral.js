@@ -7,15 +7,13 @@ const WalletListGeneral = () => {
   const [isCreateWalletModalOpen, setIsCreateWalletModalOpen] = useState(false);
   const [wallets, setWallets] = useState([]);
 
-  console.log("🚀 ~ WalletListGeneral ~ wallets:", wallets);
-
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrenPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     fetchWallets();
-  }, [currentPage]);
+  }, [isCreateWalletModalOpen]);
 
   const fetchWallets = async () => {
     try {

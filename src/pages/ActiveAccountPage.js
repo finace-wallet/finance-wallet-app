@@ -31,9 +31,9 @@ const ActiveAccountPage = () => {
 
   const handleForgotPassword = async (data) => {
     try {
-      console.log("Data: ", data);
+
       const response = await activeAccount(data);
-      console.log("Server response: ", response);
+
       reset({});
       toast.success("Success Activating, Redirecting...");
       setTimeout(() => {

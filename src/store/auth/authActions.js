@@ -4,7 +4,7 @@ import { jwtDecode } from "jwt-decode";
 import { setLogin } from "./authSlice";
 
 export const setTokenAction = (token) => (dispatch) => {
-  console.log(token);
+
   const decodedToken = jwtDecode(token);
   const user = {
     id: decodedToken.sub,
