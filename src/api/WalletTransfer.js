@@ -2,7 +2,7 @@ import axios from "axios";
 import { WALLET_API } from "util/AppConstant";
 
 export async function getAllWalletsByRecipientEmail(data) {
-  console.log(data);
+
   let response = null;
   let token = localStorage.getItem("token");
   await axios({

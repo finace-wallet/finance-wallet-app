@@ -20,7 +20,7 @@ export const fetchTransaction = createAsyncThunk(
       try {
         const response = await getTransactionList(walletId,page);
         if(response.status === 200){
-            console.log(response.data.data);
+          
             return response.data; 
         }
       } catch (error) {

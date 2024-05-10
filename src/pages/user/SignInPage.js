@@ -53,7 +53,6 @@ const SignInPage = () => {
       const response = await login(data);
 
       if (response.status === 200) {
-        console.log(response);
         dispatch(setTokenAction(response.data.data.accessToken));
         reset({});
         toast.success("Success Login, Redirecting...");
