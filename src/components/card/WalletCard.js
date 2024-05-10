@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import { setHeader } from "store/header/headerSlice";
 import { setWalletDetails } from "store/wallet/walletSlice";
 
 const WalletCard = ({ wallet }) => {
@@ -9,6 +10,7 @@ const WalletCard = ({ wallet }) => {
 
   const handleWalletSelect = () => {
     dispatch(setWalletDetails(wallet));
+    dispatch(setHeader("Overview"));
     navigate(`/wallet/${wallet.id}`);
   };
   return (

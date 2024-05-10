@@ -20,8 +20,11 @@ import {
   ROUTE_WALLET,
   ROUTE_WALLET_CREATE,
   ROUTE_WALLET_DETAIL_ID,
+  ROUTE_WALLET_SETTING,
+  ROUTE_WALLET_TRANSACTION,
   ROUTE_WALLET_UPDATE_ID,
 } from "constants/routerConstants";
+import LayoutWallet from "layout/wallet/LayoutWallet";
 
 const HomePage = React.lazy(() => import("./pages/HomePage"));
 const SignUpPage = React.lazy(() => import("./pages/user/SignUpPage"));
@@ -46,12 +49,17 @@ const AccountPage = React.lazy(() => import("./pages/user/Account"));
 const ActiveAccountPage = React.lazy(() => import("./pages/ActiveAccountPage"));
 const WalletGeneral = React.lazy(() => import("./pages/wallet/WalletGeneral"));
 const WalletDetail = React.lazy(() => import("./pages/wallet/WalletDetail"));
+const WalletTransaction = React.lazy(() =>
+  import("./pages/wallet/WalletTransaction")
+);
 const TransactionCategoryPage = React.lazy(() =>
   import("./pages/TransactionCategoryPage")
 );
 const CreateTransactionCategoryPage = React.lazy(() =>
   import("./pages/CreateTransactionCategoryPage")
 );
+
+const WalletSetting = React.lazy(() => import("./pages/wallet/WalletSettings"));
 
 function App() {
   return (
@@ -105,7 +113,14 @@ function App() {
               path={ROUTE_WALLET_DETAIL_ID}
               element={<WalletDetail></WalletDetail>}
             ></Route>
-
+            <Route
+              path={ROUTE_WALLET_TRANSACTION}
+              element={<WalletTransaction></WalletTransaction>}
+            ></Route>
+            <Route
+              path={ROUTE_WALLET_SETTING}
+              element={<WalletSetting></WalletSetting>}
+            ></Route>
             <Route
               path={ROUTE_WALLET_UPDATE_ID}
               element={<UpdateWallet></UpdateWallet>}
@@ -124,6 +139,7 @@ function App() {
                 <CreateTransactionCategoryPage></CreateTransactionCategoryPage>
               }
             ></Route>
+
           </Routes>
         </Suspense>
         <ToastContainer autoClose={3000} />
