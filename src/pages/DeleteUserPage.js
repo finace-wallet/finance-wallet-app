@@ -3,7 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router";
-import { logout } from "../store/auth/authSlice";
+import {  setLogout } from "../store/auth/authSlice";
 import { deleteUser } from "api/AuthApi";
 
 const DeleteUserPage = ({ isOpen, onClose }) => {
@@ -18,7 +18,7 @@ const DeleteUserPage = ({ isOpen, onClose }) => {
         toast.success("The user has been successfully deleted!");
       }, 150);
       await deleteUser();
-      dispatch(logout());
+      dispatch(setLogout());
       nav("/");
       onClose();
     } catch (error) {

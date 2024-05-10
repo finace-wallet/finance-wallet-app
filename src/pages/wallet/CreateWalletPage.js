@@ -1,4 +1,3 @@
-
 import Button from "../../components/button/Button";
 import { createWallet } from "../../components/wallet/WalletApi";
 import FormGroup from "../../components/common/FormGroup";
@@ -8,7 +7,6 @@ import { Label } from "../../components/label";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
-
 
 const schema = yup.object().shape({
   name: yup.string().required("Please enter a name for the wallet"),
@@ -27,15 +25,15 @@ const CreateWalletPage = () => {
     name: "",
     amount: "",
     currentType: "",
-    description: ""
-  }); 
+    description: "",
+  });
 
   const [amountError, setAmountError] = useState("");
   const [formError, setFormError] = useState("");
-  
+
   const handleChange = (e) => {
-    const {id, value} = e.target;
-    if (id === 'amount' && parseFloat(value) < 0 ) {
+    const { id, value } = e.target;
+    if (id === "amount" && parseFloat(value) < 0) {
       setAmountError("Amount must be greater than or equal to 0.");
       return;
     } else {
@@ -43,14 +41,14 @@ const CreateWalletPage = () => {
     }
     setForm({
       ...form,
-      [e.target.id]: e.target.value
+      [e.target.id]: e.target.value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await schema.validate(form, {abortEarly: false});
+      await schema.validate(form, { abortEarly: false });
       const response = await createWallet(form);
       console.log("Wallet created successfully:", response);
       navigate("/wallet");
@@ -61,43 +59,68 @@ const CreateWalletPage = () => {
           validationErrors[err.path] = err.message;
         });
         setFormError("" + error);
-        console.error("Validation errors:",validationErrors);
+        console.error("Validation errors:", validationErrors);
       } else {
         setFormError("Error creating wallet: " + error.message);
-        console.error("Error creating wallet:",error);
+        console.error("Error creating wallet:", error);
       }
     }
   };
 
   return (
     <Layout>
-      <div className="max-w-lg mx-auto">
-        <h1 className="mb-4 text-2xl font-semibold">Create New Wallet</h1>
+      <div className="max-w-lg mx-auto bg-white p-2 mt-4 shadow-lg rounded-lg">
+        <h1 className="mb-4 text-2xl font-semibold flex text-center justify-center">
+          Create New Wallet
+        </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
-        
           <FormGroup>
             <Label htmlFor="name">Name *</Label>
-            <input className="w-full px-6 py-4 text-sm font-medium border border-strock rounded-xl text-text1 placeholder:text-text4"
-              type="text" id="name" value={form.name} onChange={handleChange} />
+            <input
+              className="w-full px-6 py-4 text-sm font-medium border border-strock rounded-xl text-text1 placeholder:text-text4"
+              type="text"
+              id="name"
+              value={form.name}
+              onChange={handleChange}
+            />
           </FormGroup>
           <FormGroup>
             <Label htmlFor="amount">Amount *</Label>
-            <input className="w-full px-6 py-4 text-sm font-medium border border-strock rounded-xl text-text1 placeholder:text-text4"
-            type="number" id="amount" value={form.amount} onChange={handleChange} />
-            {amountError && <span className="text-sm text-red-500">{amountError}</span>}
+            <input
+              className="w-full px-6 py-4 text-sm font-medium border border-strock rounded-xl text-text1 placeholder:text-text4"
+              type="number"
+              id="amount"
+              value={form.amount}
+              onChange={handleChange}
+            />
+            {amountError && (
+              <span className="text-sm text-red-500">{amountError}</span>
+            )}
           </FormGroup>
           <FormGroup>
             <Label htmlFor="currentType">Currency Type</Label>
-            <input className="w-full px-6 py-4 text-sm font-medium border border-strock rounded-xl text-text1 placeholder:text-text4"
-            type="text" id="currentType" value={form.currentType} onChange={handleChange} />
+            <input
+              className="w-full px-6 py-4 text-sm font-medium border border-strock rounded-xl text-text1 placeholder:text-text4"
+              type="text"
+              id="currentType"
+              value={form.currentType}
+              onChange={handleChange}
+            />
           </FormGroup>
           <FormGroup>
             <Label htmlFor="description">Description *</Label>
-            <input className="w-full px-6 py-4 text-sm font-medium border border-strock rounded-xl text-text1 placeholder:text-text4"
-            type="text" id="description" value={form.description} onChange={handleChange} />
+            <input
+              className="w-full px-6 py-4 text-sm font-medium border border-strock rounded-xl text-text1 placeholder:text-text4"
+              type="text"
+              id="description"
+              value={form.description}
+              onChange={handleChange}
+            />
           </FormGroup>
           {formError && <p className="text-red-500">{formError}</p>}
-          <Button type="submit" className="w-full bg-primary">Create Wallet</Button>
+          <Button type="submit" className="w-full bg-primary">
+            Create Wallet
+          </Button>
         </form>
       </div>
     </Layout>
