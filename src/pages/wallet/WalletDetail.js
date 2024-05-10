@@ -10,14 +10,15 @@ import { deleteApi } from "api/wallet/DeleteApi";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { useNavigate } from "react-router";
-
+import { useDispatch } from "react-redux";
 import TransactionHistoryModal from "pages/TransactionHistoryPage";
-
+import { listWallet } from "api/WalletApi";
 import { toast } from "react-toastify";
 import LayoutWallet from "layout/wallet/LayoutWallet";
 const WalletDetail = () => {
   const wallet = useSelector((state) => state.wallet.wallets);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleDelete = () => {
     confirmAlert({
       title: "Confirm Delete",
@@ -29,7 +30,7 @@ const WalletDetail = () => {
             deleteApi(wallet.id).then(() => {
               toast.success("Delete Successfully");
             });
-            navigate("/wallet");
+            navigate("/");
           },
           className:
             "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded",
@@ -79,7 +80,7 @@ const WalletDetail = () => {
           </div>
           <div className="flex flex-col">
             <p className="text-gray-600">Currency Type: {wallet.currentType}</p>
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <p className="text-gray-600">Description: {wallet.description}</p>
               <button
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full max-w-[250px] self-end"

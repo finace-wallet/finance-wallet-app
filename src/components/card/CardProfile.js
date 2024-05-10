@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "store/auth/authSlice";
 import DeleteUserPage from "pages/DeleteUserPage";
 import ChangePasswordPage from "pages/ChangePasswordPage";
-
+import storage from "../../firebase/FirebaseConfig";
 const schema = yup.object().shape({
   fullName: yup.string().required("Username is required"),
 });

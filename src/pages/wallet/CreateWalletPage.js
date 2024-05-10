@@ -69,8 +69,8 @@ const CreateWalletPage = () => {
 
   return (
     <Layout>
-      <div className="max-w-lg mx-auto bg-white p-2 mt-4 shadow-lg rounded-lg">
-        <h1 className="mb-4 text-2xl font-semibold flex text-center justify-center">
+      <div className="max-w-lg p-2 mx-auto mt-4 bg-white rounded-lg shadow-lg">
+        <h1 className="flex justify-center mb-4 text-2xl font-semibold text-center">
           Create New Wallet
         </h1>
         <form onSubmit={handleSubmit} className="space-y-4">

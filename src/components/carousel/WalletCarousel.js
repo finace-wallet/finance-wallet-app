@@ -7,14 +7,14 @@ import "slick-carousel/slick/slick-theme.css";
 const WalletCarousel = ({ wallets }) => {
   var settings = {
     dots: true,
-    infinite: wallets.length > 3,
+    infinite: wallets.length > 1,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 1,
     slidesToScroll: 1,
   };
 
   return (
-    <div className=" ml-2 items-center mx-auto max-w-[900px]">
+    <div className=" ml-2 items-center mx-auto max-w-[400px]">
       <Slider {...settings}>
         {wallets.map((wallet) => (
           <WalletCard key={wallet.id} wallet={wallet} />
