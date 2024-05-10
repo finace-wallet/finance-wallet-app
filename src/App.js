@@ -24,6 +24,7 @@ import {
   ROUTE_WALLET_TRANSACTION,
   ROUTE_WALLET_UPDATE_ID,
 } from "constants/routerConstants";
+import LayoutWallet from "layout/wallet/LayoutWallet";
 
 const HomePage = React.lazy(() => import("./pages/HomePage"));
 const SignUpPage = React.lazy(() => import("./pages/user/SignUpPage"));
@@ -138,6 +139,7 @@ function App() {
                 <CreateTransactionCategoryPage></CreateTransactionCategoryPage>
               }
             ></Route>
+
           </Routes>
         </Suspense>
         <ToastContainer autoClose={3000} />

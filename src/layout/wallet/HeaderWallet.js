@@ -1,19 +1,28 @@
 import { DropDownAuth } from "components/dropdown";
 import {
   ROUTE_HOME,
-  ROUTE_WALLET_DETAIL_ID,
   ROUTE_WALLET_SETTING,
   ROUTE_WALLET_TRANSACTION,
 } from "constants/routerConstants";
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import { WALLET_API } from "util/AppConstant";
+import { setHeader } from "store/header/headerSlice";
+
 
 const HeaderWallet = () => {
-  const [selectedHeader, setSelectedHeader] = useState("Overview");
+  const [selectedHeader, setSelectedHeader] = useState("");
   const wallet = useSelector((state) => state.wallet.wallets);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const reduxSelectedHeader = useSelector(
+    (state) => state.header.selectedHeader
+  );
+
+  useEffect(() => {
+    setSelectedHeader(reduxSelectedHeader);
+  }, [reduxSelectedHeader]);
 
   function getHeaderClasses(headerName) {
     return selectedHeader === headerName
@@ -23,16 +32,19 @@ const HeaderWallet = () => {
 
   const handleWalletSelect = () => {
     setSelectedHeader("Overview");
+    dispatch(setHeader("Overview"));
     navigate(`/wallet/${wallet.id}`);
   };
 
   const handleWalletTransactionSelect = () => {
     setSelectedHeader("Transaction");
+    dispatch(setHeader("Transaction"));
     navigate(ROUTE_WALLET_TRANSACTION);
   };
 
   const handleWalletSettingSelect = () => {
     setSelectedHeader("Wallet Settings");
+    dispatch(setHeader("Wallet Settings"));
     navigate(ROUTE_WALLET_SETTING);
   };
 

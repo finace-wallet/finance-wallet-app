@@ -4,8 +4,8 @@ import HeaderWallet from "./HeaderWallet";
 const LayoutWallet = ({ children }) => {
   return (
     <Fragment>
-      <HeaderWallet></HeaderWallet>
-      {children}
+      <HeaderWallet />
+      <div className="container mx-auto">{children}</div>
     </Fragment>
   );
 };
