@@ -6,6 +6,22 @@ import React, { Suspense } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import PageNotFound from "pages/errors/PageNotFound";
 import WalletTransfer from "module/WalletTransfer";
+import {
+  ROUTE_ACCOUNT,
+  ROUTE_ACTIVE,
+  ROUTE_ANY,
+  ROUTE_CATEGORY,
+  ROUTE_CATEGORY_CREATE,
+  ROUTE_FORGOT_PASSWORD,
+  ROUTE_HOME,
+  ROUTE_LOGIN,
+  ROUTE_REGISTER,
+  ROUTE_TRANSFER_MONEY,
+  ROUTE_WALLET,
+  ROUTE_WALLET_CREATE,
+  ROUTE_WALLET_DETAIL_ID,
+  ROUTE_WALLET_UPDATE_ID,
+} from "constants/routerConstants";
 
 const HomePage = React.lazy(() => import("./pages/HomePage"));
 const SignUpPage = React.lazy(() => import("./pages/user/SignUpPage"));
@@ -43,55 +59,67 @@ function App() {
       <BrowserRouter>
         <Suspense>
           <Routes>
-            <Route path="*" element={<PageNotFound></PageNotFound>}></Route>
-            <Route path="/" element={<HomePage></HomePage>}></Route>
-
-            <Route path="/register" element={<SignUpPage></SignUpPage>}></Route>
-            <Route path="/login" element={<SignInPage></SignInPage>}></Route>
             <Route
-              path="/forgot-password"
+              path={ROUTE_ANY}
+              element={<PageNotFound></PageNotFound>}
+            ></Route>
+            <Route path={ROUTE_HOME} element={<HomePage></HomePage>}></Route>
+
+            <Route
+              path={ROUTE_REGISTER}
+              element={<SignUpPage></SignUpPage>}
+            ></Route>
+            <Route
+              path={ROUTE_LOGIN}
+              element={<SignInPage></SignInPage>}
+            ></Route>
+            <Route
+              path={ROUTE_FORGOT_PASSWORD}
               element={<ForgotPasswordPage></ForgotPasswordPage>}
             ></Route>
 
             <Route
-              path="/wallet"
+              path={ROUTE_WALLET}
               element={<ListWalletPage></ListWalletPage>}
             ></Route>
 
             <Route
-              path="/account"
+              path={ROUTE_ACCOUNT}
               element={<AccountPage></AccountPage>}
             ></Route>
             <Route path="/test" element={<TestPage></TestPage>}></Route>
-            <Route path="/create-wallet" element={<CreateWalletPage />}></Route>
             <Route
-              path="/active"
+              path={ROUTE_WALLET_CREATE}
+              element={<CreateWalletPage />}
+            ></Route>
+            <Route
+              path={ROUTE_ACTIVE}
               element={<ActiveAccountPage></ActiveAccountPage>}
             ></Route>
 
             <Route
-              path="/wallet"
+              path={ROUTE_WALLET}
               element={<WalletGeneral></WalletGeneral>}
             ></Route>
             <Route
-              path="/wallet/:id"
+              path={ROUTE_WALLET_DETAIL_ID}
               element={<WalletDetail></WalletDetail>}
             ></Route>
 
             <Route
-              path="/update-wallet/:id"
+              path={ROUTE_WALLET_UPDATE_ID}
               element={<UpdateWallet></UpdateWallet>}
             ></Route>
             <Route
-              path="/transfer-money"
+              path={ROUTE_TRANSFER_MONEY}
               element={<WalletTransfer></WalletTransfer>}
             ></Route>
             <Route
-              path="/category-list"
+              path={ROUTE_CATEGORY}
               element={<TransactionCategoryPage></TransactionCategoryPage>}
             ></Route>
             <Route
-              path="/create-transaction-category"
+              path={ROUTE_CATEGORY_CREATE}
               element={
                 <CreateTransactionCategoryPage></CreateTransactionCategoryPage>
               }
