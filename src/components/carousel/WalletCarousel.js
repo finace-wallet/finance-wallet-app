@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 const WalletCarousel = ({ wallets }) => {
   var settings = {
     dots: true,
-    infinite: true,
+    infinite: wallets.length > 1,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
