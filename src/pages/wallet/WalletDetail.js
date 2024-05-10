@@ -1,9 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { displayWalletDetail } from "api/WalletApi";
-import Layout from "layout/main/Layout";
 import WalletAddMoney from "module/WalletAddMoney";
 import WalletShare from "module/WalletShare";
-import WalletTransfer from "module/WalletTransfer";
 import WalletTransferEmail from "module/WalletTransferEmail";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -22,21 +20,25 @@ const WalletDetail = () => {
   const navigate = useNavigate();
   const handleDelete = () => {
     confirmAlert({
-      title: "Xác nhận xóa",
-      message: "Bạn có chắc chắn muốn xóa?",
+      title: "Confirm Delete",
+      message: "Are you sure you want to delete this wallet",
       buttons: [
         {
-          label: "Xóa",
+          label: "Delete",
           onClick: () => {
             deleteApi(wallet.id).then(() => {
               toast.success("Delete Successfully");
             });
             navigate("/wallet");
           },
+          className:
+            "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded",
         },
         {
-          label: "Hủy",
+          label: "Cancel",
           onClick: () => {},
+          className:
+            "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded",
         },
       ],
     });

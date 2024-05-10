@@ -51,16 +51,21 @@ const SignInPage = () => {
     try {
       event.preventDefault();
       const response = await login(data);
-      console.log(response);
-      dispatch(setTokenAction(response.data.data.accessToken));
-      reset({});
-      toast.success("Success Login, Redirecting...");
-      setTimeout(() => {
-        navigate("/");
-      }, 1000);
+
+      if (response.status === 200) {
+        console.log(response);
+        dispatch(setTokenAction(response.data.data.accessToken));
+        reset({});
+        toast.success("Success Login, Redirecting...");
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+      } else {
+        toast.error(response.data.message);
+      }
     } catch (error) {
-      console.error("Error occurred while signing up:", error);
-      toast.error("Error occurred while signing up");
+      console.error("Error occurred while signing in:", error);
+
       // Handle error scenario, e.g., display an error message
     }
   };
