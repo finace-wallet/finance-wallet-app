@@ -18,7 +18,7 @@ const LayoutTwoColumn = ({
           <h2 className="mb-4 text-xl font-bold">{leftHeading}</h2>
           {children.left}
         </div>
-        <div className={`flex-1 p-4 bg-softGrey ${rightStyle}`}>
+        <div className={`flex-2 p-4 bg-softGrey ${rightStyle}`}>
           {/* Right Panel content */}
           <h2 className="mb-4 text-xl font-bold">{rightHeading}</h2>
           {children.right}

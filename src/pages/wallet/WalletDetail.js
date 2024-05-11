@@ -79,7 +79,7 @@ const WalletDetail = () => {
           </div>
           <div className="flex flex-col">
             <p className="text-gray-600">Currency Type: {wallet.currentType}</p>
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <p className="text-gray-600">Description: {wallet.description}</p>
               <button
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full max-w-[250px] self-end"
