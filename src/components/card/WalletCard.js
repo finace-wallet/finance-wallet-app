@@ -1,7 +1,8 @@
+import { displayWalletDetail } from "api/WalletApi";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { setHeader } from "store/header/headerSlice";
+import { setWalletHeader } from "store/header/headerSlice";
 import { setWalletDetails } from "store/wallet/walletSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWallet } from "@fortawesome/free-solid-svg-icons";
@@ -10,10 +11,13 @@ const WalletCard = ({ wallet }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleWalletSelect = () => {
-    dispatch(setWalletDetails(wallet));
-    dispatch(setHeader("Overview"));
-    navigate(`/wallet/${wallet.id}`);
+  const handleWalletSelect = async () => {
+    try {
+      const response = await displayWalletDetail(wallet.id);
+      dispatch(setWalletDetails(response.data.data));
+      dispatch(setWalletHeader("Overview"));
+      navigate(`/wallet/${wallet.id}`);
+    } catch {}
   };
   return (
     <>

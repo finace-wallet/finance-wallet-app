@@ -7,8 +7,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import { setHeader } from "store/header/headerSlice";
-
+import { setWalletHeader } from "store/header/headerSlice";
 
 const HeaderWallet = () => {
   const [selectedHeader, setSelectedHeader] = useState("");
@@ -17,7 +16,7 @@ const HeaderWallet = () => {
   const dispatch = useDispatch();
 
   const reduxSelectedHeader = useSelector(
-    (state) => state.header.selectedHeader
+    (state) => state.header.selectedWalletHeader
   );
 
   useEffect(() => {
@@ -26,25 +25,25 @@ const HeaderWallet = () => {
 
   function getHeaderClasses(headerName) {
     return selectedHeader === headerName
-      ? "text-primary border-b-2 border-b-primary"
-      : "";
+      ? "text-primary border-b-2 border-b-primary cursor-pointer"
+      : "hover:text-primary hover:bg-opacity-20";
   }
 
   const handleWalletSelect = () => {
     setSelectedHeader("Overview");
-    dispatch(setHeader("Overview"));
+    dispatch(setWalletHeader("Overview"));
     navigate(`/wallet/${wallet.id}`);
   };
 
   const handleWalletTransactionSelect = () => {
     setSelectedHeader("Transaction");
-    dispatch(setHeader("Transaction"));
+    dispatch(setWalletHeader("Transaction"));
     navigate(ROUTE_WALLET_TRANSACTION);
   };
 
   const handleWalletSettingSelect = () => {
     setSelectedHeader("Wallet Settings");
-    dispatch(setHeader("Wallet Settings"));
+    dispatch(setWalletHeader("Wallet Settings"));
     navigate(ROUTE_WALLET_SETTING);
   };
 
@@ -58,7 +57,7 @@ const HeaderWallet = () => {
           <span className="font-semibold text-xl">&gt;{wallet.name}</span>
         </div>
 
-        <div className="flex gap-5">
+        <div className="flex gap-5 cursor-pointer">
           <span
             className={getHeaderClasses("Overview")}
             onClick={handleWalletSelect}

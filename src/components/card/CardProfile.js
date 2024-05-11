@@ -38,7 +38,6 @@ const CardProfile = ({ user }) => {
       phoneNumber: "",
     },
   });
-  console.log("This user card profile", user);
 
   useEffect(() => {
     if (user) {
@@ -65,7 +64,7 @@ const CardProfile = ({ user }) => {
   const handleEdit = async (data) => {
     try {
       const response = await editUserData(data, token);
-      console.log("This edit response", response);
+
       closeModal();
       reset({});
       toast.success("Success Edit, Redirecting...");

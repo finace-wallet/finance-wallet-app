@@ -19,10 +19,9 @@ const Account = () => {
 
   const fetchData = async () => {
     try {
-      console.log("Token:", token);
       const response = await getUserData(token);
       const userData = response.data.data;
-      // console.log("Response from backend:", userData);
+
       dispatch(setUser(userData));
 
       // Do something with userData
@@ -34,7 +33,6 @@ const Account = () => {
 
   const userDetails = useSelector((state) => state.auth.userDetails);
 
-  // console.log("current user", userDetails);
   return (
     <>
       <Layout>
@@ -68,10 +66,8 @@ const Account = () => {
                       notification: "This is your main address",
                     }}
                   </CardComponent>
-
                 </>
               ),
-              
             }}
           </LayoutTwoColumn>
         </UserSettingLayout>

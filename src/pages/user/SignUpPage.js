@@ -44,7 +44,7 @@ const SignUpPage = () => {
   const handleSignUp = async (data) => {
     try {
       const response = await register(data); // Call register function from AuthApi
-      console.log(response);
+
       toast.success("Success Creating New User");
       reset({});
       setTimeout(() => {

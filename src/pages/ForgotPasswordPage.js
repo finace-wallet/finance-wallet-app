@@ -35,7 +35,7 @@ const ForgotPasswordPage = () => {
   const handleForgotPassword = async (data) => {
     try {
       const response = await forgetPassword(data);
-      console.log("Server response: ", response);
+
       reset({});
       toast.success("Success Sending Email, Redirecting...");
       setTimeout(() => {

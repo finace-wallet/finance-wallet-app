@@ -77,7 +77,7 @@ const TransactionHistoryModal = ({ isOpen, onClose }) => {
       onRequestClose={handleClose}
       ref={modalRef}
     >
-      <div className="flex content-center justify-between align-middle">\
+      <div className="flex content-center justify-between align-middle">
         <div></div>
         <p className="text-3xl font-bold mr-52">Transaction History</p>
         <button

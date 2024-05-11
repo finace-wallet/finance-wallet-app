@@ -24,7 +24,7 @@ export async function createWallet(wallet) {
 }
 
 export async function listWallet(currentPage) {
-  console.log(currentPage);
+
     let response = null;
     let token = localStorage.getItem('token');
   await axios({

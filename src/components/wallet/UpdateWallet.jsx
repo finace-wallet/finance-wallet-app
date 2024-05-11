@@ -19,7 +19,7 @@ export default function WalletDetail(){
     useEffect(() => {
         findWallet(id)
         .then((res) => {
-            console.log(res);
+            
             setWallet({
                 name:res.data.name,
                 currentType:res.data.currentType,

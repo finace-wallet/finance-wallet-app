@@ -56,13 +56,10 @@ const WalletTransferEmail = () => {
   }
 
   const handleCheckEmail = async (data) => {
-    console.log("🚀 ~ handleCheckEmail ~ data:", data);
-
     data.page = currentPage;
 
     const response = await getAllWalletsByRecipientEmail(data); // Assuming pagination in the API call
 
-    console.log("🚀 ~ handleCheckEmail ~ response:", response);
     setMail(data.transferEmail);
     setWallets(response.data.content);
     setTotalPages(response.data.totalPages || 0);
@@ -157,7 +154,6 @@ const WalletTransferEmail = () => {
                     dispatch(setWalletRecipiment(wallet));
                     dispatch(setWalletRecipimentEmail(mail));
                     navigate("/transfer-money");
-                    console.log(wallet);
                   }}
                 >
                   <div className="flex items-center justify-between">

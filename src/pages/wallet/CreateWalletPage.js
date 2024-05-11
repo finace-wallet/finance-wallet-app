@@ -50,7 +50,7 @@ const CreateWalletPage = () => {
     try {
       await schema.validate(form, { abortEarly: false });
       const response = await createWallet(form);
-      console.log("Wallet created successfully:", response);
+
       navigate("/wallet");
     } catch (error) {
       if (error.name === "ValidationError") {
