@@ -40,7 +40,7 @@ export async function login(user) {
     .catch((e) => {
       response = e.response;
     });
-  console.log(response);
+
   return response;
 }
 
@@ -92,7 +92,7 @@ export async function forgetPassword(user) {
     .catch((e) => {
       response = e.response;
     });
-  console.log(response);
+
   return response;
 }
 
@@ -132,7 +132,7 @@ export async function activeAccount(user) {
     .catch((e) => {
       response = e.response;
     });
-  console.log(response);
+
   return response;
 }
 
@@ -175,7 +175,7 @@ export async function getUserData(token) {
     .catch((e) => {
       response = e.response;
     });
-  console.log(response);
+
   return response;
 }
 
@@ -197,6 +197,6 @@ export async function editUserData(user, token) {
     .catch((e) => {
       response = e.response;
     });
-  console.log(response);
+
   return response;
 }

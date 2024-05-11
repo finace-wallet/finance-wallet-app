@@ -41,7 +41,7 @@ const CreateWalletModal = ({ isOpen, onClose }) => {
   const handleCreateWallet = async (data) => {
     try {
       const response = await createWallet(data);
-      console.log("Wallet created successfully:", response);
+
       toast.success("Wallet created successfully:");
       onClose(); // Close the modal
     } catch (error) {

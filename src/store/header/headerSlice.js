@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  selectedHeader: null,
+  selectedWalletHeader: null,
 };
 
 
@@ -9,12 +9,12 @@ const headerSlice = createSlice({
     name: "header",
     initialState,
     reducers: {
-      setHeader(state, action) {
-        state.selectedHeader = action.payload;
+      setWalletHeader(state, action) {
+        state.selectedWalletHeader = action.payload;
       },
     },
   });
 
-  export const {setHeader} = headerSlice.actions;
+  export const {setWalletHeader} = headerSlice.actions;
 
   export default headerSlice.reducer;

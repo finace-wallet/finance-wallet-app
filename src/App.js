@@ -49,20 +49,19 @@ const AccountPage = React.lazy(() => import("./pages/user/Account"));
 const ActiveAccountPage = React.lazy(() => import("./pages/ActiveAccountPage"));
 const WalletGeneral = React.lazy(() => import("./pages/wallet/WalletGeneral"));
 const WalletDetail = React.lazy(() => import("./pages/wallet/WalletDetail"));
-
+const WalletOverview = React.lazy(() =>
+  import("./pages/wallet/WalletOverview")
+);
+const WalletTransaction = React.lazy(() =>
+  import("./pages/wallet/WalletTransaction")
+);
 const TransactionCategoryPage = React.lazy(() =>
   import("./pages/TransactionCategoryPage")
 );
 const CreateTransactionCategoryPage = React.lazy(() =>
   import("./pages/CreateTransactionCategoryPage")
 );
-
 const CategoriesPage = React.lazy(() => import("./pages/MainSettingsPage"));
-
-const WalletTransaction = React.lazy(() =>
-  import("./pages/wallet/WalletTransaction")
-);
-
 const WalletSetting = React.lazy(() => import("./pages/wallet/WalletSettings"));
 
 function App() {
@@ -121,7 +120,7 @@ function App() {
             ></Route>
             <Route
               path={ROUTE_WALLET_DETAIL_ID}
-              element={<WalletDetail></WalletDetail>}
+              element={<WalletOverview></WalletOverview>}
             ></Route>
             <Route
               path="/category-list"

@@ -23,6 +23,7 @@ const WalletList = () => {
   const fetchWallets = async () => {
     try {
       const response = await listWallet(currentPage);
+
       setWallets(response.data.data.content);
       setTotalPages(response.data.data.totalPages || 0);
       setLoading(false);
@@ -35,9 +36,12 @@ const WalletList = () => {
     setCurrenPage(selected);
   };
 
+
   useEffect(() => {
     console.log(totalPages);
   }, [totalPages]);
+
+  useEffect(() => {}, [totalPages]);
 
   return (
     <>
@@ -81,6 +85,7 @@ const WalletList = () => {
                         onClick={() => {
                           dispatch(setWalletDetails(wallet));
                           console.log(wallet);
+                          // dispatch(setWalletDetails(wallet));
                           navigate(`/wallet/${wallet.id}`);
                         }}
                       >
