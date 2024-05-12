@@ -199,7 +199,7 @@ const CreateTransactionModal = ({ isOpen, onClose }) => {
           </div> */}
 
           <div className="flex flex-col w-full">
-            <label>Amount</label>
+            <label>Amount (*)</label>
             <Controller
               name="amount"
               control={control}
