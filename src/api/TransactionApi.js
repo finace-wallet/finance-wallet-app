@@ -52,7 +52,6 @@ export async function getTransactionCategory() {
     } catch (error) {
         response = error.response;
     }
-    console.log("🚀 ~ getTransactionCategory ~ response:", response);
     return response;
   }
 
