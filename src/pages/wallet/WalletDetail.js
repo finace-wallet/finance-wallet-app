@@ -73,7 +73,7 @@ const WalletDetail = () => {
     <>
       <LayoutWallet>
         <div className="w-full p-4 mb-4 transition duration-300 ease-in-out delay-150 border border-gray-200 rounded-md shadow-md">
-          <p className="font-semibold">Name: {wallet.name}</p>
+          <p className="font-semibold">{wallet.name}</p>
           <div className="flex items-center mt-2">
             <FontAwesomeIcon icon="fa-solid fa-wallet" />
             <p className="text-gray-600">Amount: {wallet.amount}</p>
