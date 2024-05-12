@@ -1,13 +1,14 @@
-import { createTransaction } from "api/TransactionApi";
+import { createTransaction, getAllTransaction } from "api/TransactionApi";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import Modal from "react-modal";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import Select from "react-select";
 
 import { yupResolver } from "@hookform/resolvers/yup"; // Import yupResolver
 import * as yup from "yup";
+import { setAllTransaction } from "store/transaction/transactionOverviewSlice";
 
 const CreateTransactionModal = ({ isOpen, onClose }) => {
   const [categoryType, setCategoryType] = useState("INCOME");
@@ -16,6 +17,8 @@ const CreateTransactionModal = ({ isOpen, onClose }) => {
     (state) => state.wallet.wallets.transactionCategory
   );
   const wallet = useSelector((state) => state.wallet.wallets);
+
+  console.log("🚀 ~ CreateTransactionModal ~ wallet:", wallet);
 
   const filteredCategories = reduxCategory.filter(
     (category) => category.type === categoryType
@@ -58,6 +61,8 @@ const CreateTransactionModal = ({ isOpen, onClose }) => {
     resolver: yupResolver(validationSchema),
   });
 
+  const dispatch = useDispatch();
+
   const onSubmit = async (data) => {
     data.transactionCategoryId = data.transactionCategoryId.value;
     delete data.categoryType;
@@ -66,6 +71,8 @@ const CreateTransactionModal = ({ isOpen, onClose }) => {
       const response = await createTransaction(data, wallet.id);
       if (response.status === 201) {
         toast.success(response.data.message);
+        const transactionResponse = await getAllTransaction(wallet.id);
+        dispatch(setAllTransaction(transactionResponse.data.data.content));
       }
     } catch (error) {
       toast.error(error);

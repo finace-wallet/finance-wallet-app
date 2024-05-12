@@ -2,7 +2,7 @@ import { Menu, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { ROUTE_ACCOUNT } from "constants/routerConstants";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
@@ -17,6 +17,7 @@ const DropDownAuth = () => {
   const username = useSelector((state) => state.auth.user.id);
   const usernamePart = username.split("@")[0];
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { handleSubmit } = useForm();
   const handleLogout = async () => {
     // Dispatch logout action
@@ -27,6 +28,7 @@ const DropDownAuth = () => {
       if (response.status === 200) {
         dispatch(setLogout());
         toast.success("You have logged out");
+        navigate("/");
       } else {
         // Handle unexpected response status
         toast.error("Logout failed. Please try again.");
