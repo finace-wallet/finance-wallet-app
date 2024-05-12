@@ -32,6 +32,7 @@ const WalletList = () => {
     }
   };
 
+
   const handleNextPage = ({ selected }) => {
     setCurrenPage(selected);
   };
@@ -45,6 +46,7 @@ const WalletList = () => {
 
   return (
     <>
+
       <Layout>
         <div className="container mx-auto my-60">
           <div className="relative w-5/6 mx-auto bg-white rounded-lg shadow md:w-5/6 lg:w-4/6 xl:w-3/6">

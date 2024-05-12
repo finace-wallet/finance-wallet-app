@@ -43,5 +43,6 @@ export async function listWallet(currentPage) {
     .catch((e) => {
       response = e.response;
     });
+      console.log("🚀 ~ listWallet ~ response:", response)
   return response;
 }
