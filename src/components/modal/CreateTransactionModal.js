@@ -60,7 +60,7 @@ const CreateTransactionModal = ({ isOpen, onClose }) => {
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex gap-x-2">
-          <div className="w-full flex flex-col">
+          <div className="flex flex-col w-full">
             <label>Category</label>
             <Controller
               name="transactionCategoryId"
@@ -70,7 +70,7 @@ const CreateTransactionModal = ({ isOpen, onClose }) => {
                 <select
                   {...field}
                   id="transactionCategoryId"
-                  className="border p-2 rounded w-full"
+                  className="w-full p-2 border rounded"
                 >
                   {reduxCategory.map((category) => (
                     <option key={category.id} value={category.id}>
@@ -81,7 +81,7 @@ const CreateTransactionModal = ({ isOpen, onClose }) => {
               )}
             />
           </div>
-          <div className="w-full flex flex-col">
+          <div className="flex flex-col w-full">
             <label>Date</label>
             <Controller
               name="transactionDate"
@@ -91,12 +91,12 @@ const CreateTransactionModal = ({ isOpen, onClose }) => {
                 <input
                   {...field}
                   type="transactionDate"
-                  className="border p-2 rounded w-full"
+                  className="w-full p-2 border rounded"
                 />
               )}
             />
           </div>
-          <div className="w-full flex flex-col">
+          <div className="flex flex-col w-full">
             <label>Note (optional)</label>
             <Controller
               name="description"
@@ -107,12 +107,12 @@ const CreateTransactionModal = ({ isOpen, onClose }) => {
                   {...field}
                   type="text"
                   placeholder="Write note (optional)"
-                  className="border p-2 rounded w-full"
+                  className="w-full p-2 border rounded"
                 />
               )}
             />
           </div>
-          <div className="w-full flex flex-col">
+          <div className="flex flex-col w-full">
             <label>Amount</label>
             <Controller
               name="amount"
@@ -123,20 +123,20 @@ const CreateTransactionModal = ({ isOpen, onClose }) => {
                   {...field}
                   type="number"
                   placeholder="$0.00"
-                  className="border p-2 rounded w-full"
+                  className="w-full p-2 border rounded"
                 />
               )}
             />
           </div>
 
-          <div className="w-full flex flex-col">
+          <div className="flex flex-col w-full">
             <label>Currency</label>
             <Controller
               name="currency"
               control={control}
               defaultValue="USD"
               render={({ field }) => (
-                <select {...field} className="border p-2 rounded w-full">
+                <select {...field} className="w-full p-2 border rounded">
                   {/* Currency options */}
                   <option value="USD">USD</option>
                   <option value="VND">VND</option>
@@ -147,7 +147,7 @@ const CreateTransactionModal = ({ isOpen, onClose }) => {
         </div>
         <div className="flex justify-end">
           <button
-            className="bg-primary p-2 text-white rounded-lg mt-5 font-semibold"
+            className="p-2 mt-5 font-semibold text-white rounded-lg bg-primary"
             type="submit"
           >
             Add Transaction

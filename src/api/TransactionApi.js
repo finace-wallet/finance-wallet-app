@@ -35,6 +35,27 @@ export async function createTransaction(data, walletId) {
   return response;
 }
 
+
+export async function getTransactionCategory() {
+    let response = null;
+    const token = localStorage.getItem("token");
+    try {
+        response = await axios.get(
+            `${FINANCE_WALLET_API}transactionCategories/list`,
+            {
+                headers: {
+                    "Content_Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+    } catch (error) {
+        response = error.response;
+    }
+    console.log("🚀 ~ getTransactionCategory ~ response:", response);
+    return response;
+  }
+
 export async function displayTransactionCategory() {
   let response = null;
   const token = localStorage.getItem("token");
@@ -53,6 +74,7 @@ export async function displayTransactionCategory() {
   }
   return response;
 }
+
 
 export async function createTransactionCategory(category) {
   let response = null;
