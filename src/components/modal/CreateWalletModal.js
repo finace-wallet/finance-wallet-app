@@ -52,9 +52,9 @@ const CreateWalletModal = ({ isOpen, onClose }) => {
 
   return (
     <Modal isOpen={isOpen} onRequestClose={onClose}>
-      <div className="max-w-lg mx-auto bg-white p-2 mt-4">
+      <div className="max-w-lg p-2 mx-auto mt-4 bg-white">
         <CloseButton onClick={onClose}></CloseButton>
-        <h1 className="mb-4 text-2xl font-semibold flex text-center justify-center">
+        <h1 className="flex justify-center mb-4 text-2xl font-semibold text-center">
           Create New Wallet
         </h1>
         <form onSubmit={handleSubmit(handleCreateWallet)} className="space-y-4">

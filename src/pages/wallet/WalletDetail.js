@@ -10,14 +10,15 @@ import { deleteApi } from "api/wallet/DeleteApi";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { useNavigate } from "react-router";
-
+import { useDispatch } from "react-redux";
 import TransactionHistoryModal from "pages/TransactionHistoryPage";
-
+import { listWallet } from "api/WalletApi";
 import { toast } from "react-toastify";
 import LayoutWallet from "layout/wallet/LayoutWallet";
 const WalletDetail = () => {
   const wallet = useSelector((state) => state.wallet.wallets);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleDelete = () => {
     confirmAlert({
       title: "Confirm Delete",
@@ -29,7 +30,7 @@ const WalletDetail = () => {
             deleteApi(wallet.id).then(() => {
               toast.success("Delete Successfully");
             });
-            navigate("/wallet");
+            navigate("/");
           },
           className:
             "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded",
@@ -72,7 +73,7 @@ const WalletDetail = () => {
     <>
       <LayoutWallet>
         <div className="w-full p-4 mb-4 transition duration-300 ease-in-out delay-150 border border-gray-200 rounded-md shadow-md">
-          <p className="font-semibold">Name: {wallet.name}</p>
+          <p className="font-semibold">{wallet.name}</p>
           <div className="flex items-center mt-2">
             <FontAwesomeIcon icon="fa-solid fa-wallet" />
             <p className="text-gray-600">Amount: {wallet.amount}</p>

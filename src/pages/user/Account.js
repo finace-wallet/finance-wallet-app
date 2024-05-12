@@ -36,7 +36,6 @@ const Account = () => {
   return (
     <>
       <Layout>
-        <UserSettingLayout>
           <LayoutTwoColumn leftStyle="my-auto mt-10">
             {{
               left: (
@@ -70,7 +69,6 @@ const Account = () => {
               ),
             }}
           </LayoutTwoColumn>
-        </UserSettingLayout>
       </Layout>
     </>
   );
