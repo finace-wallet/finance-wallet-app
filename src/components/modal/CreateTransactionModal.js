@@ -1,31 +1,82 @@
 import { createTransaction } from "api/TransactionApi";
-import React from "react";
+import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import Modal from "react-modal";
-import { log } from "react-modal/lib/helpers/ariaAppHider";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
+import Select from "react-select";
+
+import { yupResolver } from "@hookform/resolvers/yup"; // Import yupResolver
+import * as yup from "yup";
 
 const CreateTransactionModal = ({ isOpen, onClose }) => {
+  const [categoryType, setCategoryType] = useState("INCOME");
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const reduxCategory = useSelector(
     (state) => state.wallet.wallets.transactionCategory
   );
-
-
-
   const wallet = useSelector((state) => state.wallet.wallets);
 
-  const { handleSubmit, control } = useForm();
+  const filteredCategories = reduxCategory.filter(
+    (category) => category.type === categoryType
+  );
+  // Map filtered categories to options for React Select
+  const categoryOptions = filteredCategories.map((category) => ({
+    value: category.id,
+    label: category.name,
+  }));
+
+  const validationSchema = yup.object().shape({
+    // ... your other validations
+    transactionCategoryId: yup.mixed().required(),
+    transactionDate: yup.string().required(),
+    amount: yup.number().when("categoryType", {
+      is: (categoryType) => categoryType.value === "EXPENSE", // Check against object
+      then: (schema) =>
+        schema
+          .transform((currentValue, originalValue) =>
+            originalValue === "" ? null : currentValue
+          )
+          .nullable()
+          .required("Amount is required")
+          .min(-wallet.amount, "Expense cannot exceed wallet balance")
+          .typeError("Amount must be a number"),
+      otherwise: (schema) =>
+        schema.nullable().typeError("Amount must be a number"),
+    }),
+  });
+
+  const {
+    handleSubmit,
+    control,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      transactionDate: new Date().toISOString().split("T")[0], // Set current date as default
+    },
+    resolver: yupResolver(validationSchema),
+  });
 
   const onSubmit = async (data) => {
+    data.transactionCategoryId = data.transactionCategoryId.value;
+    delete data.categoryType;
 
     try {
       const response = await createTransaction(data, wallet.id);
       if (response.status === 201) {
         toast.success(response.data.message);
       }
+    } catch (error) {
+      toast.error(error);
+    }
+  };
 
-    } catch (error) {}
+  // Function to handle category type change
+  const handleCategoryTypeChange = (selectedOption) => {
+    setCategoryType(selectedOption.value);
+    setValue("transactionCategoryId", null);
+    setValue("amount", null);
   };
 
   return (
@@ -47,7 +98,7 @@ const CreateTransactionModal = ({ isOpen, onClose }) => {
           left: "50px",
           right: "40px",
           bottom: "40px",
-          height: "161px", // Adjust height as needed
+          height: "360px", // Adjust height as needed
           border: "1px solid #ccc",
           background: "#fff",
           overflow: "auto",
@@ -61,36 +112,51 @@ const CreateTransactionModal = ({ isOpen, onClose }) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex gap-x-2">
           <div className="flex flex-col w-full">
-            <label>Category</label>
+            <label>Type(*)</label>
+            <Controller
+              name="categoryType"
+              control={control}
+              defaultValue={{ value: "INCOME", label: "INCOME" }}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  options={[
+                    { value: "INCOME", label: "INCOME" },
+                    { value: "EXPENSE", label: "EXPENSE" },
+                  ]}
+                  onChange={(selectedOption) => {
+                    field.onChange(selectedOption); // Trigger onChange manually
+                    handleCategoryTypeChange(selectedOption); // Also update local state
+                  }}
+                />
+              )}
+            />
+            <span></span>
+          </div>
+          <div className="flex flex-col w-full">
+            <label>Select Category(*)</label>
             <Controller
               name="transactionCategoryId"
               control={control}
-              defaultValue={reduxCategory[0].id}
               render={({ field }) => (
-                <select
-                  {...field}
-                  id="transactionCategoryId"
-                  className="w-full p-2 border rounded"
-                >
-                  {reduxCategory.map((category) => (
-                    <option key={category.id} value={category.id}>
-                      {category.name}
-                    </option>
-                  ))}
-                </select>
+                <Select {...field} options={categoryOptions} />
               )}
             />
+            {errors.transactionCategoryId && (
+              <span className="text-red-500">
+                {errors.transactionCategoryId.message}
+              </span>
+            )}
           </div>
           <div className="flex flex-col w-full">
             <label>Date</label>
             <Controller
               name="transactionDate"
               control={control}
-              defaultValue="2023-01-01"
               render={({ field }) => (
                 <input
                   {...field}
-                  type="transactionDate"
+                  type="date"
                   className="w-full p-2 border rounded"
                 />
               )}
@@ -111,8 +177,11 @@ const CreateTransactionModal = ({ isOpen, onClose }) => {
                 />
               )}
             />
+            {errors.description && (
+              <span className="text-red-500">{errors.description.message}</span>
+            )}
           </div>
-          <div className="flex flex-col w-full">
+          {/* <div className="flex flex-col w-full">
             <label>Amount</label>
             <Controller
               name="amount"
@@ -122,11 +191,48 @@ const CreateTransactionModal = ({ isOpen, onClose }) => {
                 <input
                   {...field}
                   type="number"
-                  placeholder="$0.00"
+                  placeholder={`${categoryType === "EXPENSE" ? "-" : ""}$0.00`}
                   className="w-full p-2 border rounded"
                 />
               )}
             />
+          </div> */}
+
+          <div className="flex flex-col w-full">
+            <label>Amount</label>
+            <Controller
+              name="amount"
+              control={control}
+              defaultValue=""
+              render={({ field }) => {
+                const { onChange, value, ...rest } = field;
+                return (
+                  <>
+                    <input
+                      {...rest}
+                      type="number"
+                      value={
+                        categoryType === "EXPENSE" && value >= 0
+                          ? -Math.abs(value)
+                          : value
+                      }
+                      onChange={(e) => {
+                        const newValue =
+                          categoryType === "EXPENSE"
+                            ? -Math.abs(e.target.value)
+                            : e.target.value;
+                        onChange(newValue);
+                      }}
+                      placeholder="$0.00"
+                      className="w-full p-2 border rounded"
+                    />
+                  </>
+                );
+              }}
+            />
+            {errors.amount && (
+              <span className="text-red-500">{errors.amount.message}</span>
+            )}
           </div>
 
           <div className="flex flex-col w-full">
@@ -134,12 +240,12 @@ const CreateTransactionModal = ({ isOpen, onClose }) => {
             <Controller
               name="currency"
               control={control}
-              defaultValue="USD"
+              defaultValue="VND"
               render={({ field }) => (
                 <select {...field} className="w-full p-2 border rounded">
                   {/* Currency options */}
-                  <option value="USD">USD</option>
                   <option value="VND">VND</option>
+                  <option value="USD">USD</option>
                 </select>
               )}
             />
