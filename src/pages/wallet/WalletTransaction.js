@@ -4,6 +4,8 @@ import LayoutWallet from "layout/wallet/LayoutWallet";
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useSelector } from "react-redux";
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
 
 const WalletTransaction = () => {
   const [isCreateTransactionModalOpen, setIsCreateTransactionModalOpen] =
@@ -22,7 +24,7 @@ const WalletTransaction = () => {
   useEffect(() => {}, [totalPages]);
 
   const fetchData = async () => {
-    // Call API to fetch wallet data (assuming an API call function)
+
     const response = await getTransactionList(wallet.id, currentPage);
 
     setTransactions(response.data.data.content);
@@ -30,6 +32,34 @@ const WalletTransaction = () => {
 
     console.log("Data transaction: ", response.data.data.content);
   };
+
+  const handleExportToExcel = () => {
+    exportToExcel(transactions);
+  };
+
+  const exportToExcel = (data) => {
+    if (!data || data.length === 0) {
+      console.error("Data is not available or empty");
+      return;
+    }
+    const transactionsData = data.map((item) => ({
+      Category: item.categoryName,
+      Date: item.transactionDate,
+      Note: item.description,
+      Amount: item.amount,
+      Currency: item.currency,
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(transactionsData);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Transaction History");
+    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+    const excelBlob = new Blob([excelBuffer], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
+    saveAs(excelBlob, "transaction_history.xlsx");
+  };
+
 
   const handleNextPage = ({ selected }) => {
     setCurrentPage(selected);
@@ -39,12 +69,19 @@ const WalletTransaction = () => {
     <>
       <LayoutWallet>
         <>
-          <div className="flex mx-10 mt-5">
+          <div className="flex mx-10 mt-5 justify- ml-0">
             <button
               className="text-white bg-primary p-2 m-2 rounded-lg font-semibold"
               onClick={() => setIsCreateTransactionModalOpen(true)}
             >
               Add transaction
+            </button>
+
+            <button
+              className="text-white bg-sky-600 p-2 m-2 rounded-lg font-semibold"
+              onClick={handleExportToExcel}
+            >
+              export
             </button>
           </div>
           <CreateTransactionModal
