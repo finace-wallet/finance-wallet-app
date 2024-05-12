@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Layout from "layout/main/Layout";
-import { displayTransactionCategory } from "api/TransactionApi";
+import { getTransactionCategory } from "api/TransactionApi";
 import { Link } from "react-router-dom";
 import { FaEdit } from "react-icons/fa";
 
@@ -14,7 +14,7 @@ const TransactionCategoryPage = () => {
 
   const fetchTransactionCategories = async () => {
     try {
-      const response = await displayTransactionCategory();
+      const response = await getTransactionCategory();
       if (response && response.status === 200) {
         setCategories(response.data);
       }

@@ -21,8 +21,8 @@ const WalletListModule = () => {
   const fetchWallets = async () => {
     try {
       const response = await listWallet(currentPage);
-      setWallets(response.data.content);
-      setTotalPages(response.data.totalPages || 0);
+      setWallets(response.data.data.content);
+      setTotalPages(response.data.data.totalPages || 0);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching wallets:", error);
@@ -33,9 +33,7 @@ const WalletListModule = () => {
     setCurrenPage(selected);
   };
 
-  useEffect(() => {
-    console.log(totalPages);
-  }, [totalPages]);
+  useEffect(() => {}, [totalPages]);
 
   return (
     <>
@@ -76,8 +74,8 @@ const WalletListModule = () => {
                       key={wallet.id}
                       className="w-full p-4 mb-4 transition duration-300 ease-in-out delay-150 border border-gray-200 rounded-md shadow-md cursor-pointer hover:shadow-lg hover:bg-gray-100 custom-card"
                       onClick={() => {
-                        dispatch(setWalletDetails(wallet));
-                        console.log(wallet);
+                        // dispatch(setWalletDetails(wallet));
+
                         navigate(`/wallet/${wallet.id}`);
                       }}
                     >

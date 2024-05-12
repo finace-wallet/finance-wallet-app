@@ -1,4 +1,8 @@
-import { addMoneyToWallet, displayWallet, displayWalletDetail } from "api/WalletApi";
+import {
+  addMoneyToWallet,
+  displayWallet,
+  displayWalletDetail,
+} from "api/WalletApi";
 import Pagination from "components/pagination/Pagination";
 import LayoutTwoColumn from "layout/LayoutTwoColumn";
 import Layout from "layout/main/Layout";
@@ -28,7 +32,7 @@ const WalletDetail = () => {
   const fetchWallets = async (page) => {
     try {
       const response = await displayWalletDetail(page);
-      console.log("This response", response);
+
       setWallets(response.data.content);
       setTotalPages(response.data.totalPages);
     } catch (error) {
@@ -45,30 +49,17 @@ const WalletDetail = () => {
     dispatch(setWalletId(walletId));
     setAddAmount(0);
     const selectedWallet = wallets.find((wallet) => wallet.id === walletId);
-    console.log("🚀 ~ handleWalletSelect ~ selectedWallet:", selectedWallet);
+
     const walletAmount = selectedWallet?.amount;
-    const walletName = selectedWallet?.name;
-    const walletCurrencyType = selectedWallet?.currentType;
-    const walletDescription = selectedWallet?.description;
 
     if (walletAmount !== undefined) {
       // Dispatch action to update walletAmount in Redux store only if amount exists
       dispatch(setWalletAmount(walletAmount));
-      dispatch(
-        setWalletDetails({
-          walletId: walletId,
-          walletName: walletName,
-          walletAmount: walletAmount,
-          walletCurrentType: walletCurrencyType,
-          walletDescription: walletDescription,
-        })
-      );
     } else {
       console.warn("Wallet amount not found for selected wallet:", walletId);
     }
 
     setAddAmount(0); // Reset add amount when selecting a new wallet
-    console.log("You're selecting walletId", walletId);
   };
 
   const handleAddMoney = async () => {

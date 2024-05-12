@@ -14,6 +14,8 @@ import { register } from "api/AuthApi";
 import Layout from "layout/main/Layout";
 import useToggleValue from "hooks/useToggleValue";
 import { IconEyeToggle } from "icons";
+import LayoutAuth from "layout/main/LayoutAuth";
+import { ROUTE_ACTIVE, ROUTE_LOGIN } from "constants/routerConstants";
 
 const schema = yup.object().shape({
   email: yup.string().email("Email is required").required("Email is required"),
@@ -42,11 +44,11 @@ const SignUpPage = () => {
   const handleSignUp = async (data) => {
     try {
       const response = await register(data); // Call register function from AuthApi
-      console.log(response);
+
       toast.success("Success Creating New User");
       reset({});
       setTimeout(() => {
-        navigate("/active");
+        navigate(ROUTE_ACTIVE);
       }, 1000);
     } catch (error) {
       console.error("Error occurred while signing up:", error);
@@ -56,11 +58,14 @@ const SignUpPage = () => {
 
   return (
     <>
-      <Layout>
+      <LayoutAuth>
         <LayoutAuthentication heading="Sign Up">
           <p className="mb-6 text-xs font-medium text-center lg:font-normal lg:text-sm text-text3 lg:mb-8">
             Already have an account?{" "}
-            <Link to="/login" className="font-medium underline text-primary">
+            <Link
+              to={ROUTE_LOGIN}
+              className="font-medium underline text-primary"
+            >
               Sign in
             </Link>
           </p>
@@ -110,7 +115,7 @@ const SignUpPage = () => {
             </Button>
           </form>
         </LayoutAuthentication>
-      </Layout>
+      </LayoutAuth>
       <ToastContainer />
     </>
   );
