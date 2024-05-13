@@ -1,8 +1,8 @@
 import { Menu, Transition } from "@headlessui/react";
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { ROUTE_ACCOUNT } from "constants/routerConstants";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
@@ -14,9 +14,18 @@ function classNames(...classes) {
 }
 
 const DropDownAuth = () => {
-  const username = useSelector((state) => state.auth.user.id);
-  const usernamePart = username.split("@")[0];
+  const username = useSelector((state) => state.auth.user?.id);
+
+  const [usernamePart, setUsernamePart] = useState("");
+
+  useEffect(() => {
+    if (username) {
+      setUsernamePart(username.split("@")[0]);
+    }
+  }, [username]);
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { handleSubmit } = useForm();
   const handleLogout = async () => {
     // Dispatch logout action
@@ -27,6 +36,7 @@ const DropDownAuth = () => {
       if (response.status === 200) {
         dispatch(setLogout());
         toast.success("You have logged out");
+        navigate("/");
       } else {
         // Handle unexpected response status
         toast.error("Logout failed. Please try again.");
@@ -37,6 +47,12 @@ const DropDownAuth = () => {
       toast.error("Logout failed. Please try again.");
     }
   };
+
+  // Check if the user object exists before accessing its properties
+  if (!username) {
+    return null; // Don't render the dropdown if no user is logged in
+  }
+
   return (
     <>
       <Menu as="div" className="relative inline-block text-left">

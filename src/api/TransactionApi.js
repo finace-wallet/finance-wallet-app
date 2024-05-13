@@ -35,25 +35,24 @@ export async function createTransaction(data, walletId) {
   return response;
 }
 
-
 export async function getTransactionCategory() {
-    let response = null;
-    const token = localStorage.getItem("token");
-    try {
-        response = await axios.get(
-            `${FINANCE_WALLET_API}transactionCategories/list`,
-            {
-                headers: {
-                    "Content_Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-            }
-        );
-    } catch (error) {
-        response = error.response;
-    }
-    return response;
+  let response = null;
+  const token = localStorage.getItem("token");
+  try {
+    response = await axios.get(
+      `${FINANCE_WALLET_API}transactionCategories/list`,
+      {
+        headers: {
+          Content_Type: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  } catch (error) {
+    response = error.response;
   }
+  return response;
+}
 
 export async function displayTransactionCategory() {
   let response = null;
@@ -73,7 +72,6 @@ export async function displayTransactionCategory() {
   }
   return response;
 }
-
 
 export async function createTransactionCategory(category) {
   let response = null;
@@ -95,5 +93,27 @@ export async function createTransactionCategory(category) {
     .catch((e) => {
       response = e.response;
     });
+  return response;
+}
+
+export async function getAllTransaction(walletId) {
+  let response = null;
+  const token = localStorage.getItem("token");
+  const size = 500;
+
+  try {
+    response = await axios.get(
+      `${WALLET_API}/${walletId}/list-transaction?size=${size}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  } catch (error) {
+    response = error.response;
+  }
+  console.log("🚀 ~ getAllTransaction ~ response:", response);
   return response;
 }

@@ -19,12 +19,11 @@ const WalletTransaction = () => {
 
   useEffect(() => {
     fetchData();
-  }, [currentPage]);
+  }, [transactions, currentPage]);
 
   useEffect(() => {}, [totalPages]);
 
   const fetchData = async () => {
-
     const response = await getTransactionList(wallet.id, currentPage);
 
     setTransactions(response.data.data.content);
@@ -59,7 +58,6 @@ const WalletTransaction = () => {
     });
     saveAs(excelBlob, "transaction_history.xlsx");
   };
-
 
   const handleNextPage = ({ selected }) => {
     setCurrentPage(selected);

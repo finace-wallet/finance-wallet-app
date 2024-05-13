@@ -2,6 +2,7 @@ import LayoutWallet from "layout/wallet/LayoutWallet";
 import React from "react";
 import { useState } from "react";
 import MainSettingsPage from "pages/MainSettingsPage";
+import CategorySettingsPage from "pages/category/CategorySettingsPage";
 
 const WalletSettings = () => {
   const [selectedSetting, setSelectedSetting] = useState("main");
@@ -40,7 +41,9 @@ const WalletSettings = () => {
               {selectedSetting === "main" && (
                 <MainSettingsPage></MainSettingsPage>
               )}
-              {selectedSetting === "categories" && <p>aaaaa</p>}
+              {selectedSetting === "categories" && (
+                <CategorySettingsPage></CategorySettingsPage>
+              )}
             </>
           </div>
         </div>
