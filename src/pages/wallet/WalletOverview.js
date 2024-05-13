@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css";
-import { subMonths, addMonths } from "date-fns";
 
 import Slider from "rc-slider"; // You'll need to install rc-slider
 import "rc-slider/assets/index.css";
@@ -96,7 +95,7 @@ const WalletOverview = () => {
         },
       });
       setExpenseData({
-        series: Object.values(expenseGrouped), // Use the actual values, no need for Math.abs
+        series: Object.values(expenseGrouped),
         options: {
           ...expenseData.options,
           labels: Object.keys(expenseGrouped),
@@ -105,14 +104,6 @@ const WalletOverview = () => {
       });
     }
   }, [allTransactions]);
-
-  const CustomPrevButton = ({ onClick }) => (
-    <button onClick={onClick}>{"<"}</button>
-  );
-
-  const CustomNextButton = ({ onClick }) => (
-    <button onClick={onClick}>{">"}</button>
-  );
 
   const [selectionRange, setSelectionRange] = useState({
     startDate: new Date(),
@@ -150,7 +141,9 @@ const WalletOverview = () => {
             <div className="bg-white p-4 mt-5 mx-10 rounded-lg shadow-md">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-lg font-medium">Filters</h2>
-                <button className="text-blue-500">Reset filters</button>
+                <button className="text-blue-500 hover:underline">
+                  Reset filters
+                </button>
               </div>
 
               <div className="flex gap-x-2">
